@@ -65,7 +65,11 @@ function openPopUp(data)
         website.href = data.properties.website;
         website.innerText = "Click here to go to website";
     }
-    else {website.innerText = "No website available";}
+    else 
+    {
+        website.href = "https://www.thrillzone.co.nz/queenstown";
+        website.innerText = "No website available";
+    }
     if(data.properties.phone != "") 
     {
         phone.innerText = data.properties.phone;
@@ -97,4 +101,10 @@ function centralizeToMarker(lng, lat)
 function closePopUp()
 {
     popup.classList.remove('slidein');
+    map.flyTo({
+        center: center, 
+        speed: 0.8, 
+        curve: .6,
+        zoom: 15 
+    });
 }
