@@ -17,17 +17,25 @@ const map = new mapboxgl.Map({
     maxBounds: bounds,
 });
 
+var target = '';
+
 //Click functionallity for mapbox
 map.on('click', (e) =>{
+
+    target = JSON.stringify(e.point) + '<br /' + JSON.stringify(e.lngLat.wrap());
+    console.log(e.lngLat.lng);
+ 
 
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
         layers: ['Info', 'Toilets', 'Entertainment']
     });
-    console.log(phone);
     //if object is on layer do this
     if(selectedFeature)
+    {
         openPopUp(selectedFeature);
+        centralizeToMarker(e.lngLat.lng, e.lngLat.lat);
+    }
     else
         closePopUp();
 
@@ -65,7 +73,25 @@ function openPopUp(data)
     else {phone.innerText = "No phone number available";}
     description.innerText = data.properties.description;
     //centralize marker to uper 50% of screen
+}
 
+const rect = document.getElementById('map').getBoundingClientRect();
+const viewportX = rect.x;
+const viewportY = rect.bottom;
+const shiftScreenY = 0.25 * viewportY;
+const shiftScreenX = 0.5 * viewportX;
+
+function centralizeToMarker(lng, lat)
+{
+    
+
+    map.flyTo({
+        center: [lng, lat], 
+        offset: [shiftScreenX, -shiftScreenY],
+        speed: 0.8, 
+        curve: .6,
+        zoom: 17 
+    });
 }
 
 function closePopUp()
