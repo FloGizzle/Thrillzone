@@ -1,0 +1,58 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+.mainContainer{
+    width:100vw;
+    height: 100vh;
+}
+
+#map{
+width: 100vw;
+height: 100vh;
+}
+
+.popup{
+    position: absolute;
+    align-items: flex;
+    display:flex;
+    width: 100vw;
+    height: 50vh;
+    bottom: 0;
+    background-color: aliceblue;
+    transform: translateY(100%);
+    transition: transform 1.5s;
+}
+
+.popupContainer{
+    align-items: flex;
+    height: 100%;
+    width: 100%;
+    padding-top: -15%;
+    background-color: rgb(156, 156, 156);
+}
+
+.title{
+    align-items: flex;
+    padding-left: 1%;
+}
+
+.text{
+    align-items: flex;
+    height: 100%;
+    padding-left: 1%;
+    overflow-y: auto;
+}
+
+.closeButton{
+    position: absolute;
+    font-size: 1.5rem;
+    right:1rem;
+}
+
+.slidein{
+    transform: translateY(0);
+}
