@@ -17,15 +17,8 @@ const map = new mapboxgl.Map({
     maxBounds: bounds,
 });
 
-var target = '';
-
 //Click functionallity for mapbox
 map.on('click', (e) =>{
-
-    target = JSON.stringify(e.point) + '<br /' + JSON.stringify(e.lngLat.wrap());
-    console.log(e.lngLat.lng);
- 
-
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
         layers: ['Info', 'Toilets', 'Entertainment']
@@ -36,11 +29,24 @@ map.on('click', (e) =>{
         openPopUp(selectedFeature);
         centralizeToMarker(e.lngLat.lng, e.lngLat.lat);
     }
-    else
+    else if(!_popup)
         closePopUp();
 
 })
-
+/*      FOR FUTURE REFERENCE IF WE WANNA SHOW WHERE THE PERSON is on the map
+    // Add geolocate control to the map.
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            // When active the map will receive updates to the device's location as it changes.
+            trackUserLocation: true,
+            // Draw an arrow next to the location dot to indicate which direction the device is heading.
+            showUserHeading: true
+        })
+    );
+*/
 //pop up variables
 const closeButton = document.querySelector('.closeButton');
 const popup = document.querySelector('.popup');
@@ -53,6 +59,7 @@ const description = document.getElementById('description');
 
 
 closeButton.addEventListener('click', () => closePopUp());
+
 
 function openPopUp(data)
 {
@@ -101,7 +108,7 @@ function closePopUp()
 {
     //slide pop up out animation
     popup.classList.remove('slidein');
-    
+
     //zoom out to starting position
     map.flyTo({
         center: center, 

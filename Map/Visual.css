@@ -11,8 +11,21 @@ html, body{
 }
 
 #map{
-width: 100svw;
-height: 100svh;
+    width: 100svw;
+    height: 100svh;
+}
+
+.layerSelector{
+    position: absolute;
+    width: 100svh;
+    height: 10%;
+    align-items: flex-start;
+    background-color: white;
+}
+
+.button{
+    height: 100%;
+    background-color: white;
 }
 
 .popup{
