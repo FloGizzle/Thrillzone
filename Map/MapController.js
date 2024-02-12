@@ -76,19 +76,18 @@ function openPopUp(data)
     }
     else {phone.innerText = "No phone number available";}
     description.innerText = data.properties.description;
-    //centralize marker to uper 50% of screen
 }
 
+//variables desiding where top middle of screen is
 const rect = document.getElementById('map').getBoundingClientRect();
 const viewportX = rect.x;
 const viewportY = rect.bottom;
 const shiftScreenY = 0.25 * viewportY;
 const shiftScreenX = 0.5 * viewportX;
 
+//fly to marker and centralize it
 function centralizeToMarker(lng, lat)
 {
-    
-
     map.flyTo({
         center: [lng, lat], 
         offset: [shiftScreenX, -shiftScreenY],
@@ -100,7 +99,10 @@ function centralizeToMarker(lng, lat)
 
 function closePopUp()
 {
+    //slide pop up out animation
     popup.classList.remove('slidein');
+    
+    //zoom out to starting position
     map.flyTo({
         center: center, 
         speed: 0.8, 
