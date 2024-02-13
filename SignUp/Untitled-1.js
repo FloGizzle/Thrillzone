@@ -2,12 +2,13 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnw
 const form = document.forms['contact-form']
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var livesInNewZealand = true; // To know what to display on slide 2
+var numberOfSlides = 9; // Number of slides/pages
 showTab(currentTab); // Display the current tab
-console.log(generateDateTimeString());
 
 // Create a class to store the data ? 
 
 // form.addEventListener('submit', e => {
+//     console.log(generateDateTimeString());
 //     e.preventDefault()
 //     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
 //         .then(response => alert("Thank you! your form is submitted successfully."))
@@ -22,11 +23,12 @@ function showTab(n) {
     // ... and fix the Previous/Next buttons:
     if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("nextBtn").innerHTML = "Start";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
     if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Agree and Submit";
+        document.getElementById("nextBtn").innerHTML = "none";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
@@ -117,7 +119,7 @@ function generateDateTimeString() {
 
     // Format the date/time string
     var dateTimeString = month + '/' + day + '/' + year + ' ' +
-                         hours + ':' + minutes + ':' + seconds;
+        hours + ':' + minutes + ':' + seconds;
 
     // Return the date/time string
     return dateTimeString;
