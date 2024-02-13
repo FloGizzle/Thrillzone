@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="Untitled-1.css">
+</head>
+
+<body>
+    <div class="container">
+        <form id="regForm" action="">
+
+            <h1>Register:</h1>
+
+            <!-- One "tab" for each step in the form: -->
+
+            <!-- First name, last name and email -->
+            <div class="tab">Name and Email:
+                <p><input type="text" placeholder="First name..." oninput="this.className = ''"></p>
+                <p><input type="text" placeholder="Last name..." oninput="this.className = ''"></p>
+                <p><input type="email" placeholder="Email..." oninput="this.className = ''"></p>
+                <!-- make the email only @, if first leter small character make capital-->
+            </div>
+
+            <!-- New Zealand ? -->
+            <div class="tab">
+                <div id="newZealand?">Do you live in New Zealand ?
+                    <button type="button" id="yesNZ" onclick="newZealandYes()">Yes</button>
+                    <button type="button" id="noNZ" onclick="newZealandNo()">No</button>
+                </div>
+            </div>
+
+            <!-- Region or Other Country ? -->
+            <div id="region_or_country" class="tab">
+                <select type="text" id="region_nz" name="Region">
+                    <option value="">--Select Region--</option>
+                    <option value="Otago">Otago</option>
+                    <option value="Auckland">Auckland</option>
+                    <option value="Wellington">Wellington</option>
+                </select>
+                <select type="text" id="countries" name="Country">
+                    <option value="">--Select Country--</option>
+                    <option value="Otago">USA</option>
+                    <option value="Auckland">France</option>
+                    <option value="Wellington">Australia</option>
+                </select>
+            </div>
+
+            <!-- How many people ? -->
+            <div class="tab">How many people ?
+                <p><input type="number" placeholder="How many are you?" oninput="this.className = ''"></p>
+            </div>
+
+            <!-- What activity(ies) ? -->
+            <div class="tab">Which experiences are you having with us today ?
+                <div class="image-grid">
+                    <div>
+                        <img src="image1.jpg" alt="Image 1">
+                        <span class="image-name">Image 1</span>
+                    </div>
+                    <div>
+                        <img src="image2.jpg" alt="Image 2">
+                        <span class="image-name">Image 2</span>
+                    </div>
+                    <div>
+                        <img src="image3.jpg" alt="Image 3">
+                        <span class="image-name">Image 3</span>
+                    </div>
+                    <!-- Add more images here -->
+                </div>
+            </div>
+
+            <!-- If Escape room give 3 options. If also kidz club/frisbee/outdoor ask for phone number.  -->
+            <div class="tab">
+                <div class="image-grid">
+                    <div>
+                        <img src="image1.jpg" alt="Image 1">
+                        <span class="image-name">Image 1</span>
+                    </div>
+                    <div>
+                        <img src="image2.jpg" alt="Image 2">
+                        <span class="image-name">Image 2</span>
+                    </div>
+                    <div>
+                        <img src="image3.jpg" alt="Image 3">
+                        <span class="image-name">Image 3</span>
+                    </div>
+                </div>
+                <p>Phone number?
+                    <input type="number" placeholder="Phone number?" oninput="this.className = ''">
+                </p>
+            </div>
+
+            <!-- How did we hear about us ? -->
+            <div class="tab">
+                <select type="text" id="how_did_you_hear_about_us" name="How did you hear about us?">
+                    <option value="">--How did you hear about us?--</option>
+                    <option value="Otago">Facebook</option>
+                    <option value="Auckland">Google</option>
+                    <option value="Wellington">Wellington</option>
+                </select>
+            </div>
+
+            <!-- Terms and conditions ? -->
+            <div class="tab">
+                <p>Term and conditions are here 8====D</p>
+            </div>
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+
+        </form>
+    </div>
+    <script src="Untitled-1.js"></script>
+</body>
+
+</html>
