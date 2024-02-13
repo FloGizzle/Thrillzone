@@ -28,9 +28,7 @@ map.on('click', (e) =>{
     {
         openPopUp(selectedFeature);
         centralizeToMarker(e.lngLat.lng, e.lngLat.lat);
-    }
-    else if(!_popup)
-        closePopUp();
+    }else closePopUp();
 
 })
 /*      FOR FUTURE REFERENCE IF WE WANNA SHOW WHERE THE PERSON is on the map
@@ -81,7 +79,9 @@ function openPopUp(data)
     {
         phone.innerText = data.properties.phone;
     }
-    else {phone.innerText = "No phone number available";}
+    else {
+        phone.innerText = "No phone number available";
+    }
     description.innerText = data.properties.description;
 }
 
@@ -107,13 +107,16 @@ function centralizeToMarker(lng, lat)
 function closePopUp()
 {
     //slide pop up out animation
-    popup.classList.remove('slidein');
+    if(popup.classList.contains('slidein'))
+    {
+        popup.classList.remove('slidein');
 
-    //zoom out to starting position
-    map.flyTo({
-        center: center, 
-        speed: 0.8, 
-        curve: .6,
-        zoom: 15 
-    });
+        //zoom out to starting position
+        map.flyTo({
+            center: center, 
+            speed: 0.8, 
+            curve: .6,
+            zoom: 15 
+        });
+    }
 }
