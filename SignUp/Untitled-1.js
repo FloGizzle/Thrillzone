@@ -7,14 +7,14 @@ showTab(currentTab); // Display the current tab
 
 // Create a class to store the data ? 
 
-// form.addEventListener('submit', e => {
-//     console.log(generateDateTimeString());
-//     e.preventDefault()
-//     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-//         .then(response => alert("Thank you! your form is submitted successfully."))
-//         .then(() => { window.location.reload(); })
-//         .catch(error => console.error('Error!', error.message))
-// })
+form.addEventListener('submit', e => {
+    console.log(generateDateTimeString());
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => alert("Thank you! your form is submitted successfully."))
+        .then(() => { window.location.reload(); })
+        .catch(error => console.error('Error!', error.message))
+})
 
 function showTab(n) {
     // This function will display the specified tab of the form ...
@@ -23,12 +23,17 @@ function showTab(n) {
     // ... and fix the Previous/Next buttons:
     if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
-        document.getElementById("nextBtn").innerHTML = "Start";
+        document.getElementById("nextBtn").style.display = "none";
+    } else if (n == 2) {
+        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("nextBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("nextBtn").style.display = "inline";
     }
     if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "none";
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
@@ -39,7 +44,7 @@ function showTab(n) {
 function nextPrev(n) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
+    // Exit the function if any field in the current tab is invalid (Check email):
     if (n == 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
@@ -48,7 +53,7 @@ function nextPrev(n) {
     // if you have reached the end of the form... :
     if (currentTab >= x.length) {
         //...the form gets submitted:
-        document.getElementById("regForm").submit();
+        // document.getElementById("regForm").submit();
         return false;
     }
     // Otherwise, display the correct tab:
@@ -68,6 +73,15 @@ function validateForm() {
             y[i].className += " invalid";
             // and set the current valid status to false:
             valid = false;
+        }
+        else if (y[i].type === "email") { // If the field is an email input
+            // Check if the email is valid
+            if (!validateEmail(y[i].value)) {
+                // If not valid, add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false:
+                valid = false;
+            }
         }
     }
     // If the valid status is true, mark the step as finished and valid: fuck
@@ -123,4 +137,10 @@ function generateDateTimeString() {
 
     // Return the date/time string
     return dateTimeString;
+}
+
+// Function to validate email format
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }

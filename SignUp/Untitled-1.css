@@ -103,3 +103,8 @@ input.invalid {
 .step.finish {
   background-color: #04AA6D;
 }
+
+/* Hide submit button by default. */
+#submitBtn {
+  display: none;
+}
