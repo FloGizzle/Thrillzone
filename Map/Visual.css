@@ -1,31 +1,31 @@
-
-html, body{
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100svh;
     width: 100svw;
     overflow: hidden;
 }
-.mainContainer{
-    width:100svw;
+
+.mainContainer {
+    width: 100svw;
     height: 100svh;
-    position:relative;
+    position: relative;
 }
 
-#map{
+#map {
     width: 100svw;
     height: 100svh;
 }
 
-.nav--icons
-{
-    position:absolute;
+.nav--icons {
+    position: absolute;
     z-index: 5;
     bottom: 0;
     width: 100vw;
 }
 
-.nav--icons ul{
+.nav--icons ul {
     list-style-type: none;
     display: flex;
     flex-wrap: nowrap;
@@ -38,7 +38,7 @@ html, body{
     transition-timing-function: ease-in-out;
 }
 
-.nav--icons ul li a{
+.nav--icons ul li a {
     font-family: sans-serif;
     font-size: 11px;
     letter-spacing: 1px;
@@ -53,7 +53,7 @@ html, body{
 
 }
 
-.nav--icons ul li a span{
+.nav--icons ul li a span {
     display: inline-block;
     overflow: hidden;
     max-width: 0;
@@ -63,20 +63,20 @@ html, body{
 }
 
 .nav--icons ul:hover,
-.nav--icons ul.is-active{
+.nav--icons ul.is-active {
     color: #fff;
 }
 
 .nav--icons ul:hover,
-.nav--icons ul.is-active span{
+.nav--icons ul.is-active span {
     max-width: 40px;
     transform: translate3d(0, 0, 0);
 }
 
-.popup{
+.popup {
     position: absolute;
     align-items: flex;
-    display:flex;
+    display: flex;
     width: 100svw;
     height: 50svh;
     bottom: 0;
@@ -86,7 +86,7 @@ html, body{
     transition: transform 1.5s;
 }
 
-.popupContainer{
+.popupContainer {
     align-items: flex;
     height: 100svh;
     width: 100svw;
@@ -94,27 +94,27 @@ html, body{
     background-color: rgb(255, 255, 255);
 }
 
-.title{
+.title {
     align-items: flex;
     padding-left: 1%;
 }
 
-.text{
+.text {
     align-items: flex;
     justify-content: flex;
     height: 100svh;
     padding-left: 2%;
-    padding-top:  3%;
+    padding-top: 3%;
     overflow-y: auto;
     background-color: rgb(245, 245, 245);
 }
 
-.closeButton{
+.closeButton {
     position: absolute;
     font-size: 2rem;
-    right:1rem;
+    right: 1rem;
 }
 
-.slidein{
+.slidein {
     transform: translateY(0);
 }

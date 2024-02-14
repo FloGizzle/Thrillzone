@@ -7,7 +7,7 @@ const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
 
 //Call in mapbox to load map
-mapboxgl.accessToken = 
+mapboxgl.accessToken =
     'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsc2I4emc4azBkMXMybW82OXhzd3g4MGYifQ.JaafMSBBoA0Y2Wixn12PfQ';
 
 const map = new mapboxgl.Map({
@@ -16,6 +16,27 @@ const map = new mapboxgl.Map({
     center: center, // starting position [lng, lat]
     zoom: 17, // starting zoom
     maxBounds: bounds,
+});
+
+// Load an image from an external URL.
+map.loadImage(
+    'https://drive.google.com/drive/folders/1OYC6NJ3YOuyKWOXYI9fwSIBw0k-L0wtS?usp=sharing',
+    (error, image) => {
+        if (error) throw error;
+
+        // Add the image to the map style.
+        map.addImage('EQ', image);
+    });
+
+// Add a layer to use the image to represent the data.
+map.addLayer({
+    'id': 'points',
+    'type': 'symbol',
+    'source': 'point', // reference the data source
+    'layout': {
+        'icon-image': 'cat', // reference the image
+        'icon-size': 0.25
+    }
 });
 
 let lastCenter = center;
@@ -32,17 +53,16 @@ map.on('load', map.flyTo(
 ));*/
 
 //Click functionallity for mapbox
-map.on('click', (e) =>{
+map.on('click', (e) => {
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
         layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne']
     });
     //if object is on layer do this
-    if(selectedFeature)
-    {
+    if (selectedFeature) {
         openPopUp(selectedFeature);
         centralizeToMarker(e.lngLat.lng, e.lngLat.lat);
-    }else closePopUp();
+    } else closePopUp();
 
 })
 /*      FOR FUTURE REFERENCE IF WE WANNA SHOW WHERE THE PERSON is on the map
@@ -73,24 +93,20 @@ const description = document.getElementById('description');
 closeButton.addEventListener('click', () => closePopUp());
 
 
-function openPopUp(data)
-{
-    textContainer.scrollTo(0,0);
+function openPopUp(data) {
+    textContainer.scrollTo(0, 0);
     popup.classList.add('slidein');
     //Add data text from mapbox
     title.innerText = data.properties.title;
-    if(data.properties.website != "")
-    {
+    if (data.properties.website != "") {
         website.href = data.properties.website;
         website.innerText = "Go to website";
     }
-    else 
-    {
+    else {
         website.href = "https://www.thrillzone.co.nz/queenstown";
         website.innerText = "No website available";
     }
-    if(data.properties.phone != "") 
-    {
+    if (data.properties.phone != "") {
         phone.innerText = data.properties.phone;
     }
     else {
@@ -107,33 +123,30 @@ const shiftScreenY = 0.25 * viewportY;
 const shiftScreenX = 0.5 * viewportX;
 
 //fly to marker and centralize it
-function centralizeToMarker(lng, lat)
-{
+function centralizeToMarker(lng, lat) {
     lastZoom = map.getZoom();
     lastCenter = [lng, lat];
 
     map.flyTo({
-        center: [lng, lat], 
+        center: [lng, lat],
         offset: [shiftScreenX, -shiftScreenY],
-        speed: 0.8, 
+        speed: 0.8,
         curve: .6,
-        zoom: 18 
+        zoom: 18
     });
 }
 
-function closePopUp()
-{
+function closePopUp() {
     //slide pop up out animation
-    if(popup.classList.contains('slidein'))
-    {
+    if (popup.classList.contains('slidein')) {
         popup.classList.remove('slidein');
 
         //zoom out to starting position
         map.flyTo({
-            center: lastCenter, 
-            speed: 0.8, 
+            center: lastCenter,
+            speed: 0.8,
             curve: .6,
-            zoom: lastZoom 
+            zoom: lastZoom
         });
     }
 }
