@@ -3,6 +3,7 @@ const bounds = [
     [168.395199, -45.380678], // Southwest coordinates
     [168.771204, -44.774920] // Northeast coordinates
 ];
+const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
 
 //Call in mapbox to load map
@@ -13,15 +14,28 @@ const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/thrillzonenz/cls4hmg7c001c01pyhb5o506e', // style URL
     center: center, // starting position [lng, lat]
-    zoom: 15, // starting zoom
+    zoom: 17, // starting zoom
     maxBounds: bounds,
 });
+
+let lastCenter = center;
+let lastZoom = 17;
+
+/*
+map.on('load', map.flyTo(
+    {
+        center: center, 
+        speed: 0.4, 
+        curve: .8,
+        zoom: 17 
+    }
+));*/
 
 //Click functionallity for mapbox
 map.on('click', (e) =>{
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
-        layers: ['Info', 'Toilets', 'Entertainment']
+        layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne']
     });
     //if object is on layer do this
     if(selectedFeature)
@@ -68,7 +82,7 @@ function openPopUp(data)
     if(data.properties.website != "")
     {
         website.href = data.properties.website;
-        website.innerText = "Click here to go to website";
+        website.innerText = "Go to website";
     }
     else 
     {
@@ -95,12 +109,15 @@ const shiftScreenX = 0.5 * viewportX;
 //fly to marker and centralize it
 function centralizeToMarker(lng, lat)
 {
+    lastZoom = map.getZoom();
+    lastCenter = [lng, lat];
+
     map.flyTo({
         center: [lng, lat], 
         offset: [shiftScreenX, -shiftScreenY],
         speed: 0.8, 
         curve: .6,
-        zoom: 17 
+        zoom: 18 
     });
 }
 
@@ -113,10 +130,10 @@ function closePopUp()
 
         //zoom out to starting position
         map.flyTo({
-            center: center, 
+            center: lastCenter, 
             speed: 0.8, 
             curve: .6,
-            zoom: 15 
+            zoom: lastZoom 
         });
     }
 }

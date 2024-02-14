@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie-edge">
         <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
-        <style>
+        <style>   
             html, body{
                 margin: 0;
                 padding: 0;
@@ -17,11 +17,12 @@
             .mainContainer{
                 width:100svw;
                 height: 100svh;
+                position:relative;
             }
 
             #map{
-            width: 100svw;
-            height: 100svh;
+                width: 100svw;
+                height: 100svh;
             }
 
             .popup{
@@ -31,6 +32,7 @@
                 width: 100svw;
                 height: 50svh;
                 bottom: 0;
+                border-radius: 20px;
                 background-color: aliceblue;
                 transform: translateY(100%);
                 transition: transform 1.5s;
@@ -40,21 +42,21 @@
                 align-items: flex;
                 height: 100svh;
                 width: 100svw;
-                padding-top: -15%;
+                border-radius: 20px;
                 background-color: rgb(255, 255, 255);
             }
 
             .title{
                 align-items: flex;
-                padding-left: 5%;
                 padding-left: 1%;
             }
 
             .text{
                 align-items: flex;
+                justify-content: flex;
                 height: 100svh;
                 padding-left: 2%;
-                padding-top:  2%;
+                padding-top:  3%;
                 overflow-y: auto;
                 background-color: rgb(245, 245, 245);
             }
@@ -73,6 +75,7 @@
 
     <body>
         <div class = 'mainContainer'>
+
             <div id='map'></div> 
             <div class='popup'>
                 <span class="closeButton">&times;</span>
@@ -83,7 +86,7 @@
                     <div class="text">
                         <a id="website" href="url" target="_blank">website</a>
                         <p id="phone">number</p>
-                        <p id="description">Oops... Something went wrong</p>
+                        <p id="description">description</p>
                     </div>
                 </div>
             </div>
@@ -94,6 +97,7 @@
                 [168.395199, -45.380678], // Southwest coordinates
                 [168.771204, -44.774920] // Northeast coordinates
             ];
+            const zoomoutCenter = [168.66228038195243, -45.03483913752131];
             const center = [168.65834407453838, -45.03205764496636];
 
             //Call in mapbox to load map
@@ -104,34 +108,48 @@
                 container: 'map', // container ID
                 style: 'mapbox://styles/thrillzonenz/cls4hmg7c001c01pyhb5o506e', // style URL
                 center: center, // starting position [lng, lat]
-                zoom: 15, // starting zoom
+                zoom: 17, // starting zoom
                 maxBounds: bounds,
             });
 
-            var target = '';
+            /*
+            map.on('load', map.flyTo(
+                {
+                    center: center, 
+                    speed: 0.4, 
+                    curve: .8,
+                    zoom: 17 
+                }
+            ));*/
 
             //Click functionallity for mapbox
             map.on('click', (e) =>{
-
-                target = JSON.stringify(e.point) + '<br /' + JSON.stringify(e.lngLat.wrap());
-                console.log(e.lngLat.lng);
-            
-
                 //Set click event to wanted layer
                 const [selectedFeature] = map.queryRenderedFeatures(e.point, {
-                    layers: ['Info', 'Toilets', 'Entertainment']
+                    layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne']
                 });
                 //if object is on layer do this
                 if(selectedFeature)
                 {
                     openPopUp(selectedFeature);
                     centralizeToMarker(e.lngLat.lng, e.lngLat.lat);
-                }
-                else
-                    closePopUp();
+                }else closePopUp();
 
             })
-
+            /*      FOR FUTURE REFERENCE IF WE WANNA SHOW WHERE THE PERSON is on the map
+                // Add geolocate control to the map.
+                map.addControl(
+                    new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                            enableHighAccuracy: true
+                        },
+                        // When active the map will receive updates to the device's location as it changes.
+                        trackUserLocation: true,
+                        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                        showUserHeading: true
+                    })
+                );
+            */
             //pop up variables
             const closeButton = document.querySelector('.closeButton');
             const popup = document.querySelector('.popup');
@@ -145,6 +163,7 @@
 
             closeButton.addEventListener('click', () => closePopUp());
 
+
             function openPopUp(data)
             {
                 textContainer.scrollTo(0,0);
@@ -154,7 +173,7 @@
                 if(data.properties.website != "")
                 {
                     website.href = data.properties.website;
-                    website.innerText = "Click here to go to website";
+                    website.innerText = "Go to website";
                 }
                 else 
                 {
@@ -165,7 +184,9 @@
                 {
                     phone.innerText = data.properties.phone;
                 }
-                else {phone.innerText = "No phone number available";}
+                else {
+                    phone.innerText = "No phone number available";
+                }
                 description.innerText = data.properties.description;
             }
 
@@ -184,23 +205,26 @@
                     offset: [shiftScreenX, -shiftScreenY],
                     speed: 0.8, 
                     curve: .6,
-                    zoom: 17 
+                    zoom: 18 
                 });
             }
 
             function closePopUp()
             {
                 //slide pop up out animation
-                popup.classList.remove('slidein');
-                
-                //zoom out to starting position
-                map.flyTo({
-                    center: center, 
-                    speed: 0.8, 
-                    curve: .6,
-                    zoom: 15 
-                });
+                if(popup.classList.contains('slidein'))
+                {
+                    popup.classList.remove('slidein');
+
+                    //zoom out to starting position
+                    map.flyTo({
+                        center: center, 
+                        speed: 0.8, 
+                        curve: .6,
+                        zoom: 15 
+                    });
+                }
             }
-        </script>
+        </script>  
     </body>
 </html>
