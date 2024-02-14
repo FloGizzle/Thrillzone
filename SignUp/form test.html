@@ -37,12 +37,14 @@
 
             <!-- Region or Other Country ? -->
             <div id="region_or_country" class="tab">
-                <select type="text" id="region_nz" name="Region">
-                    <option value="">--Select Region--</option>
-                    <option value="Otago">Otago</option>
-                    <option value="Auckland">Auckland</option>
-                    <option value="Wellington">Wellington</option>
-                </select>
+                <div id="regions_nz">
+                    <input type="hidden" name="Region" id="region_nz" value="Other (International)">
+                    <button type="button" id="btn_Otago" onclick="setRegion('Otago')">Otago</button>
+                    <button type="button" id="btn_Auckland" onclick="setRegion('Auckland')">Auckland</button>
+                    <button type="button" id="btn_Wellington" onclick="setRegion('Wellington')">Wellington</button>
+                    <button type="button" id="btn_Southland" onclick="setRegion('Southland')">Southland</button>
+                    <!-- More buttons here for each region-->
+                </div>
                 <select type="text" id="countries" name="Country">
                     <option value="">--Select Country--</option>
                     <option value="Otago">USA</option>

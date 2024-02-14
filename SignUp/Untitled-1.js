@@ -144,3 +144,9 @@ function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
+
+// Function to set the region 
+function setRegion(regionName) {
+    document.getElementById('region_nz').value = regionName;
+    nextPrev(1)
+}
