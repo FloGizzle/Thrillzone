@@ -1,14 +1,14 @@
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec'
 const form = document.forms['contact-form']
 var currentTab = 0; // Current tab is set to be the first tab (0)
-var livesInNewZealand = true; // To know what to display on slide 2
-var numberOfSlides = 9; // Number of slides/pages
+var livesInNZ = true;
+
 showTab(currentTab); // Display the current tab
 
 // Create a class to store the data ? 
 
 form.addEventListener('submit', e => {
-    console.log(generateDateTimeString());
+    document.getElementById('date_time').value = generateDateTimeString();
     e.preventDefault()
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
         .then(response => alert("Thank you! your form is submitted successfully."))
@@ -27,6 +27,13 @@ function showTab(n) {
     } else if (n == 2) {
         document.getElementById("prevBtn").style.display = "inline";
         document.getElementById("nextBtn").style.display = "none";
+    } else if (n == 3) {
+        if (livesInNZ) {
+            document.getElementById("nextBtn").style.display = "none";
+        }
+        else {
+            document.getElementById("nextBtn").style.display = "inline";
+        }
     } else {
         document.getElementById("prevBtn").style.display = "inline";
         document.getElementById("nextBtn").style.display = "inline";
@@ -101,17 +108,20 @@ function fixStepIndicator(n) {
     x[n].className += " active";
 }
 
+// These two functions could be combines into one true/false
 function newZealandYes() {
+    livesInNZ = true;
     // Show the region options
-    document.getElementById('region_nz').style.display = 'block';
+    document.getElementById('regions_nz').style.display = 'block';
     // Hide the country options
     document.getElementById('countries').style.display = 'none';
     nextPrev(1)
 }
 
 function newZealandNo() {
+    livesInNZ = false;
     // Hide the region options
-    document.getElementById('region_nz').style.display = 'none';
+    document.getElementById('regions_nz').style.display = 'none';
     // Show the country options
     document.getElementById('countries').style.display = 'block';
     nextPrev(1)
@@ -148,5 +158,17 @@ function validateEmail(email) {
 // Function to set the region 
 function setRegion(regionName) {
     document.getElementById('region_nz').value = regionName;
-    nextPrev(1)
+    nextPrev(1);
+}
+
+// Function to set "How did you hear about us?"
+function setHowDidYouHearAboutUs(option) {
+    document.getElementById('how_did_you_hear_about_us').value = option;
+    nextPrev(1);
+}
+
+// These last two functions could be combined in a setHiddenInput function that takes as argument the hidden input ID and the value 
+function setHiddenInputandNext(inputID, value) {
+    document.getElementById(inputID).value = value;
+    nextPrev(1);
 }
