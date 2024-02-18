@@ -2,12 +2,24 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnw
 const form = document.forms['contact-form']
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var livesInNZ = true;
+// Get the checkbox and submit button
+var checkbox = document.getElementById('tac_checkbox');
+var submitBtn = document.getElementById('submitBtn');
 
 showTab(currentTab); // Display the current tab
 
-// Create a class to store the data ? 
+// Add event listener to the checkbox
+checkbox.addEventListener('change', function () {
+    // If checkbox is checked, enable submit button, else disable it
+    if (checkbox.checked) {
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.disabled = true;
+    }
+});
 
 form.addEventListener('submit', e => {
+    capitalizeInputs();
     document.getElementById('date_time').value = generateDateTimeString();
     e.preventDefault()
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
@@ -15,6 +27,7 @@ form.addEventListener('submit', e => {
         .then(() => { window.location.reload(); })
         .catch(error => console.error('Error!', error.message))
 })
+
 
 function showTab(n) {
     // This function will display the specified tab of the form ...
@@ -40,7 +53,7 @@ function showTab(n) {
     }
     if (n == (x.length - 1)) {
         document.getElementById("nextBtn").style.display = "none";
-        document.getElementById("submitBtn").style.display = "inline";
+        submitBtn.style.display = "inline";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
@@ -91,7 +104,7 @@ function validateForm() {
             }
         }
     }
-    // If the valid status is true, mark the step as finished and valid: fuck
+    // If the valid status is true, mark the step as finished and valid: fuck??
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
     }
@@ -111,6 +124,7 @@ function fixStepIndicator(n) {
 // These two functions could be combines into one true/false
 function newZealandYes() {
     livesInNZ = true;
+    document.getElementById('input_countries').value = "New Zealand";
     // Show the region options
     document.getElementById('regions_nz').style.display = 'block';
     // Hide the country options
@@ -120,6 +134,7 @@ function newZealandYes() {
 
 function newZealandNo() {
     livesInNZ = false;
+    document.getElementById('input_countries').value = ""
     // Hide the region options
     document.getElementById('regions_nz').style.display = 'none';
     // Show the country options
@@ -171,4 +186,19 @@ function setHowDidYouHearAboutUs(option) {
 function setHiddenInputandNext(inputID, value) {
     document.getElementById(inputID).value = value;
     nextPrev(1);
+}
+
+// Function to UpperCase the first letter of all the text inputs
+function capitalizeInputs() {
+    const inputs = document.querySelectorAll('input[type="text"]');
+    inputs.forEach(input => {
+        let value = input.value.trim();
+        if (value.length > 0) {
+            // Split the value by space, capitalize each word, then join them back together
+            value = value.split(' ').map(word => {
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            }).join(' ');
+            input.value = value;
+        }
+    });
 }

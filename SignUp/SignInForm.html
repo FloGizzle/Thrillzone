@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="Untitled-1.css">
+    <link rel="stylesheet" href="SignInForm.css">
 </head>
 
 <body>
@@ -73,12 +73,18 @@
                         onclick="setHiddenInputandNext('region_nz', 'Whanganui')">Whanganui</button>
                     <!-- More buttons here for each region-->
                 </div>
-                <select type="text" id="countries" name="Country">
-                    <option value="">--Select Country--</option>
-                    <option value="Otago">USA</option>
-                    <option value="Auckland">France</option>
-                    <option value="Wellington">Australia</option>
-                </select>
+                <div id="countries">What Country are you from ?
+                    <div class="text-container">
+                        <input type="text" list="country_options" id="input_countries" name="Country"
+                            placeholder="Enter Country" value="" />
+                        <datalist id="country_options">
+                            <option value="Australia">Australia</option>
+                            <option value="China">China</option>
+                            <option value="United States">United States</option>
+                            <!-- More options here for each country-->
+                        </datalist>
+                    </div>
+                </div>
             </div>
 
             <!-- How many people ? -->
@@ -163,18 +169,16 @@
             <div class="tab">
                 <p>Term and conditions are here 8====D</p>
                 <label for="checkbox">I agree</label>
-                <input type="checkbox" id="tac_checkbox" name="T&C's">
+                <input type="checkbox" id="tac_checkbox" name="T&C's" value="I agree">
             </div>
 
-            <div style="overflow:auto;">
-                <div style="float:right;">
-                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                </div>
+            <div id="nextprev_btns">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Back</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
             </div>
 
             <input type="hidden" name="Date Time" id="date_time" value="">
-            <input type="submit" value="Submit" id="submitBtn">
+            <input type="submit" value="Submit" id="submitBtn" disabled="true">
 
             <!-- Circles which indicates the steps of the form: -->
             <div style="text-align:center;margin-top:40px;">
@@ -191,7 +195,7 @@
 
         </form>
     </div>
-    <script src="Untitled-1.js"></script>
+    <script src="SignInForm.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 body {
-  background-color: #333;
+  background-color: #917171;
   /* Dark grey background for now color but can put a picture */
   margin: 0;
   padding: 0;
@@ -7,6 +7,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  text-align: center;
+  /* Center the content horizontally */
 }
 
 .container {
@@ -24,6 +26,16 @@ body {
   /* Center the container horizontally */
 }
 
+/* Style the form */
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 500px;
+  border-radius: 10px;
+}
+
 h1 {
   text-align: center;
   color: #333;
@@ -34,16 +46,6 @@ h1 {
   /* Change font size as desired */
   margin-top: 20px;
   /* Adjust top margin as desired */
-}
-
-/* Style the form */
-#regForm {
-  background-color: #ffffff;
-  margin: 100px auto;
-  padding: 40px;
-  width: 70%;
-  min-width: 500px;
-  border-radius: 10px;
 }
 
 /* Button Style */
@@ -63,6 +65,28 @@ button {
   transition: background-color 0.3s;
 }
 
+/* Adjust button container */
+#nextprev_btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* Align buttons */
+#prevBtn {
+  margin-right: 0;
+  margin-left: 0;
+  /* Ensure left margin is reset */
+}
+
+#nextBtn {
+  margin-left: 0;
+  margin-right: 0;
+  /* Ensure right margin is reset */
+}
+
+
 /* Style the input fields */
 input {
   padding: 10px;
@@ -70,6 +94,10 @@ input {
   font-size: 17px;
   font-family: Raleway;
   border: 1px solid #aaaaaa;
+  margin-left: auto;
+  /* Center the input horizontally */
+  margin-right: auto;
+  /* Center the input horizontally */
 }
 
 /* Mark input boxes that gets an error on validation: */
