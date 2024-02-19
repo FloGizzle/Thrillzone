@@ -90,15 +90,17 @@ button {
 /* Style the input fields */
 input {
   padding: 10px;
-  width: 100%;
+  width: calc(100% - 20px);
+  /* Adjusted width to consider padding */
   font-size: 17px;
   font-family: Raleway;
   border: 1px solid #aaaaaa;
-  margin-left: auto;
+  margin: 0 auto;
   /* Center the input horizontally */
-  margin-right: auto;
-  /* Center the input horizontally */
+  display: block;
+  /* Ensuring they take full width */
 }
+
 
 /* Mark input boxes that gets an error on validation: */
 input.invalid {

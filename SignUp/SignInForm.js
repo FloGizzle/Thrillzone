@@ -1,7 +1,9 @@
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec'
-const form = document.forms['contact-form']
+const form = document.forms['sign-in-form']
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var livesInNZ = true;
+// Define the duration of inactivity in milliseconds
+var inactivityDuration = 5 * 1000; // 5 minutes in milliseconds
 // Get the checkbox and submit button
 var checkbox = document.getElementById('tac_checkbox');
 var submitBtn = document.getElementById('submitBtn');
@@ -27,6 +29,11 @@ form.addEventListener('submit', e => {
         .then(() => { window.location.reload(); })
         .catch(error => console.error('Error!', error.message))
 })
+
+// Event listeners for user activity
+document.addEventListener("DOMContentLoaded", startTimer); // Start timer when page loads
+document.addEventListener("click", resetTimer); // Reset timer on click
+document.addEventListener("keypress", resetTimer); // Reset timer on keypress
 
 
 function showTab(n) {
@@ -201,4 +208,22 @@ function capitalizeInputs() {
             input.value = value;
         }
     });
+}
+
+// Function to refresh the page BUT could be replaced by Reload Form ??? 
+function refreshPage() {
+    // alert("Page refreshed after 5 minutes of inactivity.");
+    location.reload(); // Reload the page but could be document.getElementById("sign-in-form").reset();
+}
+
+// Function to set timer for inactivity
+function startTimer() {
+    clearTimeout(window.timerId); // Clear any existing timer
+    window.timerId = setTimeout(refreshPage, inactivityDuration); // 5 minutes
+}
+
+// Function to reset timer on user activity
+function resetTimer() {
+    clearTimeout(window.timerId);
+    startTimer();
 }
