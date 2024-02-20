@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie-edge">
-        <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
-        <link href="Visual.css" rel="stylesheet">
-    </head>
 
-    <body>
-        <div class = 'mainContainer'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+    <link href="Visual.css" rel="stylesheet">
+</head>
 
-            <div id='map'></div> 
-            <div class = "bottom">
-                <nav class="nav nav--icons">
-                    <ul>
-                        <li>
-                            <a href="#all">
-                                    <svg class=" icon icon-all" viewBox="0 0 25 25" width="25" height="25">
-                                    </svg>
-                                    <span>All</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#food">
-                                    <svg class=" icon icon-food" viewBox="0 0 25 25" width="25" height="25">
-                                    </svg>
-                                    <span>Food</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#entert">
-                                    <svg class=" icon icon-entert" viewBox="0 0 25 25" width="25" height="25">
-                                    </svg>
-                                    <span>Entertainment</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#toilet">
-                                    <svg class=" icon icon-toilet" viewBox="0 0 25 25" width="25" height="25">
-                                    </svg>
-                                    <span>Public restroom</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+<body>
+    <div class='mainContainer'>
 
-            <div class='popup'>
-                <span class="closeButton">&times;</span>
-                <div class="popupContainer">
-                    <div class="title">
-                        <h1 id="title">title of text</h1>
-                    </div>
-                    <div class="text">
-                        <a id="website" href="url" target="_blank">website</a>
-                        <p id="phone">number</p>
-                        <p id="description">description</p>
-                    </div>
+        <div id='map'></div>
+        <div class="bottom">
+            <nav class="nav nav--icons">
+                <ul>
+                    <li>
+                        <a href="#all">
+                            <svg class=" icon icon-all" viewBox="0 0 25 25" width="25" height="25">
+                            </svg>
+                            <span>All</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#food">
+                            <svg class=" icon icon-food" viewBox="0 0 25 25" width="25" height="25">
+                            </svg>
+                            <span>Food</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#entert">
+                            <svg class=" icon icon-entert" viewBox="0 0 25 25" width="25" height="25">
+                            </svg>
+                            <span>Entertainment</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#toilet">
+                            <svg class=" icon icon-toilet" viewBox="0 0 25 25" width="25" height="25">
+                            </svg>
+                            <span>Public restroom</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class='popup'>
+            <span class="closeButton">&times;</span>
+            <div class="popupContainer">
+                <div class="title">
+                    <h1 id="title">title of text</h1>
+                </div>
+                <div class="text">
+                    <a id="website" href="url" target="_blank">website</a>
+                    <button id="direction" href="url" target="_blank"></button>
+                    <p id="phone">number</p>
+                    <p id="description">description</p>
                 </div>
             </div>
         </div>
-        <script src="MapController.js" defer></script>  
-    </body>
+    </div>
+    <script src="MapController.js" defer></script>
+</body>
+
 </html>

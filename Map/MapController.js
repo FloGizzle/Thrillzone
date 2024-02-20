@@ -18,6 +18,7 @@ const map = new mapboxgl.Map({
     maxBounds: bounds,
 });
 
+/* To add custom images for markers
 // Load an image from an external URL.
 map.loadImage(
     'https://drive.google.com/drive/folders/1OYC6NJ3YOuyKWOXYI9fwSIBw0k-L0wtS?usp=sharing',
@@ -38,11 +39,9 @@ map.addLayer({
         'icon-size': 0.25
     }
 });
+*/
 
-let lastCenter = center;
-let lastZoom = 17;
-
-/*
+/* load in animation?
 map.on('load', map.flyTo(
     {
         center: center, 
@@ -59,12 +58,12 @@ map.on('click', (e) => {
         layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne']
     });
     //if object is on layer do this
-    if (selectedFeature) {
-        openPopUp(selectedFeature);
-        centralizeToMarker(e.lngLat.lng, e.lngLat.lat);
-    } else closePopUp();
+    if (selectedFeature)
+        openPopUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
+    else closePopUp();
 
 })
+
 /*      FOR FUTURE REFERENCE IF WE WANNA SHOW WHERE THE PERSON is on the map
     // Add geolocate control to the map.
     map.addControl(
@@ -79,8 +78,19 @@ map.on('click', (e) => {
         })
     );
 */
+
+
+//Open up maps to set navigation spot
+function openMaps(lng, lat) {
+    let url = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
+    console.log(url);
+    window.open(url, "_blank");
+}
+
+
 //pop up variables
 const closeButton = document.querySelector('.closeButton');
+const dirButton = document.getElementById('direction');
 const popup = document.querySelector('.popup');
 const popupContainer = document.querySelector('.popupContainer');
 const textContainer = document.querySelector('.text');
@@ -89,13 +99,25 @@ const website = document.getElementById('website');
 const phone = document.getElementById('phone');
 const description = document.getElementById('description');
 
+//Zoom animation variables
+let lastCenter = center;
+let lastZoom = 17;
+
 
 closeButton.addEventListener('click', () => closePopUp());
+dirButton.addEventListener('click', () => window.open(dirButton.href, "_blank"));
 
 
-function openPopUp(data) {
+
+function openPopUp(data, lat, lng) {
+    //Start pop up animation and centralizing to marker
     textContainer.scrollTo(0, 0);
     popup.classList.add('slidein');
+    centralizeToMarker(lng, lat);
+    //dirButton.onclick = openMaps(lng, lat);
+    //dirButton.addEventListener('click', () => openMaps(lng, lat));
+
+
     //Add data text from mapbox
     title.innerText = data.properties.title;
     if (data.properties.website != "") {
@@ -113,6 +135,7 @@ function openPopUp(data) {
         phone.innerText = "No phone number available";
     }
     description.innerText = data.properties.description;
+    dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
 }
 
 //variables desiding where top middle of screen is
@@ -124,7 +147,7 @@ const shiftScreenX = 0.5 * viewportX;
 
 //fly to marker and centralize it
 function centralizeToMarker(lng, lat) {
-    lastZoom = map.getZoom();
+    let zoom = map.getZoom();
     lastCenter = [lng, lat];
 
     map.flyTo({
@@ -139,6 +162,7 @@ function centralizeToMarker(lng, lat) {
 function closePopUp() {
     //slide pop up out animation
     if (popup.classList.contains('slidein')) {
+        dirButton.removeEventListener('click', () => openMaps())
         popup.classList.remove('slidein');
 
         //zoom out to starting position

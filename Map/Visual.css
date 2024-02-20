@@ -104,9 +104,15 @@ body {
     justify-content: flex;
     height: 100svh;
     padding-left: 2%;
+    padding-right: 2%;
     padding-top: 3%;
     overflow-y: auto;
     background-color: rgb(245, 245, 245);
+}
+
+.dirButton {
+    position: absolute;
+    right: 1rem;
 }
 
 .closeButton {
