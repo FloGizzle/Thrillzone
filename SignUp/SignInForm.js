@@ -3,10 +3,19 @@ const form = document.forms['sign-in-form']
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var livesInNZ = true;
 // Define the duration of inactivity in milliseconds
-var inactivityDuration = 5 * 1000; // 5 minutes in milliseconds
+var inactivityDuration = 5 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
 // Get the checkbox and submit button
 var checkbox = document.getElementById('tac_checkbox');
 var submitBtn = document.getElementById('submitBtn');
+// To know if to post on TZ or EQ
+// To know what activities to send to the form
+var thrillZone = false;
+var listOfTZActivities = [];
+var escapeQuest = false;
+var escapeRoom = "";
+// Will be assigned to true if frisbee, outdoor or kidzclub
+var additionalInfoRequired = false;
+var phoneRequired = false;
 
 showTab(currentTab); // Display the current tab
 
@@ -54,6 +63,11 @@ function showTab(n) {
         else {
             document.getElementById("nextBtn").style.display = "inline";
         }
+    } else if (n == 5) {
+        // Change the next button function into a check activities button 
+        document.getElementById("nextBtn").onclick = isAdditionalInfoRequired;
+        // Check if no additional info requires nextBtn takes back its original function and nextPrev(1)
+
     } else {
         document.getElementById("prevBtn").style.display = "inline";
         document.getElementById("nextBtn").style.display = "inline";
@@ -63,6 +77,7 @@ function showTab(n) {
         submitBtn.style.display = "inline";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
+        submitBtn.style.display = "none";
     }
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n)
@@ -116,6 +131,7 @@ function validateForm() {
         document.getElementsByClassName("step")[currentTab].className += " finish";
     }
     return valid; // return the valid status
+
 }
 
 function fixStepIndicator(n) {
@@ -133,7 +149,7 @@ function newZealandYes() {
     livesInNZ = true;
     document.getElementById('input_countries').value = "New Zealand";
     // Show the region options
-    document.getElementById('regions_nz').style.display = 'block';
+    document.getElementById('regions_nz').style.display = 'grid';
     // Hide the country options
     document.getElementById('countries').style.display = 'none';
     nextPrev(1)
@@ -195,6 +211,39 @@ function setHiddenInputandNext(inputID, value) {
     nextPrev(1);
 }
 
+// Function for the activities buttons (selection of activities)
+// Function to select or deselect an activity
+function selectActivity(activityBtn, activityName) {
+    // var activityList = document.getElementById("activity");
+
+    if (activityBtn.classList.contains("selected")) {
+        // If the activity button is already selected, remove it from the list and remove the selected class
+        activityBtn.classList.remove("selected");
+        var index = listOfTZActivities.indexOf(activityName);
+        if (index !== -1) {
+            listOfTZActivities.splice(index, 1);
+        }
+    } else {
+        // If the activity button is not selected, add it to the list and add the selected class
+        activityBtn.classList.add("selected");
+        listOfTZActivities.push(activityName);
+    }
+
+    // Update the hidden input field with the updated list of activities
+    //activityList.value = listOfTZActivities.join(",");
+
+    console.log(listOfTZActivities);
+}
+
+function selectEscapeQuest(activityBtn) {
+    if (!escapeQuest) {
+        escapeQuest = true;
+    } else {
+        escapeQuest = false;
+    }
+    console.log(escapeQuest);
+}
+
 // Function to UpperCase the first letter of all the text inputs
 function capitalizeInputs() {
     const inputs = document.querySelectorAll('input[type="text"]');
@@ -226,4 +275,21 @@ function startTimer() {
 function resetTimer() {
     clearTimeout(window.timerId);
     startTimer();
+}
+
+// Check if phone number is required, if yes returns true
+function isPhoneRequired() {
+    return listOfTZActivities.includes("Kidz Club") || listOfTZActivities.includes("Outdoor Escape Adventures") || listOfTZActivities.includes("Frisbee Golf") || escapeQuest;
+}
+
+// Check if additional info is required for the activities, if yes displays additional info contained, if not moves to next tab
+function isAdditionalInfoRequired() {
+    if (!isPhoneRequired()) {
+        nextPrev(1);
+        document.getElementById("nextBtn").onclick = nextPrev;
+    }
+    else {
+        // display the additional info
+        document.getElementById("nextBtn").onclick = nextPrev;
+    }
 }

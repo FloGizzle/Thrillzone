@@ -54,9 +54,9 @@ button {
   background-color: #4CAF50;
   /* Green */
   border: none;
+  font-size: 11px;
   color: white;
   text-align: center;
-  font-size: 16px;
   padding: 10px 20px;
   margin: 10px;
   text-decoration: none;
@@ -77,20 +77,21 @@ button {
 #prevBtn {
   margin-right: 0;
   margin-left: 0;
+  font-size: 12px;
   /* Ensure left margin is reset */
 }
 
 #nextBtn {
   margin-left: 0;
   margin-right: 0;
+  font-size: 12px;
   /* Ensure right margin is reset */
 }
-
 
 /* Style the input fields */
 input {
   padding: 10px;
-  width: calc(100% - 20px);
+  width: calc(100% - 22px);
   /* Adjusted width to consider padding */
   font-size: 17px;
   font-family: Raleway;
@@ -109,6 +110,11 @@ input.invalid {
 
 /* Hide all steps by default: */
 .tab {
+  display: none;
+}
+
+/* Hide additional info unless escape room */
+#additional_info {
   display: none;
 }
 
@@ -137,4 +143,17 @@ input.invalid {
 /* Hide submit button by default. */
 #submitBtn {
   display: none;
+}
+
+/* Grid of buttons for regions and activities */
+.btn_grid {
+  display: grid;
+}
+
+#regions_nz {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+#activity_btns {
+  grid-template-columns: repeat(2, 1fr);
 }

@@ -36,9 +36,9 @@
             </div>
 
             <!-- Region or Other Country ? -->
-            <div id="region_or_country" class="tab">
+            <div class="tab" id="region_or_country">
                 <input type="hidden" name="Region" id="region_nz" value="Other (International)">
-                <div id="regions_nz">
+                <div id="regions_nz" class="btn_grid">
                     <button type="button" id="btn_Auckland"
                         onclick="setHiddenInputandNext('region_nz', 'Auckland')">Auckland</button>
                     <button type="button" id="btn_BayOfPlenty"
@@ -94,44 +94,44 @@
             </div>
 
             <!-- What activity(ies) ? -->
-            <input type="hidden" name="Activity" id="activity" value="">
+            <!-- <input type="hidden" name="Activity" id="what_activities" value=""> -->
             <div class="tab">Which experiences are you having with us today ?
-                <div class="image-grid">
-                    <div>
-                        <img src="image1.jpg" alt="Image 1">
-                        <span class="image-name">Image 1</span>
-                    </div>
-                    <div>
-                        <img src="image2.jpg" alt="Image 2">
-                        <span class="image-name">Image 2</span>
-                    </div>
-                    <div>
-                        <img src="image3.jpg" alt="Image 3">
-                        <span class="image-name">Image 3</span>
-                    </div>
-                    <!-- Add more images here -->
+                <div id="activity_btns" class="btn_grid">
+                    <button type="button" id="btn_Vortex" onclick="selectActivity(this, 'Vortex 12D Motion')">Vortex 12D
+                        Motion Theatre</button>
+                    <button type="button" id="btn_Omni" onclick="selectActivity(this, 'Omni VR')">Omni VR</button>
+                    <button type="button" id="btn_Hologate" onclick="selectActivity(this, 'Hologate VR')">Hologate
+                        VR</button>
+                    <button type="button" id="btn_VREscape" onclick="selectActivity(this, 'VR Escape Rooms')">VR Escape
+                        Rooms</button>
+                    <button type="button" id="btn_Minigolf" onclick="selectActivity(this, 'Indoor UV Minigolf')">Indoor
+                        UV Minigolf</button>
+                    <button type="button" id="btn_RaceCar" onclick="selectActivity(this, 'Race Car Simulator')">Race Car
+                        Simulator</button>
+                    <!-- Different button for Indoor Escape Room-->
+                    <button type="button" id="btn_EscapeRoom" onclick="selectEscapeQuest(this)">Indoor Escape
+                        Rooms</button>
+                    <button type="button" id="btn_OutdoorEscape"
+                        onclick="selectActivity(this, 'Outdoor Escape Adventures')">Outdoor Escape
+                        Adventures</button>
+                    <button type="button" id="btn_FrisbeeGolf" onclick="selectActivity(this, 'Frisbee Golf')">Frisbee
+                        Golf</button>
+                    <button type="button" id="btn_KidzClub" onclick="selectActivity(this, 'Kidz Club')">Kidz
+                        Club</button>
+                    <!-- Could be changed to clickable images to select activities-->
                 </div>
-            </div>
-
-            <!-- If Escape room give 3 options. If also kidz club/frisbee/outdoor ask for phone number.  -->
-            <div class="tab">
-                <div class="image-grid">
-                    <div>
-                        <img src="image1.jpg" alt="Image 1">
-                        <span class="image-name">Image 1</span>
+                <!-- If Escape room give 3 options. If also kidz club/frisbee/outdoor ask for phone number.  -->
+                <div id=additional_info>
+                    <div id="escape_room_options">
+                        <button type="button" id="btn_GH" onclick="">Gold Rush</button>
+                        <button type="button" id="btn_Pow" onclick="">The Murder One</button>
+                        <button type="button" id="btn_JMC" onclick="">Jackpot</button>
                     </div>
-                    <div>
-                        <img src="image2.jpg" alt="Image 2">
-                        <span class="image-name">Image 2</span>
-                    </div>
-                    <div>
-                        <img src="image3.jpg" alt="Image 3">
-                        <span class="image-name">Image 3</span>
+                    <div id="phone_number">
+                        <input type="number" placeholder="Phone number?" name="Phone" oninput="this.className = ''"
+                            value=06>
                     </div>
                 </div>
-                <p>Phone number?
-                    <input type="number" placeholder="Phone number?" name="Phone" oninput="this.className = ''">
-                </p>
             </div>
 
             <!-- How did we hear about us ? -->
@@ -143,14 +143,16 @@
                     <button type="button" id="btn_TripAdvisor"
                         onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'TripAdvisor')">TripAdvisor</button>
                     <button type="button" id="btn_FacebookInstagram"
-                        onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Facebook / Instagram')">Facebook /
+                        onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Facebook / Instagram')">Facebook
+                        /
                         Instagram</button>
                     <button type="button" id="btn_Brochure"
                         onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Brochure')">Brochure</button>
                     <button type="button" id="btn_Hotel"
                         onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Hotel')">Hotel</button>
                     <button type="button" id="btn_InfoCentre"
-                        onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Info Centre')">Info Centre</button>
+                        onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Info Centre')">Info
+                        Centre</button>
                     <button type="button" id="btn_RefferalCard"
                         onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Referral Card')">Referral
                         Card</button>
@@ -160,7 +162,8 @@
                     <button type="button" id="btn_WalkBy"
                         onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Walk by')">Walk by</button>
                     <button type="button" id="btn_BeenBefore"
-                        onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Been before')">Been before</button>
+                        onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Been before')">Been
+                        before</button>
                     <!-- More buttons here for each option-->
                 </div>
             </div>
@@ -182,7 +185,6 @@
 
             <!-- Circles which indicates the steps of the form: -->
             <div style="text-align:center;margin-top:40px;">
-                <span class="step"></span>
                 <span class="step"></span>
                 <span class="step"></span>
                 <span class="step"></span>
