@@ -74,14 +74,16 @@ button {
 
 
 /* Align buttons */
-#prevBtn {
+#prevBtn,
+#back_to_activities {
   margin-right: 0;
   margin-left: 0;
   font-size: 12px;
   /* Ensure left margin is reset */
 }
 
-#nextBtn {
+#nextBtn,
+#check_activities {
   margin-left: 0;
   margin-right: 0;
   font-size: 12px;
@@ -155,5 +157,9 @@ input.invalid {
 }
 
 #activity_btns {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#options_for_how_did_you_hear_about_us {
   grid-template-columns: repeat(2, 1fr);
 }

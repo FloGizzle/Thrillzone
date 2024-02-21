@@ -29,6 +29,7 @@ checkbox.addEventListener('change', function () {
     }
 });
 
+// Make sure they can only hit submit once
 form.addEventListener('submit', e => {
     capitalizeInputs();
     document.getElementById('date_time').value = generateDateTimeString();
@@ -50,6 +51,8 @@ function showTab(n) {
     var x = document.getElementsByClassName("tab");
     x[n].style.display = "block";
     // ... and fix the Previous/Next buttons:
+    document.getElementById("back_to_activities").style.display = "none";
+    document.getElementById("check_activities").style.display = "none";
     if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
         document.getElementById("nextBtn").style.display = "none";
@@ -64,11 +67,27 @@ function showTab(n) {
             document.getElementById("nextBtn").style.display = "inline";
         }
     } else if (n == 5) {
-        // Change the next button function into a check activities button 
-        document.getElementById("nextBtn").onclick = isAdditionalInfoRequired;
+        // CHANGE TO DISPLAY FRIST STEP OF ACTIVITIES IN NEXT PREV FUNCTION 
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("check_activities").style.display = "inline";
+        // display the activities selection
+        document.getElementById("activity_btns").style.display = "grid";
+        document.getElementById("additional_info").style.display = "none";
+        enableCheckActivityBtn();
+        // Change the next button function into a check activities button
+        //document.getElementById("nextBtn").style.display = "inline";
+        // Disabled if no activity is selected
+        //document.getElementById("nextBtn").disabled = "true";
+        //document.getElementById("nextBtn").onclick = isAdditionalInfoRequired;
         // Check if no additional info requires nextBtn takes back its original function and nextPrev(1)
 
-    } else {
+
+    } else if (n == 6) {
+        // CHANGE BACK TO DISPLAY SECOND STEP OF ACTIVITIES IN NEXTPREV FUNCITON
+        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("nextBtn").style.display = "none";
+    }
+    else {
         document.getElementById("prevBtn").style.display = "inline";
         document.getElementById("nextBtn").style.display = "inline";
     }
@@ -214,8 +233,6 @@ function setHiddenInputandNext(inputID, value) {
 // Function for the activities buttons (selection of activities)
 // Function to select or deselect an activity
 function selectActivity(activityBtn, activityName) {
-    // var activityList = document.getElementById("activity");
-
     if (activityBtn.classList.contains("selected")) {
         // If the activity button is already selected, remove it from the list and remove the selected class
         activityBtn.classList.remove("selected");
@@ -228,7 +245,7 @@ function selectActivity(activityBtn, activityName) {
         activityBtn.classList.add("selected");
         listOfTZActivities.push(activityName);
     }
-
+    enableCheckActivityBtn();
     // Update the hidden input field with the updated list of activities
     //activityList.value = listOfTZActivities.join(",");
 
@@ -241,6 +258,7 @@ function selectEscapeQuest(activityBtn) {
     } else {
         escapeQuest = false;
     }
+    enableCheckActivityBtn();
     console.log(escapeQuest);
 }
 
@@ -277,6 +295,17 @@ function resetTimer() {
     startTimer();
 }
 
+// Enables the check activity based on a condition if at least one activity is selected
+function enableCheckActivityBtn() {
+    // Enable or disable the "check activities" button based on conditions
+    var checkAcitivtyBtn = document.getElementById("check_activities");
+    if (listOfTZActivities.length > 0 || escapeQuest) {
+        checkAcitivtyBtn.disabled = false; // Enable the button
+    } else {
+        checkAcitivtyBtn.disabled = true; // Disable the button
+    }
+}
+
 // Check if phone number is required, if yes returns true
 function isPhoneRequired() {
     return listOfTZActivities.includes("Kidz Club") || listOfTZActivities.includes("Outdoor Escape Adventures") || listOfTZActivities.includes("Frisbee Golf") || escapeQuest;
@@ -286,10 +315,27 @@ function isPhoneRequired() {
 function isAdditionalInfoRequired() {
     if (!isPhoneRequired()) {
         nextPrev(1);
-        document.getElementById("nextBtn").onclick = nextPrev;
     }
     else {
-        // display the additional info
-        document.getElementById("nextBtn").onclick = nextPrev;
+        displaySecondStepOfActivities()
     }
+}
+
+function displayFirstStepOfActivities() {
+    document.getElementById("activity_btns").style.display = "grid";
+    document.getElementById("additional_info").style.display = "none";
+    document.getElementById("prevBtn").style.display = "inline";
+    document.getElementById("back_to_activities").style.display = "none";
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("check_activities").style.display = "inline";
+}
+
+function displaySecondStepOfActivities() {
+    // display the additional info
+    document.getElementById("activity_btns").style.display = "none";
+    document.getElementById("additional_info").style.display = "inline";
+    document.getElementById("prevBtn").style.display = "none";
+    document.getElementById("back_to_activities").style.display = "inline";
+    document.getElementById("nextBtn").style.display = "inline";
+    document.getElementById("check_activities").style.display = "none";
 }

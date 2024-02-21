@@ -121,7 +121,7 @@
                     <!-- Could be changed to clickable images to select activities-->
                 </div>
                 <!-- If Escape room give 3 options. If also kidz club/frisbee/outdoor ask for phone number.  -->
-                <div id=additional_info>
+                <div id="additional_info">
                     <div id="escape_room_options">
                         <button type="button" id="btn_GH" onclick="">Gold Rush</button>
                         <button type="button" id="btn_Pow" onclick="">The Murder One</button>
@@ -137,7 +137,7 @@
             <!-- How did we hear about us ? -->
             <div class="tab">
                 <input type="hidden" name="How did you hear about us?" id="how_did_you_hear_about_us" value="">
-                <div id="options_for_how_did_you_hear_about_us">
+                <div class="btn_grid" id="options_for_how_did_you_hear_about_us">
                     <button type="button" id="btn_Google"
                         onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Google')">Google</button>
                     <button type="button" id="btn_TripAdvisor"
@@ -177,7 +177,9 @@
 
             <div id="nextprev_btns">
                 <button type="button" id="prevBtn" onclick="nextPrev(-1)">Back</button>
+                <button type="button" id="back_to_activities" onclick="displayFirstStepOfActivities()">Bock</button>
                 <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                <button type="button" id="check_activities" onclick="isAdditionalInfoRequired()" disabled>Nixt</button>
             </div>
 
             <input type="hidden" name="Date Time" id="date_time" value="">
