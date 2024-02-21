@@ -7,12 +7,13 @@ const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
 
 //Call in mapbox to load map
-mapboxgl.accessToken =
-    'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsc2I4emc4azBkMXMybW82OXhzd3g4MGYifQ.JaafMSBBoA0Y2Wixn12PfQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
+//'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsc2I4emc4azBkMXMybW82OXhzd3g4MGYifQ.JaafMSBBoA0Y2Wixn12PfQ';
 
 const map = new mapboxgl.Map({
     container: 'map', // container ID
-    style: 'mapbox://styles/thrillzonenz/cls4hmg7c001c01pyhb5o506e', // style URL
+    style: 'mapbox://styles/thrillzonenz/clsv5p0sa000a01pme4ibcux1',
+    //'mapbox://styles/thrillzonenz/cls4hmg7c001c01pyhb5o506e', // style URL
     center: center, // starting position [lng, lat]
     zoom: 17, // starting zoom
     maxBounds: bounds,
@@ -57,6 +58,7 @@ map.on('click', (e) => {
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
         layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne']
     });
+    console.log(selectedFeature.layer.id);
     //if object is on layer do this
     if (selectedFeature)
         openPopUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
@@ -79,15 +81,6 @@ map.on('click', (e) => {
     );
 */
 
-
-//Open up maps to set navigation spot
-function openMaps(lng, lat) {
-    let url = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
-    console.log(url);
-    window.open(url, "_blank");
-}
-
-
 //pop up variables
 const closeButton = document.querySelector('.closeButton');
 const dirButton = document.getElementById('direction');
@@ -98,6 +91,7 @@ const title = document.getElementById('title');
 const website = document.getElementById('website');
 const phone = document.getElementById('phone');
 const description = document.getElementById('description');
+const toiletLayer = 'Toilets';
 
 //Zoom animation variables
 let lastCenter = center;
@@ -114,8 +108,6 @@ function openPopUp(data, lat, lng) {
     textContainer.scrollTo(0, 0);
     popup.classList.add('slidein');
     centralizeToMarker(lng, lat);
-    //dirButton.onclick = openMaps(lng, lat);
-    //dirButton.addEventListener('click', () => openMaps(lng, lat));
 
 
     //Add data text from mapbox
@@ -135,7 +127,8 @@ function openPopUp(data, lat, lng) {
         phone.innerText = "No phone number available";
     }
     description.innerText = data.properties.description;
-    dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
+    if (data.layer.id === toiletLayer) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
+    else dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + data.properties.title + '&travelmode=walking';
 }
 
 //variables desiding where top middle of screen is
@@ -162,7 +155,6 @@ function centralizeToMarker(lng, lat) {
 function closePopUp() {
     //slide pop up out animation
     if (popup.classList.contains('slidein')) {
-        dirButton.removeEventListener('click', () => openMaps())
         popup.classList.remove('slidein');
 
         //zoom out to starting position
