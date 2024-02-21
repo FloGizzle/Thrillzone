@@ -1,4 +1,4 @@
-/*MAP CONTROLS*/ 
+/*MAP CONTROLS*/
 
 //VARIABLES FOR MAP TO SET BOUNDS AND CENTER
 const bounds = [
@@ -117,7 +117,8 @@ function openPopUp(data, lat, lng) {
     popup.classList.add('slidein');
     centralizeToMarker(lng, lat);
 
-
+    if (data.layer !== undefined)
+        console.log(data);
     //Add data text from mapbox
     title.innerText = data.properties.title;
     if (data.properties.website != "") {
