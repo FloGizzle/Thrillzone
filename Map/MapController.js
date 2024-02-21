@@ -1,10 +1,15 @@
-//variables for map bounds and center position
+/*MAP CONTROLS*/ 
+
+//VARIABLES FOR MAP TO SET BOUNDS AND CENTER
 const bounds = [
     [168.395199, -45.380678], // Southwest coordinates
     [168.771204, -44.774920] // Northeast coordinates
 ];
 const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
+
+//layers used in this build
+const layers = ['Info', 'Toilets', 'Thrillzone', 'Escapequest', 'Lylo-Food'];
 
 //Call in mapbox to load map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
@@ -56,9 +61,9 @@ map.on('load', map.flyTo(
 map.on('click', (e) => {
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
-        layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne', 'Lylo-Food']
+        layers: layers
     });
-    console.log(selectedFeature.layer.id);
+
     //if object is on layer do this
     if (selectedFeature)
         openPopUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
@@ -81,7 +86,10 @@ map.on('click', (e) => {
     );
 */
 
-//pop up variables
+
+/*POP UP CONTROLS*/
+
+//POP UP VARIABLES
 const closeButton = document.querySelector('.closeButton');
 const dirButton = document.getElementById('direction');
 const popup = document.querySelector('.popup');
@@ -127,7 +135,7 @@ function openPopUp(data, lat, lng) {
         phone.innerText = "No phone number available";
     }
     description.innerText = data.properties.description;
-    if (data.layer.id === toiletLayer) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
+    if (data.layer !== undefined && data.layer.id === toiletLayer) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
     else dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + data.properties.title + '&travelmode=walking';
 }
 

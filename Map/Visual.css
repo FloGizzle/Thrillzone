@@ -1,3 +1,13 @@
+:root{
+    font-size: 16px;
+    font-family: 'Open Sans';
+    --text-primary: white;
+    --text-secondary: black;
+    --bg-primary: black;
+    --bg-secondary: white;
+
+}
+
 html,
 body {
     margin: 0;
@@ -15,63 +25,49 @@ body {
 
 #map {
     width: 100svw;
-    height: 100svh;
+    height: 105svh;
+    top: 0;
 }
 
-.nav--icons {
-    position: absolute;
-    z-index: 5;
+/* NAV BAR */
+.navbar {
+    position: fixed;
     bottom: 0;
+    height: 4rem;
     width: 100vw;
-}
+    background-color: var(--bg-secondary);
+  }
 
-.nav--icons ul {
-    list-style-type: none;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    padding: 0;
+.navbar-nav{
+    list-style: none;
     margin: 0;
-    background-color: rgb(177, 147, 107);
-    transform: translate3d(-0.5em, 0, 0);
-    transition: opacity 0.6s, max-width 0.6s, transform 0.6s;
-    transition-timing-function: ease-in-out;
+    padding: 1rem;
+    display:flex; 
+    flex-direction: row;  
+    justify-content: center;
+    align-items: center;
 }
 
-.nav--icons ul li a {
-    font-family: sans-serif;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    color: #000;
-    line-height: 1;
-    vertical-align: center;
+.nav-item{
+    height:100%;
+}
+
+.nav-link{
     display: flex;
-    padding: 0.75em 1.25em;
-    transition: 0.6s ease-in-out;
-    background-color: burlywood;
-
+    justify-content: center;
+    width: 5rem;
+    color: var(--text-primary);
 }
 
-.nav--icons ul li a span {
-    display: inline-block;
-    overflow: hidden;
-    max-width: 0;
-    padding-left: 0.5em;
-
-
+.link-text{
+    display:none;
 }
-
-.nav--icons ul:hover,
-.nav--icons ul.is-active {
-    color: #fff;
+.nav-link svg{
+    min-width: 2rem;
+    margin: 0 1.5rem;
+    color: var(--text-primary);
 }
-
-.nav--icons ul:hover,
-.nav--icons ul.is-active span {
-    max-width: 40px;
-    transform: translate3d(0, 0, 0);
-}
+/* END NAV BAR */
 
 .popup {
     position: absolute;
