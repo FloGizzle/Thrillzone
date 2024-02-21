@@ -56,7 +56,7 @@ map.on('load', map.flyTo(
 map.on('click', (e) => {
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
-        layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne']
+        layers: ['Info', 'Toilets', 'Entertainment', 'Thrillzone', 'Escapequest', 'Crowne', 'Lylo-Food']
     });
     console.log(selectedFeature.layer.id);
     //if object is on layer do this
