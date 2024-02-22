@@ -1,3 +1,9 @@
+/*CUSTOM VARIABLES PER MAP VERSION*/
+
+//layers used in this build
+const layers = ['Info', 'Toilets', 'Thrillzone', 'Escapequest', 'Lylo-Food', 'BusStop'];
+
+
 /*MAP CONTROLS*/
 
 //VARIABLES FOR MAP TO SET BOUNDS AND CENTER
@@ -7,9 +13,6 @@ const bounds = [
 ];
 const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
-
-//layers used in this build
-const layers = ['Info', 'Toilets', 'Thrillzone', 'Escapequest', 'Lylo-Food'];
 
 //Call in mapbox to load map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
@@ -23,39 +26,6 @@ const map = new mapboxgl.Map({
     zoom: 17, // starting zoom
     maxBounds: bounds,
 });
-
-/* To add custom images for markers
-// Load an image from an external URL.
-map.loadImage(
-    'https://drive.google.com/drive/folders/1OYC6NJ3YOuyKWOXYI9fwSIBw0k-L0wtS?usp=sharing',
-    (error, image) => {
-        if (error) throw error;
-
-        // Add the image to the map style.
-        map.addImage('EQ', image);
-    });
-
-// Add a layer to use the image to represent the data.
-map.addLayer({
-    'id': 'points',
-    'type': 'symbol',
-    'source': 'point', // reference the data source
-    'layout': {
-        'icon-image': 'cat', // reference the image
-        'icon-size': 0.25
-    }
-});
-*/
-
-/* load in animation?
-map.on('load', map.flyTo(
-    {
-        center: center, 
-        speed: 0.4, 
-        curve: .8,
-        zoom: 17 
-    }
-));*/
 
 //Click functionallity for mapbox
 map.on('click', (e) => {
@@ -71,30 +41,14 @@ map.on('click', (e) => {
 
 })
 
-/*      FOR FUTURE REFERENCE IF WE WANNA SHOW WHERE THE PERSON is on the map
-    // Add geolocate control to the map.
-    map.addControl(
-        new mapboxgl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: true
-            },
-            // When active the map will receive updates to the device's location as it changes.
-            trackUserLocation: true,
-            // Draw an arrow next to the location dot to indicate which direction the device is heading.
-            showUserHeading: true
-        })
-    );
-*/
-
-
 /*POP UP CONTROLS*/
 
 //POP UP VARIABLES
 const closeButton = document.querySelector('.closeButton');
-const dirButton = document.getElementById('direction');
 const popup = document.querySelector('.popup');
 const popupContainer = document.querySelector('.popupContainer');
 const textContainer = document.querySelector('.text');
+const dirButton = document.querySelector('.direction');
 const title = document.getElementById('title');
 const website = document.getElementById('website');
 const phone = document.getElementById('phone');
@@ -117,8 +71,6 @@ function openPopUp(data, lat, lng) {
     popup.classList.add('slidein');
     centralizeToMarker(lng, lat);
 
-    if (data.layer !== undefined)
-        console.log(data);
     //Add data text from mapbox
     title.innerText = data.properties.title;
     if (data.properties.website != "") {

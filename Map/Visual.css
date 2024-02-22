@@ -1,4 +1,4 @@
-:root{
+:root {
     font-size: 16px;
     font-family: 'Open Sans';
     --text-primary: white;
@@ -28,46 +28,6 @@ body {
     height: 105svh;
     top: 0;
 }
-
-/* NAV BAR */
-.navbar {
-    position: fixed;
-    bottom: 0;
-    height: 4rem;
-    width: 100vw;
-    background-color: var(--bg-secondary);
-  }
-
-.navbar-nav{
-    list-style: none;
-    margin: 0;
-    padding: 1rem;
-    display:flex; 
-    flex-direction: row;  
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-item{
-    height:100%;
-}
-
-.nav-link{
-    display: flex;
-    justify-content: center;
-    width: 5rem;
-    color: var(--text-primary);
-}
-
-.link-text{
-    display:none;
-}
-.nav-link svg{
-    min-width: 2rem;
-    margin: 0 1.5rem;
-    color: var(--text-primary);
-}
-/* END NAV BAR */
 
 .popup {
     position: absolute;
@@ -106,9 +66,19 @@ body {
     background-color: rgb(245, 245, 245);
 }
 
-.dirButton {
+.direction {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    right: 1rem;
+    right: 3%;
+    width: 3rem;
+    height: 3rem;
+}
+
+.dir span {
+    list-style: none;
+    justify-content: center;
+    align-items: center;
 }
 
 .closeButton {
