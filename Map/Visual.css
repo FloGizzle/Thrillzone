@@ -5,7 +5,9 @@
     --text-secondary: black;
     --bg-primary: black;
     --bg-secondary: white;
-
+    width: 100svw;
+    height: 100svh;
+    position: fixed;
 }
 
 html,
@@ -17,19 +19,15 @@ body {
     overflow: hidden;
 }
 
-.mainContainer {
-    width: 100svw;
-    height: 100svh;
-    position: relative;
-}
-
+/*MAP*/
 #map {
     width: 100svw;
     height: 105svh;
     top: 0;
 }
 
-.popup {
+/*SLIDE UP*/
+.slideUp {
     position: absolute;
     align-items: flex;
     display: flex;
@@ -42,7 +40,7 @@ body {
     transition: transform 1.5s;
 }
 
-.popupContainer {
+.slideUpContainer {
     align-items: flex;
     height: 100svh;
     width: 100svw;
@@ -77,11 +75,12 @@ body {
 
 .dir span {
     list-style: none;
+    text-align: center;
     justify-content: center;
     align-items: center;
 }
 
-.closeButton {
+.slideClose {
     position: absolute;
     font-size: 2rem;
     right: 1rem;
@@ -89,4 +88,58 @@ body {
 
 .slidein {
     transform: translateY(0);
+}
+
+
+/*Question mark pop up*/
+.question-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: blue;
+    color: white;
+    font-size: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.popup-content {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.popup-text {
+    margin: 0;
+}
+
+.show-popup {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
 }

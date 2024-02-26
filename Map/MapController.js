@@ -36,17 +36,17 @@ map.on('click', (e) => {
 
     //if object is on layer do this
     if (selectedFeature)
-        openPopUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
-    else closePopUp();
+        openSlideUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
+    else closeSlideUp();
 
 })
 
-/*POP UP CONTROLS*/
+/*SLIDE UP CONTROLS*/
 
-//POP UP VARIABLES
-const closeButton = document.querySelector('.closeButton');
-const popup = document.querySelector('.popup');
-const popupContainer = document.querySelector('.popupContainer');
+//SLIDE UP VARIABLES
+const slideClose = document.querySelector('.slideClose');
+const slideUp = document.querySelector('.slideUp');
+const slideUpContainer = document.querySelector('.slideUpContainer');
 const textContainer = document.querySelector('.text');
 const dirButton = document.querySelector('.direction');
 const title = document.getElementById('title');
@@ -60,15 +60,15 @@ let lastCenter = center;
 let lastZoom = 17;
 
 
-closeButton.addEventListener('click', () => closePopUp());
+slideClose.addEventListener('click', () => closeSlideUp());
 dirButton.addEventListener('click', () => window.open(dirButton.href, "_blank"));
 
 
 
-function openPopUp(data, lat, lng) {
+function openSlideUp(data, lat, lng) {
     //Start pop up animation and centralizing to marker
     textContainer.scrollTo(0, 0);
-    popup.classList.add('slidein');
+    slideUp.classList.add('slidein');
     centralizeToMarker(lng, lat);
 
     //Add data text from mapbox
@@ -113,10 +113,10 @@ function centralizeToMarker(lng, lat) {
     });
 }
 
-function closePopUp() {
+function closeSlideUp() {
     //slide pop up out animation
-    if (popup.classList.contains('slidein')) {
-        popup.classList.remove('slidein');
+    if (slideUp.classList.contains('slidein')) {
+        slideUp.classList.remove('slidein');
 
         //zoom out to starting position
         map.flyTo({
@@ -126,4 +126,16 @@ function closePopUp() {
             zoom: lastZoom
         });
     }
+}
+
+/*QUESTION POP UP*/
+const questionButton = document.getElementById('questionButton');
+const popupContainer = document.getElementById('popupContainer');
+const closeButton = document.getElementById('closeButton');
+
+questionButton.addEventListener('click', togglePopup);
+closeButton.addEventListener('click', togglePopup);
+
+function togglePopup() {
+    popupContainer.classList.toggle('show-popup');
 }

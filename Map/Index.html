@@ -11,31 +11,39 @@
 </head>
 
 <body>
-    <div class='mainContainer'>
 
-        <!--MAP DRAWN ON SCREEN-->
-        <div id='map'></div>
-        <!--POP UP-->
-        <div class='popup'>
-            <span class="closeButton">&times;</span>
-            <div class="popupContainer">
-                <div class="title">
-                    <h1 id="title">title of text</h1>
-                </div>
-                <div class="text">
-                    <a id="website" href="url" target="_blank">website</a>
-                    <button class="direction" href="url" target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <path
-                                d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm306.7 69.1L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
-                        </svg>
-                        <span>Directions</span>
-                    </button>
-                    <p id="phone">number</p>
-                    <p id="description">description</p>
-                </div>
+    <!--MAP DRAWN ON SCREEN-->
+    <div id='map'></div>
+    <!--SLIDE UP-->
+    <div class='slideUp'>
+        <span class="slideClose">&times;</span>
+        <div class="slideUpContainer">
+            <div class="title">
+                <h1 id="title">title of text</h1>
             </div>
+            <div class="text">
+                <a id="website" href="url" target="_blank">website</a>
+                <button class="direction" href="url" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                            d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm306.7 69.1L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
+                    </svg>
+                    <span>Directions</span>
+                </button>
+                <p id="phone">number</p>
+                <p id="description">description</p>
+            </div>
+        </div>
+    </div>
+    <!--QUESTION POP UP-->
+    <button id="questionButton" class="question-button">?</button>
+    <div id="popupContainer" class="popup-container">
+        <div id="popupContent" class="popup-content">
+            <button id="closeButton" class="close-button">&times;</button>
+            <p id="popupText" class="popup-text">
+                This is a variable length text that can be replaced with your content.
+            </p>
         </div>
     </div>
     <script src="MapController.js" defer></script>
