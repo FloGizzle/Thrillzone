@@ -5,9 +5,6 @@
     --text-secondary: black;
     --bg-primary: black;
     --bg-secondary: white;
-    width: 100svw;
-    height: 100svh;
-    position: fixed;
 }
 
 html,
@@ -92,54 +89,64 @@ body {
 
 
 /*Question mark pop up*/
-.question-button {
+.square {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 40px;
-    height: 40px;
-    border: none;
-    background-color: blue;
-    color: white;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 24px;
-    border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 5px;
+    transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
+
 }
 
-.popup-container {
-    display: none;
-    position: fixed;
+.square.small {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+}
+
+.square.big {
+    width: 200px;
+    height: 200px;
+    font-size: 18px;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.square.centered {
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
+    transform: translate(-50%, -50%);
+    transition: top 0.3s ease, left 0.3s ease;
 }
 
-.popup-content {
-    position: relative;
-    background-color: white;
-    padding: 20px;
+
+.square.small .close-button {
+    visibility: hidden;
+}
+
+.square.big .close-button {
+    visibility: visible;
 }
 
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
     font-size: 20px;
     cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.popup-text {
-    margin: 0;
-}
-
-.show-popup {
-    display: block;
-    transform: translate(-50%, -50%) scale(1);
+.square.small:hover .close-button {
+    opacity: 1;
 }

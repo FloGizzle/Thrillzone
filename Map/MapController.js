@@ -129,13 +129,26 @@ function closeSlideUp() {
 }
 
 /*QUESTION POP UP*/
-const questionButton = document.getElementById('questionButton');
-const popupContainer = document.getElementById('popupContainer');
+const square = document.getElementById('square');
 const closeButton = document.getElementById('closeButton');
 
-questionButton.addEventListener('click', togglePopup);
-closeButton.addEventListener('click', togglePopup);
+square.addEventListener('click', toggleSize);
+closeButton.addEventListener('click', toggleSmall);
 
-function togglePopup() {
-    popupContainer.classList.toggle('show-popup');
+function toggleSize() {
+    if (!square.classList.contains('centered')) {
+        square.classList.toggle('centered'); // Center the square first
+        setTimeout(() => {
+            square.classList.toggle('big'); // Then make it big after a short delay
+        }, 250); // Delay should match the transition duration
+    }
+}
+
+
+function toggleSmall(event) {
+    event.stopPropagation();
+    square.classList.remove('big');
+    setTimeout(() => {
+        square.classList.remove('centered'); // Then make it big after a short delay
+    }, 20); // Delay should match the transition duration
 }
