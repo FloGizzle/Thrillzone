@@ -98,11 +98,18 @@ body {
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 24px;
     border-radius: 5px;
-    transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
+    transition: top 0.5s ease, left 0.5s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.content {
+    padding: 5%;
+    display: none;
+    overflow-y: scroll;
 }
 
 .square.small {
@@ -112,21 +119,19 @@ body {
 }
 
 .square.big {
-    width: 200px;
-    height: 200px;
+    width: 75%;
+    min-height: 10%;
+    max-height: 60%;
+    height: fit-content;
     font-size: 18px;
     transition: width 0.3s ease, height 0.3s ease;
-}
-
-.square.centered .icon {
-    visibility: hidden;
 }
 
 .square.centered {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: top 0.3s ease, left 0.3s ease;
+    transition: top 0.5s ease, left 0.5s ease;
 }
 
 
@@ -134,24 +139,17 @@ body {
     visibility: hidden;
 }
 
-.square.small .content {
-    visibility: hidden;
-}
-
-.square.big .content {
-    visibility: visible;
-}
-
 .square.big .close-button {
     visibility: visible;
 }
 
+
 .close-button {
     position: absolute;
-    top: 1%;
-    right: 1%;
+    top: 0.1rem;
+    right: 1rem;
     padding: 0;
-    font-size: 20px;
+    font-size: 2rem;
     cursor: pointer;
     opacity: 1;
     transition: opacity 0.3s ease;

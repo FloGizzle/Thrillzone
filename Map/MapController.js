@@ -37,7 +37,10 @@ map.on('click', (e) => {
     //if object is on layer do this
     if (selectedFeature)
         openSlideUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
-    else closeSlideUp();
+    else {
+        toggleSmall();
+        closeSlideUp();
+    }
 
 })
 
@@ -70,6 +73,7 @@ function openSlideUp(data, lat, lng) {
     textContainer.scrollTo(0, 0);
     slideUp.classList.add('slidein');
     centralizeToMarker(lng, lat);
+    toggleSmall();
 
     //Add data text from mapbox
     title.innerText = data.properties.title;
@@ -131,25 +135,33 @@ function closeSlideUp() {
 /*QUESTION POP UP*/
 const square = document.getElementById('square');
 const content = document.getElementById('content');
+const icon = document.getElementById('icon');
 const closeButton = document.getElementById('closeButton');
 
 square.addEventListener('click', toggleSize);
 closeButton.addEventListener('click', toggleSmall);
 
 function toggleSize() {
-    if (!square.classList.contains('centered')) {
-        square.classList.toggle('centered');
-        setTimeout(() => {
-            square.classList.toggle('big')
-            content.innerText = "Kia Ora!";
-        }, 250); // Delay should match the transition duration
-    }
+    if (square.classList.contains('centered')) return;
+
+    closeSlideUp();
+    square.classList.toggle('centered');
+    setTimeout(() => {
+        square.classList.toggle('big')
+        content.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        content.style.display = 'block';
+        icon.style.display = 'none';
+    }, 250); // Delay should match the transition duration
 }
 
 
 function toggleSmall(event) {
-    event.stopPropagation();
+    if (!square.classList.contains('centered')) return;
+
+    if (event != null) event.stopPropagation();
     square.classList.remove('big');
+    content.style.display = 'none';
+    icon.style.display = 'block';
     setTimeout(() => {
         square.classList.remove('centered');
     }, 20); // Delay should match the transition duration
