@@ -130,6 +130,7 @@ function closeSlideUp() {
 
 /*QUESTION POP UP*/
 const square = document.getElementById('square');
+const content = document.getElementById('content');
 const closeButton = document.getElementById('closeButton');
 
 square.addEventListener('click', toggleSize);
@@ -137,9 +138,10 @@ closeButton.addEventListener('click', toggleSmall);
 
 function toggleSize() {
     if (!square.classList.contains('centered')) {
-        square.classList.toggle('centered'); // Center the square first
+        square.classList.toggle('centered');
         setTimeout(() => {
-            square.classList.toggle('big'); // Then make it big after a short delay
+            square.classList.toggle('big')
+            content.innerText = "Kia Ora!";
         }, 250); // Delay should match the transition duration
     }
 }
@@ -149,6 +151,6 @@ function toggleSmall(event) {
     event.stopPropagation();
     square.classList.remove('big');
     setTimeout(() => {
-        square.classList.remove('centered'); // Then make it big after a short delay
+        square.classList.remove('centered');
     }, 20); // Delay should match the transition duration
 }
