@@ -3,8 +3,7 @@
 //layers used in this build
 const layers = ['Info', 'Toilets', 'Thrillzone', 'Escapequest', 'Lylo-Food', 'BusStop'];
 
-
-/*MAP CONTROLS*/
+//#region VARIABLES
 
 //VARIABLES FOR MAP TO SET BOUNDS AND CENTER
 const bounds = [
@@ -15,17 +14,57 @@ const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
 const startingCenter = [173.21106573769924, -41.81657804512245];
 
+//SLIDE UP VARIABLES
+const slideClose = document.querySelector('.slideClose');
+const slideUp = document.querySelector('.slideUp');
+const slideUpContainer = document.querySelector('.slideUpContainer');
+const textContainer = document.querySelector('.text');
+const dirButton = document.querySelector('.direction');
+const title = document.getElementById('title');
+const website = document.getElementById('website');
+const phone = document.getElementById('phone');
+const description = document.getElementById('description');
+const toiletLayer = 'Toilets';
+
+//ZOOM ANIMATION VARIABLES
+let lastCenter = center;
+let lastZoom = 17;
+
+//VARIABLES DECIDING WHERE TOP MIDDLE OF SCREEN IS
+const rect = document.getElementById('map').getBoundingClientRect();
+const viewportX = rect.x;
+const viewportY = rect.bottom;
+const shiftScreenY = 0.25 * viewportY;
+const shiftScreenX = 0.5 * viewportX;
+
+//VARIABLES FOR INFO POP UP
+const square = document.getElementById('square');
+const content = document.getElementById('content');
+const icon = document.getElementById('icon');
+const closeButton = document.getElementById('closeButton');
+
+const startText = "Kia Ora! \n Welcome to the beautiful country of Te Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
+const temptext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+//#endregion
+
+//#region MAP INITIALIZE
+
 //Call in mapbox to load map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
-//'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsc2I4emc4azBkMXMybW82OXhzd3g4MGYifQ.JaafMSBBoA0Y2Wixn12PfQ';
+//Token before: pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw
 
+//Draw map on screen
 const map = new mapboxgl.Map({
     container: 'map', // container ID
-    style: 'mapbox://styles/thrillzonenz/clsv5p0sa000a01pme4ibcux1',
-    //'mapbox://styles/thrillzonenz/cls4hmg7c001c01pyhb5o506e', // style URL
+    //style before: mapbox://styles/thrillzonenz/clsv5p0sa000a01pme4ibcux1
+    style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
     center: startingCenter, // starting position [lng, lat]
     zoom: 4.25, // starting zoom
 });
+
+map.getConfigProperty("basemap");
+//map.setConfigProperty('Mapbox Standard', 'showPointOfInterestLabels', false);
 
 //Click functionallity for mapbox
 map.on('click', (e) => {
@@ -43,31 +82,24 @@ map.on('click', (e) => {
     }
 
 })
+//#endregion
 
-/*SLIDE UP CONTROLS*/
+//#region ADDING LAYERS TO MAP
 
-//SLIDE UP VARIABLES
-const slideClose = document.querySelector('.slideClose');
-const slideUp = document.querySelector('.slideUp');
-const slideUpContainer = document.querySelector('.slideUpContainer');
-const textContainer = document.querySelector('.text');
-const dirButton = document.querySelector('.direction');
-const title = document.getElementById('title');
-const website = document.getElementById('website');
-const phone = document.getElementById('phone');
-const description = document.getElementById('description');
-const toiletLayer = 'Toilets';
+//Add a source to the map
+//map.addSource();
 
-//Zoom animation variables
-let lastCenter = center;
-let lastZoom = 17;
+//Add layer to the map
+//map.addLayer();
+//#endregion
 
+//#region SLIDE UP CONTROLS
 
+//EVENTLISTENERS FOR SLIDE UP
 slideClose.addEventListener('click', () => closeSlideUp());
 dirButton.addEventListener('click', () => window.open(dirButton.href, "_blank"));
 
-
-
+//Opens the slide up and updates all the data
 function openSlideUp(data, lat, lng) {
     //Start pop up animation and centralizing to marker
     textContainer.scrollTo(0, 0);
@@ -96,14 +128,7 @@ function openSlideUp(data, lat, lng) {
     else dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + data.properties.title + '&travelmode=walking';
 }
 
-//variables desiding where top middle of screen is
-const rect = document.getElementById('map').getBoundingClientRect();
-const viewportX = rect.x;
-const viewportY = rect.bottom;
-const shiftScreenY = 0.25 * viewportY;
-const shiftScreenX = 0.5 * viewportX;
-
-//fly to marker and centralize it
+//Fly to marker and centralize it
 function centralizeToMarker(lng, lat) {
     let zoom = map.getZoom();
     lastCenter = [lng, lat];
@@ -117,6 +142,7 @@ function centralizeToMarker(lng, lat) {
     });
 }
 
+//Closes slide up
 function closeSlideUp() {
     //slide pop up out animation
     if (slideUp.classList.contains('slidein')) {
@@ -131,22 +157,18 @@ function closeSlideUp() {
         });
     }
 }
+//#endregion
 
-/*QUESTION POP UP*/
-const square = document.getElementById('square');
-const content = document.getElementById('content');
-const icon = document.getElementById('icon');
-const closeButton = document.getElementById('closeButton');
+//#region INFO POP UP
 
-
-const startText = "Kia Ora! \n Welcome to the beautiful country of Te Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
-const temptext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-square.addEventListener('click', toggleSize);
-//closeButton.addEventListener('click', zoomInToQueenstown);
+//EVENTLISTENERS FOR INFO POP UP
+square.addEventListener('click', toggleBig);
+closeButton.addEventListener('click', zoomInToQueenstown);
 closeButton.addEventListener('click', toggleSmall);
 
-function toggleSize() {
+//Changes the info button to a pop up with the data
+function toggleBig() {
+    //Check if it is already done
     if (square.classList.contains('centered')) return;
 
     closeSlideUp();
@@ -159,27 +181,50 @@ function toggleSize() {
     }, 250); // Delay should match the transition duration
 }
 
+//Changes the pop up back to the info button
 function toggleSmall(event) {
+    //Check if it is already done
     if (!square.classList.contains('centered')) return;
-
-
+    //Check if there is a eventlistener that could cause problems
     if (event != null) event.stopPropagation();
+
     square.classList.remove('big');
     content.style.display = 'none';
     icon.style.display = 'block';
     setTimeout(() => {
         square.classList.remove('centered');
-    }, 20); // Delay should match the transition duration
+    }, 20);
 }
+//#endregion
 
-function startingState() {
+//#region INITIALIZE
+
+//Initializes the screen to have a pop up
+function Init() {
     square.classList.toggle('centered');
-    setTimeout(() => {
-        square.classList.toggle('big')
-        content.innerText = startText;
-        content.style.display = 'block';
-        icon.style.display = 'none';
-    },)
+    square.classList.toggle('big')
+    content.innerText = startText;
+    content.style.display = 'block';
+    icon.style.display = 'none';
 }
 
-startingState();
+//Zooms into queenstown when the pop up is closed
+function zoomInToQueenstown() {
+    map.flyTo({
+        center: lastCenter,
+        speed: 1,
+        curve: 1,
+        zoom: lastZoom
+    });
+    //Set the max bounds after the zoom in is done
+    setTimeout(() => {
+        map.setMaxBounds(bounds);
+    }, 2);
+
+    //Remove the eventlistener so it wont zoom in again
+    closeButton.removeEventListener('click', zoomInToQueenstown);
+}
+//#endregion
+
+//CALLS INITIALIZATION CODE
+Init();
