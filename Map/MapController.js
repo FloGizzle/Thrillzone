@@ -29,6 +29,7 @@ const toiletLayer = 'Toilets';
 //ZOOM ANIMATION VARIABLES
 let lastCenter = center;
 let lastZoom = 17;
+let initZoom = true;
 
 //VARIABLES DECIDING WHERE TOP MIDDLE OF SCREEN IS
 const rect = document.getElementById('map').getBoundingClientRect();
@@ -58,13 +59,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMya
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     //style before: mapbox://styles/thrillzonenz/clsv5p0sa000a01pme4ibcux1
-    style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
     center: startingCenter, // starting position [lng, lat]
     zoom: 4.25, // starting zoom
 });
-
-map.getConfigProperty("basemap");
-//map.setConfigProperty('Mapbox Standard', 'showPointOfInterestLabels', false);
 
 //Click functionallity for mapbox
 map.on('click', (e) => {
@@ -85,12 +82,20 @@ map.on('click', (e) => {
 //#endregion
 
 //#region ADDING LAYERS TO MAP
+//When the map is loaded add our layers on top
+map.on('style.load', () => {
+    //Turn of POI properties
+    map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+    map.setConfigProperty('basemap', 'showTransitLabels', false);
+    console.log(map.getTerrain());
+    map.setTerrain('source': 'mapbox-dem',);
+    //Add a source to the map
+    //map.addSource();
 
-//Add a source to the map
-//map.addSource();
+    //Add layer to the map
+    //map.addLayer();
+});
 
-//Add layer to the map
-//map.addLayer();
 //#endregion
 
 //#region SLIDE UP CONTROLS
@@ -206,6 +211,12 @@ function Init() {
     content.innerText = startText;
     content.style.display = 'block';
     icon.style.display = 'none';
+
+    map['scrollZoom'].disable();
+    map['dragRotate'].disable();
+    map['boxZoom'].disable();
+    map['dragPan'].disable();
+    map['touchZoomRotate'].disable();
 }
 
 //Zooms into queenstown when the pop up is closed
@@ -213,17 +224,29 @@ function zoomInToQueenstown() {
     map.flyTo({
         center: lastCenter,
         speed: 1,
-        curve: 1,
+        curve: 1.25,
         zoom: lastZoom
     });
-    //Set the max bounds after the zoom in is done
-    setTimeout(() => {
-        map.setMaxBounds(bounds);
-    }, 2);
-
     //Remove the eventlistener so it wont zoom in again
     closeButton.removeEventListener('click', zoomInToQueenstown);
 }
+
+//Checks when fly in animation is done
+map.on('moveend', () => {
+    //Only do it when it's the initial zoom
+    if (initZoom === false) return;
+
+    //Set bounds and activate controls
+    map.setMaxBounds(bounds);
+    map['scrollZoom'].enable();
+    map['dragRotate'].enable();
+    map['boxZoom'].enable();
+    map['dragPan'].enable();
+    map['touchZoomRotate'].enable();
+
+    //Make sure it doesn't happen anymore
+    initZoom = false;
+});
 //#endregion
 
 //CALLS INITIALIZATION CODE
