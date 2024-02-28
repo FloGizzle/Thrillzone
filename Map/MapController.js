@@ -13,6 +13,7 @@ const bounds = [
 ];
 const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
+const startingCenter = [173.21106573769924, -41.81657804512245];
 
 //Call in mapbox to load map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
@@ -22,9 +23,8 @@ const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/thrillzonenz/clsv5p0sa000a01pme4ibcux1',
     //'mapbox://styles/thrillzonenz/cls4hmg7c001c01pyhb5o506e', // style URL
-    center: center, // starting position [lng, lat]
-    zoom: 17, // starting zoom
-    maxBounds: bounds,
+    center: startingCenter, // starting position [lng, lat]
+    zoom: 4.25, // starting zoom
 });
 
 //Click functionallity for mapbox
@@ -138,7 +138,12 @@ const content = document.getElementById('content');
 const icon = document.getElementById('icon');
 const closeButton = document.getElementById('closeButton');
 
+
+const startText = "Kia Ora! \n Welcome to the beautiful country of Te Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
+const temptext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
 square.addEventListener('click', toggleSize);
+//closeButton.addEventListener('click', zoomInToQueenstown);
 closeButton.addEventListener('click', toggleSmall);
 
 function toggleSize() {
@@ -148,15 +153,15 @@ function toggleSize() {
     square.classList.toggle('centered');
     setTimeout(() => {
         square.classList.toggle('big')
-        content.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        content.innerText = temptext;
         content.style.display = 'block';
         icon.style.display = 'none';
     }, 250); // Delay should match the transition duration
 }
 
-
 function toggleSmall(event) {
     if (!square.classList.contains('centered')) return;
+
 
     if (event != null) event.stopPropagation();
     square.classList.remove('big');
@@ -166,3 +171,15 @@ function toggleSmall(event) {
         square.classList.remove('centered');
     }, 20); // Delay should match the transition duration
 }
+
+function startingState() {
+    square.classList.toggle('centered');
+    setTimeout(() => {
+        square.classList.toggle('big')
+        content.innerText = startText;
+        content.style.display = 'block';
+        icon.style.display = 'none';
+    },)
+}
+
+startingState();
