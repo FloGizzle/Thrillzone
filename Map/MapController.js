@@ -1,7 +1,14 @@
 /*CUSTOM VARIABLES PER MAP VERSION*/
 
 //layers used in this build
-const layers = null;//['Info', 'Toilets', 'Thrillzone', 'Escapequest', 'Lylo-Food', 'BusStop'];
+const _toilet = 'toilet';
+const _info = 'info';
+const _transit = 'transit';
+const _TZ = 'tz';
+const _EQ = 'eq';
+const _custom = 'lylo';
+const _layers = [_toilet, _info, _transit, _TZ, _EQ, _custom];
+
 
 //#region VARIABLES
 
@@ -24,7 +31,6 @@ const title = document.getElementById('title');
 const website = document.getElementById('website');
 const phone = document.getElementById('phone');
 const description = document.getElementById('description');
-const toiletLayer = 'Toilets';
 
 //ZOOM ANIMATION VARIABLES
 let lastCenter = center;
@@ -68,7 +74,7 @@ const map = new mapboxgl.Map({
 map.on('click', (e) => {
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
-        layers: layers
+        layers: _layers
     });
 
     //if object is on layer do this
@@ -127,7 +133,7 @@ function openSlideUp(data, lat, lng) {
         phone.innerText = "No phone number available";
     }
     description.innerText = data.properties.description;
-    if (data.layer !== undefined && data.layer.id === toiletLayer) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
+    if (data.layer !== undefined && data.layer.id === _toilet) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
     else dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + data.properties.title + '&travelmode=walking';
 }
 
