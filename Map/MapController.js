@@ -1,7 +1,7 @@
 /*CUSTOM VARIABLES PER MAP VERSION*/
 
 //layers used in this build
-const layers = ['Info', 'Toilets', 'Thrillzone', 'Escapequest', 'Lylo-Food', 'BusStop'];
+const layers = null;//['Info', 'Toilets', 'Thrillzone', 'Escapequest', 'Lylo-Food', 'BusStop'];
 
 //#region VARIABLES
 
@@ -58,6 +58,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMya
 //Draw map on screen
 const map = new mapboxgl.Map({
     container: 'map', // container ID
+    style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
     //style before: mapbox://styles/thrillzonenz/clsv5p0sa000a01pme4ibcux1
     center: startingCenter, // starting position [lng, lat]
     zoom: 4.25, // starting zoom
@@ -75,6 +76,7 @@ map.on('click', (e) => {
         openSlideUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
     else {
         toggleSmall();
+        if (initZoom) zoomInToQueenstown();
         closeSlideUp();
     }
 
@@ -84,11 +86,7 @@ map.on('click', (e) => {
 //#region ADDING LAYERS TO MAP
 //When the map is loaded add our layers on top
 map.on('style.load', () => {
-    //Turn of POI properties
-    map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
-    map.setConfigProperty('basemap', 'showTransitLabels', false);
-    console.log(map.getTerrain());
-    map.setTerrain('source': 'mapbox-dem',);
+
     //Add a source to the map
     //map.addSource();
 
@@ -243,6 +241,9 @@ map.on('moveend', () => {
     map['boxZoom'].enable();
     map['dragPan'].enable();
     map['touchZoomRotate'].enable();
+    map.on('style.load', () => {
+
+    });
 
     //Make sure it doesn't happen anymore
     initZoom = false;
