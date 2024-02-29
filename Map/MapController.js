@@ -1,14 +1,40 @@
 /*CUSTOM VARIABLES PER MAP VERSION*/
 
 //layers used in this build
-const _toilet = 'toilet';
-const _info = 'info';
-const _transit = 'transit';
-const _TZ = 'tz';
-const _EQ = 'eq';
-const _custom = 'lylo';
+const _toilet = [];
+const _info = [];
+const _transit = [];
+const _TZ = [];
+const _EQ = [];
+const _custom = [];
 const _layers = [_toilet, _info, _transit, _TZ, _EQ, _custom];
+const _layerName = ['tz', 'eq', 'info', 'food', 'toilet'];
 
+//#region GEOJSON FOR MARKERS
+const iconsize = [100, 100];
+const GeoJSON = {
+    type: 'geojson',
+    features: [
+        {
+            type: 'feature',
+            geometry: {
+                type: 'point', //Type of feature (point/geometry)
+                coordinates: [168.65823513386408, -45.032036049661855] //Location of point in [Lng,Lat]
+            },
+            properties: {
+                title: 'Thrillzone Queenstown', //Title on slide up
+                maptitle: 'Thrillzone', //Title on map
+                website: 'https://www.thrillzone.co.nz/queenstown', //Website link
+                phone: '+643 441 1159', //Phone number
+                description: 'Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.', //Description in slide up
+                markerimage: 'url(https://drive.google.com/uc?export=view&id=1PoiPId3yZogXE_aTl-wN4Gan61UxEgms)', //What the marker looks like
+                layer: 'tz',
+            }
+        }
+    ]
+};
+
+//#ENDREGION
 
 //#region VARIABLES
 
@@ -91,14 +117,32 @@ map.on('click', (e) => {
 
 //#region ADDING LAYERS TO MAP
 //When the map is loaded add our layers on top
-map.on('style.load', () => {
+//Add markers to map
+for (const marker of GeoJSON.features) {
+    const el = document.createElement('div');
 
-    //Add a source to the map
-    //map.addSource();
+    el.className = 'marker';
+    //console.log(marker.);
+    el.style.backgroundImage = marker.properties.markerimage;
+    el.style.width = '100px';
+    el.style.height = '100px';
+    el.style.backgroundSize = '100%';
 
-    //Add layer to the map
-    //map.addLayer();
-});
+    for (let index = 0; index < _layerName.length; index++) {
+        if (marker.properties.markerimage === _layerName[index]) {
+            _layers.add(marker);
+            break;
+        }
+        console.log(index);
+    }
+
+    // Add markers to the map.
+    new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
+
+}
+console.log(_TZ.length);
 
 //#endregion
 
