@@ -85,13 +85,11 @@ const temptext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d
 
 //Call in mapbox to load map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
-//Token before: pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw
 
 //Draw map on screen
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
-    //style before: mapbox://styles/thrillzonenz/clsv5p0sa000a01pme4ibcux1
     center: startingCenter, // starting position [lng, lat]
     zoom: 4.25, // starting zoom
 });
@@ -118,32 +116,35 @@ map.on('click', (e) => {
 //#region ADDING LAYERS TO MAP
 //When the map is loaded add our layers on top
 //Add markers to map
-for (const marker of GeoJSON.features) {
-    const el = document.createElement('div');
+function addLayers()
+{
+    for (const marker of GeoJSON.features) {
+        const el = document.createElement('div');
 
-    el.className = 'marker';
-    //console.log(marker.);
-    el.style.backgroundImage = marker.properties.markerimage;
-    el.style.width = '100px';
-    el.style.height = '100px';
-    el.style.backgroundSize = '100%';
+        el.className = 'marker';
+        //console.log(marker.);
+        el.style.backgroundImage = marker.properties.markerimage;
+        el.style.width = '100px';
+        el.style.height = '100px';
+        el.style.backgroundSize = '100%';
 
-    for (let index = 0; index < _layerName.length; index++) {
-        if (marker.properties.markerimage === _layerName[index]) {
-            _layers.add(marker);
-            break;
+        for (let index = 0; index < _layerName.length; index++) {
+            if (marker.properties.markerimage === _layerName[index]) {
+                _layers.add(marker);
+                break;
+            }
+            console.log(index);
         }
-        console.log(index);
+
+
+        // Add markers to the map.
+        new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map);
+
     }
-
-    // Add markers to the map.
-    new mapboxgl.Marker(el)
-        .setLngLat(marker.geometry.coordinates)
-        .addTo(map);
-
+    console.log(_TZ.length);
 }
-console.log(_TZ.length);
-
 //#endregion
 
 //#region SLIDE UP CONTROLS
@@ -291,9 +292,9 @@ map.on('moveend', () => {
     map['boxZoom'].enable();
     map['dragPan'].enable();
     map['touchZoomRotate'].enable();
-    map.on('style.load', () => {
-
-    });
+    
+    //Add layers to screen when zoomed in
+    addLayers();
 
     //Make sure it doesn't happen anymore
     initZoom = false;
