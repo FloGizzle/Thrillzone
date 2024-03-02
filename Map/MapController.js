@@ -1,14 +1,15 @@
 /*CUSTOM VARIABLES PER MAP VERSION*/
 
 //layers used in this build
-const _toilet = [];
-const _info = [];
-const _transit = [];
 const _TZ = [];
 const _EQ = [];
+const _info = [];
+const _food = [];
+const _toilet = [];
+const _transit = [];
 const _custom = [];
-const _layers = [_toilet, _info, _transit, _TZ, _EQ, _custom];
-const _layerName = ['tz', 'eq', 'info', 'food', 'toilet'];
+const _layers = [_TZ, _EQ, _info, _food, _toilet, _transit, _custom];
+const _layerName = ['tz', 'eq', 'info', 'food', 'toilet', 'transit', 'custom'];
 
 //#region GEOJSON FOR MARKERS
 const iconsize = [100, 100];
@@ -19,15 +20,17 @@ const GeoJSON = {
             type: 'feature',
             geometry: {
                 type: 'point', //Type of feature (point/geometry)
-                coordinates: [168.65823513386408, -45.032036049661855] //Location of point in [Lng,Lat]
+                coordinates: [168.65823513386408, -45.032036049661855], //Location of point in [Lng,Lat]
+                
             },
+            isVisible: true, //Is it currently rendrered
             properties: {
                 title: 'Thrillzone Queenstown', //Title on slide up
                 maptitle: 'Thrillzone', //Title on map
                 website: 'https://www.thrillzone.co.nz/queenstown', //Website link
                 phone: '+643 441 1159', //Phone number
                 description: 'Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.', //Description in slide up
-                markerimage: 'url(https://raw.githubusercontent.com/FloGizzle/Thrillzone/3f59d4239e120017e3362c4107292cbc43f1922f/Map/Icons/TZ%20-%20512x512%20(1).svg)', //What the marker looks like
+                markerimage: 'https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/TZ.png?raw=true', //What the marker looks like
                 layer: 'tz',
             }
         }
@@ -51,7 +54,7 @@ const startingCenter = [173.21106573769924, -41.81657804512245];
 const slideClose = document.querySelector('.slideClose');
 const slideUp = document.querySelector('.slideUp');
 const slideUpContainer = document.querySelector('.slideUpContainer');
-const textContainer = document.querySelector('.text');
+const textContainer = document.querySelector('.slider-content');
 const dirButton = document.querySelector('.direction');
 const title = document.getElementById('title');
 const website = document.getElementById('website');
@@ -94,12 +97,15 @@ const map = new mapboxgl.Map({
     zoom: 4.25, // starting zoom
 });
 
-//Click functionallity for mapbox
+/*//Click functionallity for mapbox
 map.on('click', (e) => {
+    console.log("1");
     //Set click event to wanted layer
     const [selectedFeature] = map.queryRenderedFeatures(e.point, {
-        layers: _layers
+        layers: _layerName
+        
     });
+    console.log("2");
 
     //if object is on layer do this
     if (selectedFeature)
@@ -110,7 +116,7 @@ map.on('click', (e) => {
         closeSlideUp();
     }
 
-})
+})*/
 //#endregion
 
 //#region ADDING LAYERS TO MAP
@@ -118,29 +124,31 @@ map.on('click', (e) => {
 //Add markers to map
 function addLayers() {
     for (const marker of GeoJSON.features) {
-        const el = document.createElement('div');
+        const el = document.createElement('img');
 
         el.className = 'marker';
         //console.log(marker.);
-        el.style.backgroundImage = marker.properties.markerimage;
-        el.style.width = '100px';
-        el.style.height = '100px';
+        el.src = marker.properties.markerimage;
+        el.style.width = '50px';
+        el.style.height = '50px';
         el.style.backgroundSize = '100%';
+        el.style.visibility = 'visible';
 
         for (let index = 0; index < _layerName.length; index++) {
-            if (marker.properties.markerimage === _layerName[index]) {
-                _layers.add(marker);
+            if (marker.properties.layer === _layerName[index]) {
+                _layers.push(marker);
                 break;
             }
-            console.log(index);
         }
-
 
         // Add markers to the map.
         new mapboxgl.Marker(el)
             .setLngLat(marker.geometry.coordinates)
             .addTo(map);
-
+        
+        el.addEventListener('click', () =>{
+            openSlideUp(marker);
+        });
     }
     console.log(_TZ.length);
 }
@@ -153,11 +161,15 @@ slideClose.addEventListener('click', () => closeSlideUp());
 dirButton.addEventListener('click', () => window.open(dirButton.href, "_blank"));
 
 //Opens the slide up and updates all the data
-function openSlideUp(data, lat, lng) {
+function openSlideUp(data) {
+    console.log(data);
+    if(!data.isVisible) return;
     //Start pop up animation and centralizing to marker
     textContainer.scrollTo(0, 0);
     slideUp.classList.add('slidein');
-    centralizeToMarker(lng, lat);
+    const lnglat = data.geometry.coordinates;
+    console.log(lnglat);
+    centralizeToMarker(lnglat);
     toggleSmall();
 
     //Add data text from mapbox
@@ -177,17 +189,17 @@ function openSlideUp(data, lat, lng) {
         phone.innerText = "No phone number available";
     }
     description.innerText = data.properties.description;
-    if (data.layer !== undefined && data.layer.id === _toilet) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
+    if (data.layer !== undefined && data.layer.id === _toilet) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lnglat[1] + ',' + lnglat[0] + '&travelmode=walking';
     else dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + data.properties.title + '&travelmode=walking';
 }
 
 //Fly to marker and centralize it
-function centralizeToMarker(lng, lat) {
+function centralizeToMarker(lnglat) {
     let zoom = map.getZoom();
-    lastCenter = [lng, lat];
+    lastCenter = [lnglat[0], lnglat[1]];
 
     map.flyTo({
-        center: [lng, lat],
+        center: [lnglat[0], lnglat[1]],
         offset: [shiftScreenX, -shiftScreenY],
         speed: 0.8,
         curve: .6,
