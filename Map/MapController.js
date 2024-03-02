@@ -27,7 +27,7 @@ const GeoJSON = {
                 website: 'https://www.thrillzone.co.nz/queenstown', //Website link
                 phone: '+643 441 1159', //Phone number
                 description: 'Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.', //Description in slide up
-                markerimage: 'url(https://raw.githubusercontent.com/FloGizzle/Thrillzone/3f59d4239e120017e3362c4107292cbc43f1922f/Map/Icons/TZ%20-%20512x512%20(1).svg?token=A2SCELHOBDRUPV4XXBZ5I63F4KYQY)', //What the marker looks like
+                markerimage: 'url(https://raw.githubusercontent.com/FloGizzle/Thrillzone/3f59d4239e120017e3362c4107292cbc43f1922f/Map/Icons/TZ%20-%20512x512%20(1).svg)', //What the marker looks like
                 layer: 'tz',
             }
         }
