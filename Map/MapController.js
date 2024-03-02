@@ -60,6 +60,7 @@ const title = document.getElementById('title');
 const website = document.getElementById('website');
 const phone = document.getElementById('phone');
 const description = document.getElementById('description');
+let isOpen = false;
 
 //ZOOM ANIMATION VARIABLES
 let lastCenter = center;
@@ -97,26 +98,13 @@ const map = new mapboxgl.Map({
     zoom: 4.25, // starting zoom
 });
 
-/*//Click functionallity for mapbox
-map.on('click', (e) => {
-    console.log("1");
-    //Set click event to wanted layer
-    const [selectedFeature] = map.queryRenderedFeatures(e.point, {
-        layers: _layerName
-        
-    });
-    console.log("2");
-
-    //if object is on layer do this
-    if (selectedFeature)
-        openSlideUp(selectedFeature, e.lngLat.lat, e.lngLat.lng);
-    else {
-        toggleSmall();
-        if (initZoom) zoomInToQueenstown();
-        closeSlideUp();
-    }
-
-})*/
+//Click functionallity for mapbox
+map.on('click', () => {
+    //Close pop ups if open
+    toggleSmall();
+    if (initZoom) zoomInToQueenstown();
+    if (isOpen)closeSlideUp();
+})
 //#endregion
 
 //#region ADDING LAYERS TO MAP
@@ -148,9 +136,11 @@ function addLayers() {
         
         el.addEventListener('click', () =>{
             openSlideUp(marker);
+            setTimeout(()=>{
+                isOpen=true;
+            }, 20);
         });
     }
-    console.log(_TZ.length);
 }
 //#endregion
 
@@ -162,7 +152,6 @@ dirButton.addEventListener('click', () => window.open(dirButton.href, "_blank"))
 
 //Opens the slide up and updates all the data
 function openSlideUp(data) {
-    console.log(data);
     if(!data.isVisible) return;
     //Start pop up animation and centralizing to marker
     textContainer.scrollTo(0, 0);
@@ -221,6 +210,7 @@ function closeSlideUp() {
             zoom: lastZoom
         });
     }
+    isOpen = false;
 }
 //#endregion
 
