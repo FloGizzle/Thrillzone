@@ -17,15 +17,9 @@ body {
     overflow: hidden;
 }
 
-.tempimg{
-    width:100%;
-    height: 100%;
-    top:0;
-    position: fixed;
-}
-
 /*MAP*/
 #map {
+    z-index: 0;
     width: 100svw;
     height: 105svh;
     top: 0;

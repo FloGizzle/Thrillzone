@@ -1,7 +1,7 @@
 /*CUSTOM VARIABLES PER MAP VERSION*/
 
+//#region LAYERS
 //layers used in this build
-
 const _TZ = [];
 const _EQ = [];
 const _ent = [];
@@ -12,9 +12,6 @@ const _transit = [];
 const _custom = [];
 const _layers = [_TZ, _EQ, _ent, _info, _food, _toilet, _transit, _custom];
 const _layerName = ['tz', 'eq', 'ent', 'info', 'food', 'toilet', 'transit', 'custom'];
-
-//#region GEOJSON FOR MARKERS
-const iconsize = [100, 100];
 
 /* example geojson
 [
@@ -46,7 +43,7 @@ const iconsize = [100, 100];
 ]
 */
 
-//#ENDREGION
+//#endregion
 
 //#region VARIABLES
 
@@ -112,7 +109,7 @@ map.on('click', () => {
     //Close pop ups if open
     toggleSmall();
     if (initZoom) zoomInToQueenstown();
-    if (isOpen)closeSlideUp();
+    closeSlideUp();
 })
 
 //#endregion
@@ -131,6 +128,7 @@ function addLayers(GeoJSON) {
             el.style.height = '50px';
             el.style.backgroundSize = '100%';
             el.style.display = 'none';
+            el.style.zIndex = 1;
 
             for (let j = 0; j < _layerName.length; j++) {
                 if (marker.properties.layer === _layerName[j]) {
@@ -144,11 +142,11 @@ function addLayers(GeoJSON) {
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map);
             
-            el.addEventListener('click', () =>{
-                openSlideUp(marker);
+            el.addEventListener('click', (event) =>{
+                openSlideUp(marker, event);
                 setTimeout(()=>{
-                    isOpen=true;
-                }, 20);
+                    isOpen = true;
+                }, 1);
             });
         }
     }
@@ -162,13 +160,13 @@ slideClose.addEventListener('click', () => closeSlideUp());
 dirButton.addEventListener('click', () => window.open(dirButton.href, "_blank"));
 
 //Opens the slide up and updates all the data
-function openSlideUp(data) {
-    if(!data.isVisible) return;
+function openSlideUp(data, event) {
+    //Stop parent event from doing anything
+    event.stopPropagation();
     //Start pop up animation and centralizing to marker
     textContainer.scrollTo(0, 0);
     slideUp.classList.add('slidein');
     const lnglat = data.geometry.coordinates;
-    console.log(lnglat);
     centralizeToMarker(lnglat);
     toggleSmall();
 
@@ -220,8 +218,8 @@ function closeSlideUp() {
             curve: .6,
             zoom: lastZoom
         });
+        isOpen = false;
     }
-    isOpen = false;
 }
 //#endregion
 
@@ -329,9 +327,9 @@ map.on('moveend', () => {
 });
 //#endregion
 
-
-
 //#region NAVIGATION
+
+//Shows the selected layer
 function openLayer(id)
 {
     if(id ==='all'){
@@ -366,6 +364,7 @@ function openLayer(id)
     }); 
 }
 
+//Shows all layers
 function openAll()
 {
     let elements = document.querySelectorAll(`img[class^="marker"]`);
