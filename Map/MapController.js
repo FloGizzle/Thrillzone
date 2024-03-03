@@ -121,34 +121,36 @@ map.on('click', () => {
 //When the map is loaded add our layers on top
 //Add markers to map
 function addLayers(GeoJSON) {
-    for (const marker of GeoJSON[0].features) {
-        const el = document.createElement('img');
+    for (let i = 0; i < GeoJSON.length; i++) {
+        for (const marker of GeoJSON[i].features) {
+            const el = document.createElement('img');
 
-        el.className = 'marker'+marker.properties.layer;
-        el.src = marker.properties.markerimage;
-        el.style.width = '50px';
-        el.style.height = '50px';
-        el.style.backgroundSize = '100%';
-        el.style.display = 'none';
+            el.className = 'marker'+marker.properties.layer;
+            el.src = marker.properties.markerimage;
+            el.style.width = '50px';
+            el.style.height = '50px';
+            el.style.backgroundSize = '100%';
+            el.style.display = 'none';
 
-        for (let i = 0; i < _layerName.length; i++) {
-            if (marker.properties.layer === _layerName[i]) {
-                _layers[i].push(marker);
-                break;
+            for (let j = 0; j < _layerName.length; j++) {
+                if (marker.properties.layer === _layerName[j]) {
+                    _layers[j].push(marker);
+                    break;
+                }
             }
-        }
 
-        // Add markers to the map.
-        new mapboxgl.Marker(el)
-            .setLngLat(marker.geometry.coordinates)
-            .addTo(map);
-        
-        el.addEventListener('click', () =>{
-            openSlideUp(marker);
-            setTimeout(()=>{
-                isOpen=true;
-            }, 20);
-        });
+            // Add markers to the map.
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+            
+            el.addEventListener('click', () =>{
+                openSlideUp(marker);
+                setTimeout(()=>{
+                    isOpen=true;
+                }, 20);
+            });
+        }
     }
 }
 //#endregion
@@ -267,6 +269,7 @@ function toggleSmall(event) {
 function Init() {
     $.getJSON('https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json', function( data ) {
         addLayers(data);
+        console.log(data);
     });
     const navButtons = document.querySelectorAll('.navbar-item');
     for (let i = 0; i < navButtons.length; i++) {
