@@ -13,29 +13,36 @@ const _layerName = ['tz', 'eq', 'info', 'food', 'toilet', 'transit', 'custom'];
 
 //#region GEOJSON FOR MARKERS
 const iconsize = [100, 100];
-const GeoJSON = {
-    type: 'geojson',
-    features: [
-        {
-            type: 'feature',
-            geometry: {
-                type: 'point', //Type of feature (point/geometry)
-                coordinates: [168.65823513386408, -45.032036049661855], //Location of point in [Lng,Lat]
-                
-            },
-            isVisible: true, //Is it currently rendrered
-            properties: {
-                title: 'Thrillzone Queenstown', //Title on slide up
-                maptitle: 'Thrillzone', //Title on map
-                website: 'https://www.thrillzone.co.nz/queenstown', //Website link
-                phone: '+643 441 1159', //Phone number
-                description: 'Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.', //Description in slide up
-                markerimage: 'https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/TZ.png?raw=true', //What the marker looks like
-                layer: 'tz',
+
+/* example geojson
+[
+    {
+    "type": "geojson",
+    "features": [
+            {
+            "type": "feature",
+            "geometry": {
+                "type": "point", //Type of feature (point/geometry)
+                "coordinates": [
+                        168.65823513386408,
+                        -45.032036049661855
+                    ] //Location of point in [Lng,Lat]
+                },
+            "isVisible": true, //Is it currently rendrered
+            "properties": {
+                "title": "Thrillzone Queenstown", //Title on slide up
+                "maptitle": "Thrillzone", //Title on map
+                "website": "https://www.thrillzone.co.nz/queenstown", //Website link
+                "phone": "+643 441 1159", //Phone number
+                "description": "Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.", //Description in slide up
+                "markerimage": "https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/TZ.png?raw=true", //What the marker looks like
+                "layer": "tz"
+                }
             }
-        }
-    ]
-};
+        ]
+    }
+]
+*/
 
 //#ENDREGION
 
@@ -111,11 +118,11 @@ map.on('click', () => {
 //When the map is loaded add our layers on top
 //Add markers to map
 function addLayers() {
+    const GeoJSON = jQuery.getJSON('');
     for (const marker of GeoJSON.features) {
         const el = document.createElement('img');
 
         el.className = 'marker';
-        //console.log(marker.);
         el.src = marker.properties.markerimage;
         el.style.width = '50px';
         el.style.height = '50px';
