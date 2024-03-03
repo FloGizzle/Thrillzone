@@ -334,44 +334,45 @@ map.on('moveend', () => {
 //#region NAVIGATION
 function openLayer(id)
 {
+    if(id ==='all'){
+        openAll();
+        return;
+    }
     let ids = id.split(" ");
-let idDone = [];
-let anyMatchesFound = false; // Flag to track if any matches were found
 
-ids.forEach(function(id) {
-    let matchesFoundForId = false; // Flag to track if any matches were found for the current ID
-
-    for (let j = 0; j < _layers.length; j++) {
-        if (_layers[j].length === 0) break;
-
-        let elements = document.querySelectorAll(`img[class^="marker${id}"]`);
-
-        elements.forEach(function(el) {
-            if (id === _layerName[j]) {
-                el.style.display = 'block';
-                idDone.push(id);
-                matchesFoundForId = true; // Set flag to true if any matches were found
-                anyMatchesFound = true; // Set global flag to true if any matches were found for any ID
-            } else {
-                el.style.display = 'none';
-            }
-        });
-    }
-
-    // If no matches were found for the current ID, push it to idDone to keep track
-    if (!matchesFoundForId) {
-        idDone.push(id);
-    }
-});
-
-// If no matches were found for any ID, hide all images
-if (!anyMatchesFound) {
     document.querySelectorAll('img[class^="marker"]').forEach(function(el) {
         el.style.display = 'none';
     });
+
+    ids.forEach(function(id) {
+        let matchesFoundForId = false; // Flag to track if any matches were found for the current ID
+        let icon = [];
+
+        for (let j = 0; j < _layers.length; j++) {
+            if (_layers[j].length === 0) break;
+
+            let elements = document.querySelectorAll(`img[class^="marker${id}"]`);
+
+            elements.forEach(function(el) {
+                if (id === _layerName[j]) {
+                    icon.push(el);
+                } 
+            });
+        }
+
+        icon.forEach(function(icon){
+            icon.style.display = 'block';
+        })
+    }); 
 }
 
-    
+function openAll()
+{
+    let elements = document.querySelectorAll(`img[class^="marker"]`);
+
+    elements.forEach(function(el) {
+        el.style.display = 'block';
+    });
 }
 //#endregion
 
