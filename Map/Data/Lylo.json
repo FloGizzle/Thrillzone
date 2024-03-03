@@ -11,7 +11,7 @@
                         -45.032036049661855
                     ]
                 },
-            "isVisible": false,
+            "isVisible": "hidden",
             "properties": {
                 "title": "Thrillzone Queenstown",
                 "maptitle": "Thrillzone",
