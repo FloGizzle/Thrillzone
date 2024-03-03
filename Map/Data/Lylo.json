@@ -1,25 +1,25 @@
 [
     {
-    "type": "geojson",
-    "features": [
+        "type": "geojson",
+        "features": [
             {
-            "type": "feature",
-            "geometry": {
-                "type": "point",
-                "coordinates": [
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
                         168.65823513386408,
                         -45.032036049661855
                     ]
                 },
-            "isVisible": "hidden",
-            "properties": {
-                "title": "Thrillzone Queenstown",
-                "maptitle": "Thrillzone",
-                "website": "https://www.thrillzone.co.nz/queenstown",
-                "phone": "+643 441 1159",
-                "description": "Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.",
-                "markerimage": "https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/TZ.png?raw=true",
-                "layer": "tz"
+                "isVisible": "hidden",
+                "properties": {
+                    "title": "Thrillzone Queenstown",
+                    "maptitle": "Thrillzone",
+                    "website": "https://www.thrillzone.co.nz/queenstown",
+                    "phone": "+643 441 1159",
+                    "description": "Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.",
+                    "markerimage": "https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/TZ.png?raw=true",
+                    "layer": "tz"
                 }
             }
         ]
@@ -28,23 +28,23 @@
         "type": "geojson",
         "features": [
             {
-            "type": "feature",
-            "geometry": {
-                "type": "point",
-                "coordinates": [
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
                         168.658214083206279,
                         -45.03194271162579
-                ]
-            },
+                    ]
+                },
                 "isVisible": "hidden",
                 "properties": {
-                    "title": "escape quest Queenstown",
-                    "maptitle": "Thrillzone",
-                    "website": "https://www.thrillzone.co.nz/queenstown",
-                    "phone": "+643 441 1159",
-                    "description": "Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.",
-                    "markerimage": "https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/TZ.png?raw=true",
-                    "layer": "eq"                
+                    "title": "Escape Quest Queenstown",
+                    "maptitle": "Escape Quest",
+                    "website": "https://www.escapequest.co.nz/",
+                    "phone": "+63 441 1159",
+                    "description": "Escape room center.",
+                    "markerimage": "https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/EQ.png?raw=true",
+                    "layer": "eq"
                 }
             }
         ]
