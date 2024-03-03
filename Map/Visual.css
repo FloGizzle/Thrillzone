@@ -156,3 +156,43 @@ body {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    height: 4rem;
+    width: 100vw;
+    background-color: var(--bg-secondary);
+  }
+
+.navbar-nav{
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    display:flex; 
+    flex-direction: row;  
+    justify-content: center;
+    align-items: center;
+}
+
+/* START NAV BAR */
+.nav-item{
+    height:100%;
+}
+
+.nav-link{
+    display: flex;
+    justify-content: center;
+    width: 5rem;
+    color: var(--text-primary);
+}
+
+.link-text{
+    display:none;
+}
+.nav-link svg{
+    min-width: 2rem;
+    margin: 0 1.5rem;
+    color: var(--text-primary);
+}
+/* END NAV BAR */

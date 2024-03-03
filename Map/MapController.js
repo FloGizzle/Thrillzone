@@ -1,15 +1,17 @@
 /*CUSTOM VARIABLES PER MAP VERSION*/
 
 //layers used in this build
+
 const _TZ = [];
 const _EQ = [];
+const _ent = [];
 const _info = [];
 const _food = [];
 const _toilet = [];
 const _transit = [];
 const _custom = [];
-const _layers = [_TZ, _EQ, _info, _food, _toilet, _transit, _custom];
-const _layerName = ['tz', 'eq', 'info', 'food', 'toilet', 'transit', 'custom'];
+const _layers = [_TZ, _EQ, _ent, _info, _food, _toilet, _transit, _custom];
+const _layerName = ['tz', 'eq', 'ent', 'info', 'food', 'toilet', 'transit', 'custom'];
 
 //#region GEOJSON FOR MARKERS
 const iconsize = [100, 100];
@@ -113,30 +115,25 @@ map.on('click', () => {
     if (isOpen)closeSlideUp();
 })
 
-$.getJSON('https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json', function( data ) {
-    addLayers(data);
-});
-
 //#endregion
 
 //#region ADDING LAYERS TO MAP
 //When the map is loaded add our layers on top
 //Add markers to map
 function addLayers(GeoJSON) {
-    console.log(GeoJSON[0].features);
     for (const marker of GeoJSON[0].features) {
         const el = document.createElement('img');
 
-        el.className = 'marker';
+        el.className = 'marker'+marker.properties.layer;
         el.src = marker.properties.markerimage;
         el.style.width = '50px';
         el.style.height = '50px';
         el.style.backgroundSize = '100%';
-        el.style.visibility = '${marker.isVisible}';
+        el.style.display = 'none';
 
-        for (let index = 0; index < _layerName.length; index++) {
-            if (marker.properties.layer === _layerName[index]) {
-                _layers.push(marker);
+        for (let i = 0; i < _layerName.length; i++) {
+            if (marker.properties.layer === _layerName[i]) {
+                _layers[i].push(marker);
                 break;
             }
         }
@@ -268,6 +265,14 @@ function toggleSmall(event) {
 
 //Initializes the screen to have a pop up
 function Init() {
+    $.getJSON('https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json', function( data ) {
+        addLayers(data);
+    });
+    const navButtons = document.querySelectorAll('.navbar-item');
+    for (let i = 0; i < navButtons.length; i++) {
+        navButtons[i].addEventListener('click', ()=> openLayer(navButtons[i].id)); 
+    }
+
     square.classList.toggle('centered');
     square.classList.toggle('big')
     content.innerText = startText;
@@ -306,12 +311,65 @@ map.on('moveend', () => {
     map['dragPan'].enable();
     map['touchZoomRotate'].enable();
 
-    //Add layers to screen when zoomed in
-    addLayers();
-
     //Make sure it doesn't happen anymore
     initZoom = false;
+
+    //Make layers visible
+    for (let i = 0; i < _layers.length; i++) {
+        if(_layers[i].length === 0) break;
+        console.log("init "+document.querySelectorAll('img[class^="marker"]'));
+        for (let el of document.querySelectorAll('img[class^="marker"]'))
+        {
+            el.style.display = 'block';
+        }
+    }
 });
+//#endregion
+
+
+
+//#region NAVIGATION
+function openLayer(id)
+{
+    let ids = id.split(" ");
+let idDone = [];
+let anyMatchesFound = false; // Flag to track if any matches were found
+
+ids.forEach(function(id) {
+    let matchesFoundForId = false; // Flag to track if any matches were found for the current ID
+
+    for (let j = 0; j < _layers.length; j++) {
+        if (_layers[j].length === 0) break;
+
+        let elements = document.querySelectorAll(`img[class^="marker${id}"]`);
+
+        elements.forEach(function(el) {
+            if (id === _layerName[j]) {
+                el.style.display = 'block';
+                idDone.push(id);
+                matchesFoundForId = true; // Set flag to true if any matches were found
+                anyMatchesFound = true; // Set global flag to true if any matches were found for any ID
+            } else {
+                el.style.display = 'none';
+            }
+        });
+    }
+
+    // If no matches were found for the current ID, push it to idDone to keep track
+    if (!matchesFoundForId) {
+        idDone.push(id);
+    }
+});
+
+// If no matches were found for any ID, hide all images
+if (!anyMatchesFound) {
+    document.querySelectorAll('img[class^="marker"]').forEach(function(el) {
+        el.style.display = 'none';
+    });
+}
+
+    
+}
 //#endregion
 
 //CALLS INITIALIZATION CODE
