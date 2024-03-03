@@ -118,7 +118,7 @@ map.on('click', () => {
 //When the map is loaded add our layers on top
 //Add markers to map
 function addLayers() {
-    const GeoJSON = jQuery.getJSON('');
+    const GeoJSON = jQuery.getJSON('https://FloGizzle.github.io/Thrillzone/map/data/Lylo.json');
     for (const marker of GeoJSON.features) {
         const el = document.createElement('img');
 
