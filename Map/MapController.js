@@ -112,14 +112,19 @@ map.on('click', () => {
     if (initZoom) zoomInToQueenstown();
     if (isOpen)closeSlideUp();
 })
+
+$.getJSON('https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json', function( data ) {
+    addLayers(data);
+});
+
 //#endregion
 
 //#region ADDING LAYERS TO MAP
 //When the map is loaded add our layers on top
 //Add markers to map
-function addLayers() {
-    const GeoJSON = jQuery.getJSON('https://FloGizzle.github.io/Thrillzone/map/data/Lylo.json');
-    for (const marker of GeoJSON.features) {
+function addLayers(GeoJSON) {
+    console.log(GeoJSON[0].features);
+    for (const marker of GeoJSON[0].features) {
         const el = document.createElement('img');
 
         el.className = 'marker';
@@ -127,7 +132,7 @@ function addLayers() {
         el.style.width = '50px';
         el.style.height = '50px';
         el.style.backgroundSize = '100%';
-        el.style.visibility = 'visible';
+        el.style.visibility = '${marker.isVisible}';
 
         for (let index = 0; index < _layerName.length; index++) {
             if (marker.properties.layer === _layerName[index]) {
