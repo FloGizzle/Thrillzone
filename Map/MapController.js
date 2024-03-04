@@ -133,6 +133,7 @@ function addLayers(GeoJSON) {
             for (let j = 0; j < _layerName.length; j++) {
                 if (marker.properties.layer === _layerName[j]) {
                     _layers[j].push(marker);
+                    console.log(_layers[j]);
                     break;
                 }
             }
