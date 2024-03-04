@@ -15,6 +15,32 @@
 
     <!--MAP DRAWN ON SCREEN-->
     <div id='map'></div>
+
+    <!--INTRODUCTION POP UP-->
+    <div class="initPopUp" id="init-popup">
+        <div class="allInitContent" id="all-init-content">
+            <h1 class="greetings" id="init-title">Kia Ora!</h1>
+            <span class="init-content" id="init-content"></span>
+            <span class="closebutton" id="init-close">&times;</span>
+
+            <div class="languagelocation">
+                <div class="language-select">
+                    <ul class="language">
+                        <li> 
+                            <select onchange="languageSelected(event)">
+                                <option value="en-GB">English (default)</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+                <div class="location-select">
+                    <input type="checkbox" id="onRadio" name="toggle" value="on" onchange="toggleState()">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--SLIDE UP-->
     <div class='slideUp'>
         <span class="slideClose">&times;</span>
@@ -47,6 +73,7 @@
         </div>
     </div>
 
+    <!--NAVIGATION BAR-->
     <div class="bottom">
         <!-- NAV BAR -->
         <!-- https://www.youtube.com/watch?v=biOMz4puGt8 -->

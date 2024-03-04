@@ -1,4 +1,107 @@
 /*CUSTOM VARIABLES PER MAP VERSION*/
+const jsonURL = 'https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json';
+
+//#region LANGUAGES
+const languages = {
+            "sq-AL": "Albanian",
+            "am-ET": "Amharic",
+            "ar-SA": "Arabic",
+            "eu-ES": "Basque",
+            "be-BY": "Bielarus",
+            "bem-ZM": "Bemba",
+            "bi-VU": "Bislama",
+            "bjs-BB": "Bajan",
+            "bn-IN": "Bengali",
+            "br-FR": "Breton",
+            "bs-BA": "Bosnian",
+            "my-MM": "Burmese",
+            "ca-ES": "Catalan",
+            "cop-EG": "Coptic",
+            "hr-HR": "Croatian",
+            "cs-CZ": "Czech",
+            "da-DK": "Danish",
+            "dz-BT": "Dzongkha",
+            "en-GB": "English",
+            "et-EE": "Estonian",
+            "fi-FI": "Finnish",
+            "fn-FNG": "Fanagalo",
+            "fo-FO": "Faroese",
+            "fr-FR": "French",
+            "gl-ES": "Galician",
+            "de-DE": "German",
+            "gu-IN": "Gujarati",
+            "el-GR": "Greek",
+            "ha-NE": "Hausa",
+            "he-IL": "Hebrew",
+            "hi-IN": "Hindi",
+            "hu-HU": "Hungarian",
+            "id-ID": "Indonesian",
+            "is-IS": "Icelandic",
+            "it-IT": "Italian",
+            "ja-JP": "Japanese",
+            "kk-KZ": "Kazakh",
+            "km-KM": "Khmer",
+            "kn-IN": "Kannada",
+            "rn-BI": "Kirundi",
+            "ko-KR": "Korean",
+            "ku-TR": "Kurdish",
+            "ky-KG": "Kyrgyz",
+            "la-VA": "Latin",
+            "lo-LA": "Lao",
+            "lv-LV": "Latvian",
+            "men-SL": "Mende",
+            "mg-MG": "Malagasy",
+            "dv-MV": "Maldivian",
+            "mi-NZ": "Maori",
+            "ms-MY": "Malay",
+            "mt-MT": "Maltese",
+            "ne-NP": "Nepali",
+            "niu-NU": "Niuean",
+            "nl-NL": "Netherlands",
+            "no-NO": "Norwegian",
+            "ny-MW": "Nyanja",
+            "ur-PK": "Pakistani",
+            "pau-PW": "Palauan",
+            "pa-IN": "Panjabi",
+            "ps-PK": "Pashto",
+            "fa-IR": "Persian",
+            "pis-SB": "Pijin",
+            "pl-PL": "Polish",
+            "pt-PT": "Portuguese",
+            "ro-RO": "Romanian",
+            "ru-RU": "Russian",
+            "sg-CF": "Sango",
+            "si-LK": "Sinhala",
+            "sk-SK": "Slovak",
+            "sm-WS": "Samoan",
+            "sn-ZW": "Shona",
+            "so-SO": "Somali",
+            "es-ES": "Spanish",
+            "sr-RS": "Serbian",
+            "sv-SE": "Swedish",
+            "sw-SZ": "Swahili",
+            "ta-LK": "Tamil",
+            "te-IN": "Telugu",
+            "tet-TL": "Tetum",
+            "tg-TJ": "Tajik",
+            "th-TH": "Thai",
+            "bo-CN": "Tibetan",
+            "ti-TI": "Tigrinya",
+            "tk-TM": "Turkmen",
+            "tl-PH": "Tagalog",
+            "tn-BW": "Tswana",
+            "to-TO": "Tongan",
+            "tr-TR": "Turkish",
+            "uk-UA": "Ukrainian",
+            "uz-UZ": "Uzbek",
+            "vi-VN": "Vietnamese",
+            "cy-GB": "Welsh",
+            "wo-SN": "Wolof",
+            "xh-ZA": "Xhosa",
+            "yi-YD": "Yiddish",
+            "zu-ZA": "Zulu"
+};
+//#endregion
 
 //#region LAYERS
 //layers used in this build
@@ -55,6 +158,10 @@ const bounds = [
 const zoomoutCenter = [168.66228038195243, -45.03483913752131];
 const center = [168.65834407453838, -45.03205764496636];
 const startingCenter = [173.21106573769924, -41.81657804512245];
+const zoomMarker = 15;
+let markerVisible = false;
+const zoomMapTitle = 17;
+let mapTitleVisible = false;
 
 //SLIDE UP VARIABLES
 const slideClose = document.querySelector('.slideClose');
@@ -66,7 +173,6 @@ const title = document.getElementById('title');
 const website = document.getElementById('website');
 const phone = document.getElementById('phone');
 const description = document.getElementById('description');
-let isOpen = false;
 
 //ZOOM ANIMATION VARIABLES
 let lastCenter = center;
@@ -86,7 +192,13 @@ const content = document.getElementById('content');
 const icon = document.getElementById('icon');
 const closeButton = document.getElementById('closeButton');
 
-const startText = "Kia Ora! \n Welcome to the beautiful country of Te Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
+
+//VARIABLES FOR INIT POP UP
+const initpopup = document.getElementById('init-popup');
+const initcontent = document.getElementById('init-content');
+const initclose = document.getElementById('init-close');
+const inittitle = document.getElementById('init-title');
+const startText = "Welcome to the beautiful country of Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
 const temptext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 //#endregion
@@ -112,6 +224,35 @@ map.on('click', () => {
     closeSlideUp();
 })
 
+map.on('zoomend', (e) => {
+    const zoom = map.getZoom();
+    if(zoom < zoomMarker && markerVisible) toggleMarkers('none');
+    else if(zoom > zoomMarker && !markerVisible) toggleMarkers('block');
+    else if(zoom > zoomMarker && markerVisible) null;
+
+    if(zoom < zoomMapTitle && mapTitleVisible) toggleTitle('none');
+    else if(zoom > zoomMapTitle && !mapTitleVisible) toggleTitle('block');
+    else if(zoom > zoomMapTitle && mapTitleVisible) null;
+})
+
+function toggleMarkers(toggle){
+    
+    let elements = document.querySelectorAll(`img[class^="marker"]`);
+    elements.forEach(function(el) {
+        el.style.display = toggle;
+    });
+
+    if(toggle === 'none') markerVisible = false;
+    else if(toggle === 'block') markerVisible = true;
+}
+
+function toggleTitle(toggle){
+    console.log('toggle on the title under the logo');
+
+    if(toggle === 'none') mapTitleVisible = false;
+    else  if(toggle === 'block') mapTitleVisible = true;
+}
+
 //#endregion
 
 //#region ADDING LAYERS TO MAP
@@ -133,7 +274,6 @@ function addLayers(GeoJSON) {
             for (let j = 0; j < _layerName.length; j++) {
                 if (marker.properties.layer === _layerName[j]) {
                     _layers[j].push(marker);
-                    console.log(_layers[j]);
                     break;
                 }
             }
@@ -145,12 +285,10 @@ function addLayers(GeoJSON) {
             
             el.addEventListener('click', (event) =>{
                 openSlideUp(marker, event);
-                setTimeout(()=>{
-                    isOpen = true;
-                }, 1);
             });
         }
     }
+    
 }
 //#endregion
 
@@ -219,7 +357,6 @@ function closeSlideUp() {
             curve: .6,
             zoom: lastZoom
         });
-        isOpen = false;
     }
 }
 //#endregion
@@ -227,10 +364,6 @@ function closeSlideUp() {
 //#region INFO POP UP
 
 //EVENTLISTENERS FOR INFO POP UP
-square.addEventListener('click', toggleBig);
-closeButton.addEventListener('click', zoomInToQueenstown);
-closeButton.addEventListener('click', toggleSmall);
-
 //Changes the info button to a pop up with the data
 function toggleBig() {
     //Check if it is already done
@@ -266,30 +399,35 @@ function toggleSmall(event) {
 
 //Initializes the screen to have a pop up
 function Init() {
-    $.getJSON('https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json', function( data ) {
+    $.getJSON(jsonURL, function( data ) {
         addLayers(data);
-        console.log(data);
     });
-    const navButtons = document.querySelectorAll('.navbar-item');
-    for (let i = 0; i < navButtons.length; i++) {
-        navButtons[i].addEventListener('click', ()=> openLayer(navButtons[i].id)); 
-    }
 
-    square.classList.toggle('centered');
-    square.classList.toggle('big')
-    content.innerText = startText;
-    content.style.display = 'block';
-    icon.style.display = 'none';
+    let langOption = document.querySelectorAll('select');
+    langOption.forEach((get, con)=>{
+        for (let countrycode in languages)
+        {
+            let option = '<option value="'+countrycode+'">'+languages[countrycode]+'</option>';
+            get.insertAdjacentHTML('beforeend', option);
+        }
+    });
+
+
+    initcontent.innerText = startText;
 
     map['scrollZoom'].disable();
     map['dragRotate'].disable();
     map['boxZoom'].disable();
     map['dragPan'].disable();
     map['touchZoomRotate'].disable();
+
+    initclose.addEventListener('click', zoomInToQueenstown);
 }
 
 //Zooms into queenstown when the pop up is closed
 function zoomInToQueenstown() {
+    initpopup.classList.add('shrink');
+    document.getElementById("all-init-content").style.display = 'none';
     map.flyTo({
         center: lastCenter,
         speed: 1,
@@ -297,7 +435,7 @@ function zoomInToQueenstown() {
         zoom: lastZoom
     });
     //Remove the eventlistener so it wont zoom in again
-    closeButton.removeEventListener('click', zoomInToQueenstown);
+    initclose.removeEventListener('click', zoomInToQueenstown);
 }
 
 //Checks when fly in animation is done
@@ -324,6 +462,13 @@ map.on('moveend', () => {
         {
             el.style.display = 'block';
         }
+    }
+
+    square.addEventListener('click', toggleBig);
+    closeButton.addEventListener('click', toggleSmall);
+    const navButtons = document.querySelectorAll('.navbar-item');
+    for (let i = 0; i < navButtons.length; i++) {
+        navButtons[i].addEventListener('click', ()=> openLayer(navButtons[i].id)); 
     }
 });
 //#endregion
@@ -375,6 +520,25 @@ function openAll()
     });
 }
 //#endregion
+
+let lastLanguage = "en-GB";
+let newLanguage = "";
+function languageSelected(e)
+{
+    newLanguage=e.target.value;
+    changeLanguage(startText, initcontent);
+    console.log(e.target.value);
+}
+
+function changeLanguage(content, target)
+{
+    let transLINK = 'https://api.mymemory.translated.net/get?q='+content+'!&langpair='+lastLanguage+'|'+newLanguage;
+    fetch(transLINK).then(translate => translate.json()).then(data =>{
+        
+        target.innerText = data.responseData.translatedText;
+        console.log(data);
+    });
+}
 
 //CALLS INITIALIZATION CODE
 Init();
