@@ -27,15 +27,15 @@
                 <div class="language-select">
                     <ul class="language">
                         <li> 
+                            <label for="language">-Select language-</label>
                             <select onchange="languageSelected(event)">
-                                <option value="en-GB">English (default)</option>
                             </select>
                         </li>
                     </ul>
                 </div>
                 <div class="location-select">
-                    <input type="checkbox" id="onRadio" name="toggle" value="on" onchange="toggleState()">
-
+                    <label fort="location-select" id="location-select-text">Show location</label>
+                    <input type="checkbox" class="checkbox" id="onRadio" name="toggle" value="on" onchange="toggleState(value)">
                 </div>
             </div>
         </div>

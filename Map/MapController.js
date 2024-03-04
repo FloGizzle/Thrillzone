@@ -3,28 +3,23 @@ const jsonURL = 'https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json';
 
 //#region LANGUAGES
 const languages = {
+            "en-GB": "English (Default)",
             "sq-AL": "Albanian",
             "am-ET": "Amharic",
             "ar-SA": "Arabic",
             "eu-ES": "Basque",
             "be-BY": "Bielarus",
             "bem-ZM": "Bemba",
-            "bi-VU": "Bislama",
-            "bjs-BB": "Bajan",
             "bn-IN": "Bengali",
-            "br-FR": "Breton",
             "bs-BA": "Bosnian",
             "my-MM": "Burmese",
             "ca-ES": "Catalan",
-            "cop-EG": "Coptic",
             "hr-HR": "Croatian",
             "cs-CZ": "Czech",
             "da-DK": "Danish",
             "dz-BT": "Dzongkha",
-            "en-GB": "English",
             "et-EE": "Estonian",
             "fi-FI": "Finnish",
-            "fn-FNG": "Fanagalo",
             "fo-FO": "Faroese",
             "fr-FR": "French",
             "gl-ES": "Galician",
@@ -49,23 +44,19 @@ const languages = {
             "la-VA": "Latin",
             "lo-LA": "Lao",
             "lv-LV": "Latvian",
-            "men-SL": "Mende",
             "mg-MG": "Malagasy",
             "dv-MV": "Maldivian",
             "mi-NZ": "Maori",
             "ms-MY": "Malay",
             "mt-MT": "Maltese",
             "ne-NP": "Nepali",
-            "niu-NU": "Niuean",
             "nl-NL": "Netherlands",
             "no-NO": "Norwegian",
             "ny-MW": "Nyanja",
             "ur-PK": "Pakistani",
-            "pau-PW": "Palauan",
             "pa-IN": "Panjabi",
             "ps-PK": "Pashto",
             "fa-IR": "Persian",
-            "pis-SB": "Pijin",
             "pl-PL": "Polish",
             "pt-PT": "Portuguese",
             "ro-RO": "Romanian",
@@ -82,7 +73,6 @@ const languages = {
             "sw-SZ": "Swahili",
             "ta-LK": "Tamil",
             "te-IN": "Telugu",
-            "tet-TL": "Tetum",
             "tg-TJ": "Tajik",
             "th-TH": "Thai",
             "bo-CN": "Tibetan",
@@ -162,6 +152,7 @@ const zoomMarker = 15;
 let markerVisible = false;
 const zoomMapTitle = 17;
 let mapTitleVisible = false;
+let showMyLocation = false;
 
 //SLIDE UP VARIABLES
 const slideClose = document.querySelector('.slideClose');
@@ -191,15 +182,18 @@ const square = document.getElementById('square');
 const content = document.getElementById('content');
 const icon = document.getElementById('icon');
 const closeButton = document.getElementById('closeButton');
-
+let translatedInfoText = "";
+const temptext = "This is a temporary text which cannot be allowed over 500 characters, please if it is more than 500 characters, make it so that its multiple pieces of text!";
 
 //VARIABLES FOR INIT POP UP
 const initpopup = document.getElementById('init-popup');
 const initcontent = document.getElementById('init-content');
 const initclose = document.getElementById('init-close');
+const initToggle = document.getElementById('onRadio');
 const inittitle = document.getElementById('init-title');
 const startText = "Welcome to the beautiful country of Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
-const temptext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+const showloctext = document.getElementById('location-select-text');
+const loctextdefault = 'Show location';
 
 //#endregion
 
@@ -220,7 +214,7 @@ const map = new mapboxgl.Map({
 map.on('click', () => {
     //Close pop ups if open
     toggleSmall();
-    if (initZoom) zoomInToQueenstown();
+    if (initZoom) ZoomInToQueenstown();
     closeSlideUp();
 })
 
@@ -255,7 +249,7 @@ function toggleTitle(toggle){
 
 //#endregion
 
-//#region ADDING LAYERS TO MAP
+//#region LAYER WORK
 //When the map is loaded add our layers on top
 //Add markers to map
 function addLayers(GeoJSON) {
@@ -289,6 +283,51 @@ function addLayers(GeoJSON) {
         }
     }
     
+}
+
+//Shows the selected layer
+function openLayer(id)
+{
+    if(id ==='all'){
+        openAll();
+        return;
+    }
+    let ids = id.split(" ");
+
+    document.querySelectorAll('img[class^="marker"]').forEach(function(el) {
+        el.style.display = 'none';
+    });
+
+    ids.forEach(function(id) {
+        let matchesFoundForId = false; // Flag to track if any matches were found for the current ID
+        let icon = [];
+
+        for (let j = 0; j < _layers.length; j++) {
+            if (_layers[j].length === 0) break;
+
+            let elements = document.querySelectorAll(`img[class^="marker${id}"]`);
+
+            elements.forEach(function(el) {
+                if (id === _layerName[j]) {
+                    icon.push(el);
+                } 
+            });
+        }
+
+        icon.forEach(function(icon){
+            icon.style.display = 'block';
+        })
+    }); 
+}
+
+//Shows all layers
+function openAll()
+{
+    let elements = document.querySelectorAll(`img[class^="marker"]`);
+
+    elements.forEach(function(el) {
+        el.style.display = 'block';
+    });
 }
 //#endregion
 
@@ -373,7 +412,7 @@ function toggleBig() {
     square.classList.toggle('centered');
     setTimeout(() => {
         square.classList.toggle('big')
-        content.innerText = temptext;
+        content.innerText = translatedInfoText;
         content.style.display = 'block';
         icon.style.display = 'none';
     }, 250); // Delay should match the transition duration
@@ -414,6 +453,7 @@ function Init() {
 
 
     initcontent.innerText = startText;
+    showloctext.innerText = loctextdefault;
 
     map['scrollZoom'].disable();
     map['dragRotate'].disable();
@@ -421,13 +461,17 @@ function Init() {
     map['dragPan'].disable();
     map['touchZoomRotate'].disable();
 
-    initclose.addEventListener('click', zoomInToQueenstown);
+    initclose.addEventListener('click', ZoomInToQueenstown);
 }
 
 //Zooms into queenstown when the pop up is closed
-function zoomInToQueenstown() {
-    initpopup.classList.add('shrink');
+function ZoomInToQueenstown() {
     document.getElementById("all-init-content").style.display = 'none';
+    initpopup.style.width = 'auto';
+    initpopup.classList.add('shrink');
+
+    ChechkToTranslate();
+
     map.flyTo({
         center: lastCenter,
         speed: 1,
@@ -435,7 +479,7 @@ function zoomInToQueenstown() {
         zoom: lastZoom
     });
     //Remove the eventlistener so it wont zoom in again
-    initclose.removeEventListener('click', zoomInToQueenstown);
+    initclose.removeEventListener('click', ZoomInToQueenstown);
 }
 
 //Checks when fly in animation is done
@@ -473,71 +517,49 @@ map.on('moveend', () => {
 });
 //#endregion
 
-//#region NAVIGATION
-
-//Shows the selected layer
-function openLayer(id)
-{
-    if(id ==='all'){
-        openAll();
-        return;
-    }
-    let ids = id.split(" ");
-
-    document.querySelectorAll('img[class^="marker"]').forEach(function(el) {
-        el.style.display = 'none';
-    });
-
-    ids.forEach(function(id) {
-        let matchesFoundForId = false; // Flag to track if any matches were found for the current ID
-        let icon = [];
-
-        for (let j = 0; j < _layers.length; j++) {
-            if (_layers[j].length === 0) break;
-
-            let elements = document.querySelectorAll(`img[class^="marker${id}"]`);
-
-            elements.forEach(function(el) {
-                if (id === _layerName[j]) {
-                    icon.push(el);
-                } 
-            });
-        }
-
-        icon.forEach(function(icon){
-            icon.style.display = 'block';
-        })
-    }); 
-}
-
-//Shows all layers
-function openAll()
-{
-    let elements = document.querySelectorAll(`img[class^="marker"]`);
-
-    elements.forEach(function(el) {
-        el.style.display = 'block';
-    });
-}
-//#endregion
-
 let lastLanguage = "en-GB";
 let newLanguage = "";
 function languageSelected(e)
 {
     newLanguage=e.target.value;
-    changeLanguage(startText, initcontent);
-    console.log(e.target.value);
+    if(newLanguage !== lastLanguage)
+    {
+    ChangeLanguage(startText).then(response=> initcontent.innerText = response);
+    ChangeLanguage(loctextdefault).then(response=> showloctext.innerText = response);
+    }
+    else
+    {
+        initcontent.innerText = startText;
+        showloctext.innerText = loctextdefault;
+    }
 }
 
-function changeLanguage(content, target)
+function toggleState(state)
+{
+    if(state === 'on') onRadio.value = 'off';
+    else onRadio.value = 'on';
+    console.log(state);
+    
+}
+
+function ChangeLanguage(content)
 {
     let transLINK = 'https://api.mymemory.translated.net/get?q='+content+'!&langpair='+lastLanguage+'|'+newLanguage;
-    fetch(transLINK).then(translate => translate.json()).then(data =>{
-        
-        target.innerText = data.responseData.translatedText;
-        console.log(data);
+    return fetch(transLINK).then(translate => translate.json()).then(data =>{
+        return data.responseData.translatedText;
     });
+}
+
+function ChechkToTranslate()
+{
+    if(newLanguage === lastLanguage || newLanguage === '') 
+    {
+        translatedInfoText = temptext;
+        return;
+    }
+
+    ChangeLanguage(temptext).then(response=> translatedInfoText = response);
+
 }
 
 //CALLS INITIALIZATION CODE
