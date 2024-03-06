@@ -2,6 +2,19 @@
 const jsonURL = 'https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json';
 
 //#region LANGUAGES
+//Translatable texts
+const loctextdefault = 'Show location';
+const startText = "Welcome to the beautiful country of Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
+let infoText = "This is a temporary text which cannot be allowed over 500 characters, please if it is more than 500 characters, make it so that its multiple pieces of text!";
+let websiteLink = "Go to website";
+let noWebsiteLink = "No website available";
+let noPhone = "No phone number available";
+let dirText = "Go to";
+
+
+let lastLanguage = "en-GB";
+let newLanguage = "";
+//Language options
 const languages = {
             "en-GB": "English (Default)",
             "sq-AL": "Albanian",
@@ -164,6 +177,7 @@ const title = document.getElementById('title');
 const website = document.getElementById('website');
 const phone = document.getElementById('phone');
 const description = document.getElementById('description');
+const direction = document.getElementById('direction');
 
 //ZOOM ANIMATION VARIABLES
 let lastCenter = center;
@@ -182,8 +196,6 @@ const square = document.getElementById('square');
 const content = document.getElementById('content');
 const icon = document.getElementById('icon');
 const closeButton = document.getElementById('closeButton');
-let translatedInfoText = "";
-const temptext = "This is a temporary text which cannot be allowed over 500 characters, please if it is more than 500 characters, make it so that its multiple pieces of text!";
 
 //VARIABLES FOR INIT POP UP
 const initpopup = document.getElementById('init-popup');
@@ -191,9 +203,7 @@ const initcontent = document.getElementById('init-content');
 const initclose = document.getElementById('init-close');
 const initToggle = document.getElementById('onRadio');
 const inittitle = document.getElementById('init-title');
-const startText = "Welcome to the beautiful country of Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
 const showloctext = document.getElementById('location-select-text');
-const loctextdefault = 'Show location';
 
 //#endregion
 
@@ -213,23 +223,23 @@ const map = new mapboxgl.Map({
 //Click functionallity for mapbox
 map.on('click', () => {
     //Close pop ups if open
-    toggleSmall();
+    CloseInfo();
     if (initZoom) ZoomInToQueenstown();
-    closeSlideUp();
+    CloseSlideUp();
 })
 
 map.on('zoomend', (e) => {
     const zoom = map.getZoom();
-    if(zoom < zoomMarker && markerVisible) toggleMarkers('none');
-    else if(zoom > zoomMarker && !markerVisible) toggleMarkers('block');
+    if(zoom < zoomMarker && markerVisible) ToggleMarkers('none');
+    else if(zoom > zoomMarker && !markerVisible) ToggleMarkers('block');
     else if(zoom > zoomMarker && markerVisible) null;
 
-    if(zoom < zoomMapTitle && mapTitleVisible) toggleTitle('none');
-    else if(zoom > zoomMapTitle && !mapTitleVisible) toggleTitle('block');
+    if(zoom < zoomMapTitle && mapTitleVisible) ToggleTitle('none');
+    else if(zoom > zoomMapTitle && !mapTitleVisible) ToggleTitle('block');
     else if(zoom > zoomMapTitle && mapTitleVisible) null;
 })
 
-function toggleMarkers(toggle){
+function ToggleMarkers(toggle){
     
     let elements = document.querySelectorAll(`img[class^="marker"]`);
     elements.forEach(function(el) {
@@ -240,7 +250,7 @@ function toggleMarkers(toggle){
     else if(toggle === 'block') markerVisible = true;
 }
 
-function toggleTitle(toggle){
+function ToggleTitle(toggle){
     console.log('toggle on the title under the logo');
 
     if(toggle === 'none') mapTitleVisible = false;
@@ -278,7 +288,7 @@ function addLayers(GeoJSON) {
                 .addTo(map);
             
             el.addEventListener('click', (event) =>{
-                openSlideUp(marker, event);
+                OpenSlideUp(marker, event);
             });
         }
     }
@@ -286,8 +296,11 @@ function addLayers(GeoJSON) {
 }
 
 //Shows the selected layer
-function openLayer(id)
+function OpenLayer(id)
 {
+    CloseSlideUp();
+    CloseInfo();
+
     if(id ==='all'){
         openAll();
         return;
@@ -334,35 +347,35 @@ function openAll()
 //#region SLIDE UP CONTROLS
 
 //EVENTLISTENERS FOR SLIDE UP
-slideClose.addEventListener('click', () => closeSlideUp());
+slideClose.addEventListener('click', () => CloseSlideUp());
 dirButton.addEventListener('click', () => window.open(dirButton.href, "_blank"));
 
 //Opens the slide up and updates all the data
-function openSlideUp(data, event) {
+function OpenSlideUp(data, event) {
     //Stop parent event from doing anything
     event.stopPropagation();
     //Start pop up animation and centralizing to marker
     textContainer.scrollTo(0, 0);
     slideUp.classList.add('slidein');
     const lnglat = data.geometry.coordinates;
-    centralizeToMarker(lnglat);
-    toggleSmall();
+    CentralizeToMarker(lnglat);
+    CloseInfo();
 
     //Add data text from mapbox
     title.innerText = data.properties.title;
     if (data.properties.website != "") {
         website.href = data.properties.website;
-        website.innerText = "Go to website";
+        website.innerText = websiteLink;
     }
     else {
         website.href = "https://www.thrillzone.co.nz/queenstown";
-        website.innerText = "No website available";
+        website.innerText = noWebsiteLink;
     }
     if (data.properties.phone != "") {
         phone.innerText = data.properties.phone;
     }
     else {
-        phone.innerText = "No phone number available";
+        phone.innerText = noPhone;
     }
     description.innerText = data.properties.description;
     if (data.layer !== undefined && data.layer.id === _toilet) dirButton.href = 'https://www.google.com/maps/dir/?api=1&destination=' + lnglat[1] + ',' + lnglat[0] + '&travelmode=walking';
@@ -370,7 +383,7 @@ function openSlideUp(data, event) {
 }
 
 //Fly to marker and centralize it
-function centralizeToMarker(lnglat) {
+function CentralizeToMarker(lnglat) {
     let zoom = map.getZoom();
     lastCenter = [lnglat[0], lnglat[1]];
 
@@ -384,7 +397,7 @@ function centralizeToMarker(lnglat) {
 }
 
 //Closes slide up
-function closeSlideUp() {
+function CloseSlideUp() {
     //slide pop up out animation
     if (slideUp.classList.contains('slidein')) {
         slideUp.classList.remove('slidein');
@@ -404,22 +417,22 @@ function closeSlideUp() {
 
 //EVENTLISTENERS FOR INFO POP UP
 //Changes the info button to a pop up with the data
-function toggleBig() {
+function OpenInfo() {
     //Check if it is already done
     if (square.classList.contains('centered')) return;
 
-    closeSlideUp();
+    CloseSlideUp();
     square.classList.toggle('centered');
     setTimeout(() => {
         square.classList.toggle('big')
-        content.innerText = translatedInfoText;
+        content.innerText = infoText;
         content.style.display = 'block';
         icon.style.display = 'none';
     }, 250); // Delay should match the transition duration
 }
 
 //Changes the pop up back to the info button
-function toggleSmall(event) {
+function CloseInfo(event) {
     //Check if it is already done
     if (!square.classList.contains('centered')) return;
     //Check if there is a eventlistener that could cause problems
@@ -438,6 +451,7 @@ function toggleSmall(event) {
 
 //Initializes the screen to have a pop up
 function Init() {
+    //Get json data
     $.getJSON(jsonURL, function( data ) {
         addLayers(data);
     });
@@ -508,24 +522,23 @@ map.on('moveend', () => {
         }
     }
 
-    square.addEventListener('click', toggleBig);
-    closeButton.addEventListener('click', toggleSmall);
+    square.addEventListener('click', OpenInfo);
+    closeButton.addEventListener('click', CloseInfo);
     const navButtons = document.querySelectorAll('.navbar-item');
     for (let i = 0; i < navButtons.length; i++) {
-        navButtons[i].addEventListener('click', ()=> openLayer(navButtons[i].id)); 
+        navButtons[i].addEventListener('click', ()=> OpenLayer(navButtons[i].id)); 
     }
 });
 //#endregion
 
-let lastLanguage = "en-GB";
-let newLanguage = "";
-function languageSelected(e)
+//#region LANGUAGE SECTION
+function LanguageSelected(e)
 {
     newLanguage=e.target.value;
     if(newLanguage !== lastLanguage)
     {
-    ChangeLanguage(startText).then(response=> initcontent.innerText = response);
-    ChangeLanguage(loctextdefault).then(response=> showloctext.innerText = response);
+        ChangeLanguage(startText).then(response=> initcontent.innerText = response);
+        ChangeLanguage(loctextdefault).then(response=> showloctext.innerText = response);
     }
     else
     {
@@ -554,12 +567,15 @@ function ChechkToTranslate()
 {
     if(newLanguage === lastLanguage || newLanguage === '') 
     {
-        translatedInfoText = temptext;
+        translatedInfoText = infoText;
         return;
     }
 
-    ChangeLanguage(temptext).then(response=> translatedInfoText = response);
-
+    ChangeLanguage(infoText).then(response=> infoText = response);
+    ChangeLanguage(noWebsiteLink).then(response => noWebsiteLink = response);
+    ChangeLanguage(websiteLink).then(response => websiteLink = response);
+    ChangeLanguage(noPhone).then(response=> noPhone = response);
+    ChangeLanguage(dirText).then(response => direction.innerText = response);
 }
 
 //CALLS INITIALIZATION CODE
