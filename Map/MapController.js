@@ -5,6 +5,7 @@ const jsonURL = 'https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json';
 //Translatable texts
 const loctextdefault = 'Show location';
 const startText = "Welcome to the beautiful country of Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
+const initCloseText = "Understood";
 let infoText = "This is a temporary text which cannot be allowed over 500 characters, please if it is more than 500 characters, make it so that its multiple pieces of text!";
 let websiteLink = "Go to website";
 let noWebsiteLink = "No website available";

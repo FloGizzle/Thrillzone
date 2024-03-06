@@ -21,21 +21,25 @@
         <div class="allInitContent" id="all-init-content">
             <h1 class="greetings" id="init-title">Kia Ora!</h1>
             <span class="init-content" id="init-content"></span>
-            <span class="closebutton" id="init-close">&times;</span>
 
-            <div class="languagelocation">
-                <div class="language-select">
-                    <ul class="language">
-                        <li> 
-                            <label for="language">-Select language-</label>
-                            <select onchange="LanguageSelected(event)">
-                            </select>
-                        </li>
-                    </ul>
+            <div class="interactive-container">
+                <div class="languagelocation">
+                    <div class="language-select">
+                        <ul class="language">
+                            <li> 
+                                <label for="language">-Select language-</label>
+                                <select onchange="LanguageSelected(event)">
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="location-select">
+                        <label fort="location-select" id="location-select-text">Show location</label>
+                        <input type="checkbox" class="checkbox" id="onRadio" name="toggle" value="on" onchange="toggleState(value)">
+                    </div>
                 </div>
-                <div class="location-select">
-                    <label fort="location-select" id="location-select-text">Show location</label>
-                    <input type="checkbox" class="checkbox" id="onRadio" name="toggle" value="on" onchange="toggleState(value)">
+                <div class="close-container">
+                    <span class="closebutton" id="init-close">Confirm</span>
                 </div>
             </div>
         </div>
