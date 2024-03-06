@@ -278,6 +278,7 @@ function addLayers(GeoJSON) {
             for (let j = 0; j < _layerName.length; j++) {
                 if (marker.properties.layer === _layerName[j]) {
                     _layers[j].push(marker);
+                    console.log(_layers[j]);
                     break;
                 }
             }
@@ -576,7 +577,14 @@ function ChechkToTranslate()
     ChangeLanguage(websiteLink).then(response => websiteLink = response);
     ChangeLanguage(noPhone).then(response=> noPhone = response);
     ChangeLanguage(dirText).then(response => direction.innerText = response);
+
+    for (let i = 0; i < _layers.length; i++) {
+        for (let j = 0; j < _layers[i].length; j++) {
+            ChangeLanguage(_layers[i][j].properties.description).then(response => _layers[i][j].properties.description = response);
+        }        
+    }
 }
+//#endregion
 
 //CALLS INITIALIZATION CODE
 Init();
