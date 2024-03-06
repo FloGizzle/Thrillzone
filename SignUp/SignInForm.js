@@ -29,11 +29,17 @@ checkbox.addEventListener('change', function () {
     }
 });
 
-// Make sure they can only hit submit once
 form.addEventListener('submit', e => {
+    // Capitalize inputs before submission
     capitalizeInputs();
+
+    // Generate and set date time value
     document.getElementById('date_time').value = generateDateTimeString();
-    e.preventDefault()
+
+    // Prevent default form submission
+    e.preventDefault();
+    // Disable the submit button to prevent multiple submissions
+    submitBtn.disabled = true;
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
         .then(response => alert("Thank you! your form is submitted successfully."))
         .then(() => { window.location.reload(); })
@@ -317,11 +323,12 @@ function isAdditionalInfoRequired() {
         nextPrev(1);
     }
     else {
-        displaySecondStepOfActivities()
+        displaySecondStepOfActivities();
     }
 }
 
 function displayFirstStepOfActivities() {
+    document.getElementById("phone_number").innerHTML = '';
     document.getElementById("activity_btns").style.display = "grid";
     document.getElementById("additional_info").style.display = "none";
     document.getElementById("prevBtn").style.display = "inline";
@@ -332,6 +339,7 @@ function displayFirstStepOfActivities() {
 
 function displaySecondStepOfActivities() {
     // display the additional info
+    document.getElementById("phone_number").innerHTML = '<input type="number" placeholder="Phone number?" name="Phone" oninput="this.className = \'\'">';
     document.getElementById("activity_btns").style.display = "none";
     document.getElementById("additional_info").style.display = "inline";
     document.getElementById("prevBtn").style.display = "none";
