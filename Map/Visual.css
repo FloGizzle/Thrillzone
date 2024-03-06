@@ -1,7 +1,7 @@
 :root{
     --color: rgb(255,255,255);
     --secondColor: rgb(250, 250, 250);
-    --thirdcolor: 	rgb(50, 205, 50);
+    --thirdcolor: 	rgb(187,220,162);
     --rounding: 10px;
 }
 html
@@ -261,9 +261,12 @@ body {
 
 .navbar-nav{
     list-style: none;
+    height: 100%;
     margin: 0;
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;;
     display:flex; 
+    align-content: center;
     flex-direction: row;  
     justify-content: center;
     align-items: center;
@@ -271,6 +274,8 @@ body {
 
 .nav-item{
     height:100%;
+    width: 100%;
+    border:1px black solid;
 }
 
 .nav-link{
@@ -287,5 +292,9 @@ body {
 .nav-link svg{
     min-width: 2rem;
     margin: 0 1.5rem;
+}
+
+.selected{
+    background-color: var(--secondColor);
 }
 /* END NAV BAR */
