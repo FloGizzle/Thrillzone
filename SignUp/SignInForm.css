@@ -54,6 +54,7 @@ button {
   background-color: #4CAF50;
   /* Green */
   border: none;
+  /* Transparent border initially */
   font-size: 11px;
   color: white;
   text-align: center;
@@ -158,6 +159,14 @@ input.invalid {
 
 #activity_btns {
   grid-template-columns: repeat(2, 1fr);
+}
+
+#activity_btns button {
+  border: 2px solid transparent;
+}
+
+#activity_btns button.selected {
+  border: 2px solid blue;
 }
 
 #options_for_how_did_you_hear_about_us {

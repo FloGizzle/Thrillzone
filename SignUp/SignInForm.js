@@ -261,8 +261,10 @@ function selectActivity(activityBtn, activityName) {
 function selectEscapeQuest(activityBtn) {
     if (!escapeQuest) {
         escapeQuest = true;
+        activityBtn.classList.add("selected");
     } else {
         escapeQuest = false;
+        activityBtn.classList.remove("selected");
     }
     enableCheckActivityBtn();
     console.log(escapeQuest);
