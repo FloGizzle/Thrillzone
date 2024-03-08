@@ -31,19 +31,27 @@ form.addEventListener("submit", (e) => {
   // Generate and set date time value
   document.getElementById("date_time").value = generateDateTimeString();
 
+  // Update the hidden input field with the updated list of activities
+  document.getElementById("what_activities").value = listOfTZActivities.join(", ");
+  document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
+
   // Prevent default form submission
   e.preventDefault();
+
   // Disable the submit button to prevent multiple submissions
   submitBtn.disabled = true;
 
-  fetch(scriptURLTZ, { method: "POST", body: new FormData(form) })
-    // .then((response) =>
-    //   alert("Thank you! your form is submitted successfully.")
-    // )
-    .then(() => {
-      window.location.reload();
-    })
-    .catch((error) => console.error("Error!", error.message));
+  // Hide the form and show thank you message
+
+  // Check if for Thrillzone 
+  if (listOfTZActivities !== null) {
+    fetch(scriptURLTZ, { method: "POST", body: new FormData(form) })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => console.error("Error!", error.message));
+  }
+  if (listOfEscapeRooms)
 });
 
 // Event listeners for user activity
@@ -290,8 +298,6 @@ function selectActivity(activityBtn, activityName, escapeRoom) {
     }
   }
   enableCheckActivityBtn();
-  // Update the hidden input field with the updated list of activities
-  //activityList.value = listOfTZActivities.join(",");
 
   console.log(listOfTZActivities);
   console.log(listOfEscapeRooms);

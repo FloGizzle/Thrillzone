@@ -1,539 +1,345 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="SignInForm.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <img
-        src="https://static.wixstatic.com/media/87cef4_7462fba664a848cb9c4aa317b63ef298~mv2.png/v1/crop/x_0,y_1011,w_11766,h_6418/fill/w_206,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Logo%20Thrillzone%20(no%20slogan).png"
-        alt="A beautiful landscape"
-      />
-      <form id="regForm" method="post" action="" name="sign-in-form">
-        <!-- One "tab" for each step in the form: -->
+<head>
+  <link rel="stylesheet" href="SignInForm.css" />
+</head>
 
-        <!-- Welcome to TZ -->
-        <div class="tab">
-          <h1>Welcome to Thrillzone</h1>
-          <button type="button" id="startButton" onclick="nextPrev(1)">
-            Start
+<body>
+  <div class="container">
+    <img
+      src="https://static.wixstatic.com/media/87cef4_7462fba664a848cb9c4aa317b63ef298~mv2.png/v1/crop/x_0,y_1011,w_11766,h_6418/fill/w_206,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Logo%20Thrillzone%20(no%20slogan).png"
+      alt="A beautiful landscape" />
+    <form id="regForm" method="post"
+      action="https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec"
+      name="sign-in-form">
+      <!-- One "tab" for each step in the form: -->
+
+      <!-- Welcome to TZ -->
+      <div class="tab">
+        <h1>Welcome to Thrillzone</h1>
+        <button type="button" id="startButton" onclick="nextPrev(1)">
+          Start
+        </button>
+      </div>
+
+      <!-- First name, last name and email -->
+      <div class="tab">
+        Name and Email:
+        <p>
+          <input type="text" placeholder="First name..." name="First Name" oninput="this.className = ''" />
+        </p>
+        <p>
+          <input type="text" placeholder="Last name..." name="Last Name" oninput="this.className = ''" />
+        </p>
+        <p>
+          <input type="email" placeholder="Email..." name="E-mail" oninput="this.className = ''" />
+        </p>
+        <!-- make the email only @, if first leter small character make capital-->
+      </div>
+
+      <!-- New Zealand ? -->
+      <div class="tab">
+        <div id="newZealand?">
+          Do you live in New Zealand ?
+          <button type="button" id="yesNZ" onclick="newZealandYes()">
+            Yes
           </button>
+          <button type="button" id="noNZ" onclick="newZealandNo()">No</button>
         </div>
+      </div>
 
-        <!-- First name, last name and email -->
-        <div class="tab">
-          Name and Email:
-          <p>
-            <input
-              type="text"
-              placeholder="First name..."
-              name="First Name"
-              oninput="this.className = ''"
-            />
-          </p>
-          <p>
-            <input
-              type="text"
-              placeholder="Last name..."
-              name="Last Name"
-              oninput="this.className = ''"
-            />
-          </p>
-          <p>
-            <input
-              type="email"
-              placeholder="Email..."
-              name="E-mail"
-              oninput="this.className = ''"
-            />
-          </p>
-          <!-- make the email only @, if first leter small character make capital-->
+      <!-- Region or Other Country ? -->
+      <div class="tab" id="region_or_country">
+        <input type="hidden" name="Region" id="region_nz" value="Other (International)" />
+        <div id="regions_nz" class="btn_grid">
+          <button type="button" id="btn_Auckland" onclick="setHiddenInputandNext('region_nz', 'Auckland')">
+            Auckland
+          </button>
+          <button type="button" id="btn_BayOfPlenty" onclick="setHiddenInputandNext('region_nz', 'Bay of Plenty')">
+            Bay of Plenty
+          </button>
+          <button type="button" id="btn_Cantebury" onclick="setHiddenInputandNext('region_nz', 'Cantebury')">
+            Cantebury
+          </button>
+          <button type="button" id="btn_Gisborne" onclick="setHiddenInputandNext('region_nz', 'Gisborne')">
+            Gisborne
+          </button>
+          <button type="button" id="btn_HawkesBay" onclick="setHiddenInputandNext('region_nz', 'Hawkes Bay')">
+            Hawkes Bay
+          </button>
+          <button type="button" id="btn_Marlborough" onclick="setHiddenInputandNext('region_nz', 'Marlborough')">
+            Marlborough
+          </button>
+          <button type="button" id="btn_Nelson" onclick="setHiddenInputandNext('region_nz', 'Nelson')">
+            Nelson
+          </button>
+          <button type="button" id="btn_Northland" onclick="setHiddenInputandNext('region_nz', 'Northland')">
+            Northland
+          </button>
+          <button type="button" id="btn_Otago" onclick="setHiddenInputandNext('region_nz', 'Otago')">
+            Otago
+          </button>
+          <button type="button" id="btn_Queenstown" onclick="setHiddenInputandNext('region_nz', 'Queenstown')">
+            Queenstown
+          </button>
+          <button type="button" id="btn_Southland" onclick="setHiddenInputandNext('region_nz', 'Southland')">
+            Southland
+          </button>
+          <button type="button" id="btn_Taranaki" onclick="setHiddenInputandNext('region_nz', 'Taranaki')">
+            Taranaki
+          </button>
+          <button type="button" id="btn_Waikato" onclick="setHiddenInputandNext('region_nz', 'Waikato')">
+            Waikato
+          </button>
+          <button type="button" id="btn_Wellington" onclick="setHiddenInputandNext('region_nz', 'Wellington')">
+            Wellington
+          </button>
+          <button type="button" id="btn_WestCoast" onclick="setHiddenInputandNext('region_nz', 'West Coast')">
+            West Coast
+          </button>
+          <button type="button" id="btn_Whanganui" onclick="setHiddenInputandNext('region_nz', 'Whanganui')">
+            Whanganui
+          </button>
+          <!-- More buttons here for each region-->
         </div>
-
-        <!-- New Zealand ? -->
-        <div class="tab">
-          <div id="newZealand?">
-            Do you live in New Zealand ?
-            <button type="button" id="yesNZ" onclick="newZealandYes()">
-              Yes
-            </button>
-            <button type="button" id="noNZ" onclick="newZealandNo()">No</button>
+        <div id="countries">
+          What Country are you from ?
+          <div class="text-container">
+            <input type="text" list="country_options" id="input_countries" name="Country" placeholder="Enter Country"
+              value="" />
+            <datalist id="country_options">
+              <option value="Australia">Australia</option>
+              <option value="China">China</option>
+              <option value="United States">United States</option>
+              <!-- More options here for each country-->
+            </datalist>
           </div>
         </div>
+      </div>
 
-        <!-- Region or Other Country ? -->
-        <div class="tab" id="region_or_country">
-          <input
-            type="hidden"
-            name="Region"
-            id="region_nz"
-            value="Other (International)"
-          />
-          <div id="regions_nz" class="btn_grid">
-            <button
-              type="button"
-              id="btn_Auckland"
-              onclick="setHiddenInputandNext('region_nz', 'Auckland')"
-            >
-              Auckland
-            </button>
-            <button
-              type="button"
-              id="btn_BayOfPlenty"
-              onclick="setHiddenInputandNext('region_nz', 'Bay of Plenty')"
-            >
-              Bay of Plenty
-            </button>
-            <button
-              type="button"
-              id="btn_Cantebury"
-              onclick="setHiddenInputandNext('region_nz', 'Cantebury')"
-            >
-              Cantebury
-            </button>
-            <button
-              type="button"
-              id="btn_Gisborne"
-              onclick="setHiddenInputandNext('region_nz', 'Gisborne')"
-            >
-              Gisborne
-            </button>
-            <button
-              type="button"
-              id="btn_HawkesBay"
-              onclick="setHiddenInputandNext('region_nz', 'Hawkes Bay')"
-            >
-              Hawkes Bay
-            </button>
-            <button
-              type="button"
-              id="btn_Marlborough"
-              onclick="setHiddenInputandNext('region_nz', 'Marlborough')"
-            >
-              Marlborough
-            </button>
-            <button
-              type="button"
-              id="btn_Nelson"
-              onclick="setHiddenInputandNext('region_nz', 'Nelson')"
-            >
-              Nelson
-            </button>
-            <button
-              type="button"
-              id="btn_Northland"
-              onclick="setHiddenInputandNext('region_nz', 'Northland')"
-            >
-              Northland
-            </button>
-            <button
-              type="button"
-              id="btn_Otago"
-              onclick="setHiddenInputandNext('region_nz', 'Otago')"
-            >
-              Otago
-            </button>
-            <button
-              type="button"
-              id="btn_Queenstown"
-              onclick="setHiddenInputandNext('region_nz', 'Queenstown')"
-            >
-              Queenstown
-            </button>
-            <button
-              type="button"
-              id="btn_Southland"
-              onclick="setHiddenInputandNext('region_nz', 'Southland')"
-            >
-              Southland
-            </button>
-            <button
-              type="button"
-              id="btn_Taranaki"
-              onclick="setHiddenInputandNext('region_nz', 'Taranaki')"
-            >
-              Taranaki
-            </button>
-            <button
-              type="button"
-              id="btn_Waikato"
-              onclick="setHiddenInputandNext('region_nz', 'Waikato')"
-            >
-              Waikato
-            </button>
-            <button
-              type="button"
-              id="btn_Wellington"
-              onclick="setHiddenInputandNext('region_nz', 'Wellington')"
-            >
-              Wellington
-            </button>
-            <button
-              type="button"
-              id="btn_WestCoast"
-              onclick="setHiddenInputandNext('region_nz', 'West Coast')"
-            >
-              West Coast
-            </button>
-            <button
-              type="button"
-              id="btn_Whanganui"
-              onclick="setHiddenInputandNext('region_nz', 'Whanganui')"
-            >
-              Whanganui
-            </button>
-            <!-- More buttons here for each region-->
-          </div>
-          <div id="countries">
-            What Country are you from ?
-            <div class="text-container">
-              <input
-                type="text"
-                list="country_options"
-                id="input_countries"
-                name="Country"
-                placeholder="Enter Country"
-                value=""
-              />
-              <datalist id="country_options">
-                <option value="Australia">Australia</option>
-                <option value="China">China</option>
-                <option value="United States">United States</option>
-                <!-- More options here for each country-->
-              </datalist>
+      <!-- How many people ? -->
+      <div class="tab">
+        How many people ?
+        <p>
+          <input type="number" placeholder="How many are you?" name="Number of People" oninput="this.className = ''" />
+        </p>
+      </div>
+
+      <!-- What activity(ies) ? -->
+      <!--  -->
+      <div class="tab">
+        Which experiences are you having with us today ?
+        <div id="activity_btns" class="btn_grid">
+          <button type="button" id="btn_Vortex" onclick="selectActivity(this, 'Vortex 12D Motion', false)">
+            Vortex 12D Motion Theatre
+          </button>
+          <button type="button" id="btn_Omni" onclick="selectActivity(this, 'Omni VR', false)">
+            Omni VR
+          </button>
+          <button type="button" id="btn_Hologate" onclick="selectActivity(this, 'Hologate VR', false)">
+            Hologate VR
+          </button>
+          <button type="button" id="btn_VREscape" onclick="selectActivity(this, 'VR Escape Rooms', false)">
+            VR Escape Rooms
+          </button>
+          <button type="button" id="btn_Minigolf" onclick="selectActivity(this, 'Indoor UV Minigolf', false)">
+            Indoor UV Minigolf
+          </button>
+          <button type="button" id="btn_RaceCar" onclick="selectActivity(this, 'Race Car Simulator', false)">
+            Race Car Simulator
+          </button>
+          <!-- Different button for Indoor Escape Room-->
+          <button type="button" id="btn_EscapeRoom" onclick="selectEscapeQuest(this)">
+            Indoor Escape Rooms
+          </button>
+          <button type="button" id="btn_OutdoorEscape"
+            onclick="selectActivity(this, 'Outdoor Escape Adventures', false)">
+            Outdoor Escape Adventures
+          </button>
+          <button type="button" id="btn_FrisbeeGolf" onclick="selectActivity(this, 'Frisbee Golf', false)">
+            Frisbee Golf
+          </button>
+          <button type="button" id="btn_KidzClub" onclick="selectActivity(this, 'Kidz Club', false)">
+            Kidz Club
+          </button>
+          <!-- Could be changed to clickable images to select activities-->
+        </div>
+        <!-- If Escape room give 3 options. If also kidz club/frisbee/outdoor ask for phone number.  -->
+        <div id="additional_info">
+          <!--  -->
+          <div id="escape_room_options">
+            <div id="escape_room_btns" class="btn_grid">
+              <button type="button" id="btn_GH" onclick="selectActivity(this, 'Gold Heist', true)">
+                Gold Rush
+              </button>
+              <button type="button" id="btn_Pow"
+                onclick="selectActivity(this, 'Murder in the Prince of Wales Hotel 2', true)">
+                The Murder One
+              </button>
+              <button type="button" id="btn_JMC" onclick="selectActivity(this, 'Jackpot in the Miners Cottage', true)">
+                Jackpot
+              </button>
             </div>
           </div>
+          <div id="phone_number">
+            <!-- <input type="number" placeholder="Phone number?" name="Phone" oninput="this.className = ''"> -->
+          </div>
         </div>
+      </div>
 
-        <!-- How many people ? -->
-        <div class="tab">
-          How many people ?
+      <!-- How did we hear about us ? -->
+      <div class="tab">
+        <input type="hidden" name="How did you hear about us?" id="how_did_you_hear_about_us" value="" />
+        <div class="btn_grid" id="options_for_how_did_you_hear_about_us">
+          <button type="button" id="btn_Google" onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Google')">
+            Google
+          </button>
+          <button type="button" id="btn_TripAdvisor"
+            onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'TripAdvisor')">
+            TripAdvisor
+          </button>
+          <button type="button" id="btn_FacebookInstagram"
+            onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Facebook / Instagram')">
+            Facebook / Instagram
+          </button>
+          <button type="button" id="btn_Brochure"
+            onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Brochure')">
+            Brochure
+          </button>
+          <button type="button" id="btn_Hotel" onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Hotel')">
+            Hotel
+          </button>
+          <button type="button" id="btn_InfoCentre"
+            onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Info Centre')">
+            Info Centre
+          </button>
+          <button type="button" id="btn_RefferalCard"
+            onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Referral Card')">
+            Referral Card
+          </button>
+          <button type="button" id="btn_WordOfMouth"
+            onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Word of mouth')">
+            Word of mouth
+          </button>
+          <button type="button" id="btn_WalkBy" onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Walk by')">
+            Walk by
+          </button>
+          <button type="button" id="btn_BeenBefore"
+            onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Been before')">
+            Been before
+          </button>
+          <!-- More buttons here for each option-->
+        </div>
+      </div>
+
+      <!-- Terms and conditions ? -->
+      <div class="tab">
+        <!-- Add this link or button where you want to trigger the modal -->
+        <a href="#" onclick="openModal()">View Terms and Conditions</a>
+        <label for="checkbox">I agree</label>
+        <input type="checkbox" id="tac_checkbox" name="T&C's" value="I agree" />
+      </div>
+
+      <div id="nextprev_btns">
+        <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+          Back
+        </button>
+        <button type="button" id="back_to_activities" onclick="displayFirstStepOfActivities()">
+          Bock
+        </button>
+        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        <button type="button" id="check_activities" onclick="isAdditionalInfoRequired()" disabled>
+          Nixt
+        </button>
+      </div>
+
+      <!-- All the hidden inputs that are generated for the form submission-->
+      <input type="hidden" name="Date Time" id="date_time" value="" />
+      <input type="hidden" name="Activity" id="what_activities" value="">
+      <input type="hidden" name="Escape Room" id="what_escape_room" value="">
+      <input type="submit" value="Submit" id="submitBtn" disabled="true" />
+
+      <!-- Circles which indicates the steps of the form: -->
+      <div style="text-align: center; margin-top: 40px">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+      </div>
+      <!-- Add this div at the end of your body -->
+      <div id="termsModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h1>Terms and Conditions</h1>
+          <!-- General (applies to all activities) -->
+          <h2>General (applies to all activities)</h2>
           <p>
-            <input
-              type="number"
-              placeholder="How many are you?"
-              name="Number of People"
-              oninput="this.className = ''"
-            />
+            By purchasing a ticket to participate in any of our activities at
+            Thrillzone, customers acknowledge the operator’s general terms...
           </p>
-        </div>
 
-        <!-- What activity(ies) ? -->
-        <!-- <input type="hidden" name="Activity" id="what_activities" value=""> -->
-        <div class="tab">
-          Which experiences are you having with us today ?
-          <div id="activity_btns" class="btn_grid">
-            <button
-              type="button"
-              id="btn_Vortex"
-              onclick="selectActivity(this, 'Vortex 12D Motion', false)"
-            >
-              Vortex 12D Motion Theatre
-            </button>
-            <button
-              type="button"
-              id="btn_Omni"
-              onclick="selectActivity(this, 'Omni VR', false)"
-            >
-              Omni VR
-            </button>
-            <button
-              type="button"
-              id="btn_Hologate"
-              onclick="selectActivity(this, 'Hologate VR', false)"
-            >
-              Hologate VR
-            </button>
-            <button
-              type="button"
-              id="btn_VREscape"
-              onclick="selectActivity(this, 'VR Escape Rooms', false)"
-            >
-              VR Escape Rooms
-            </button>
-            <button
-              type="button"
-              id="btn_Minigolf"
-              onclick="selectActivity(this, 'Indoor UV Minigolf', false)"
-            >
-              Indoor UV Minigolf
-            </button>
-            <button
-              type="button"
-              id="btn_RaceCar"
-              onclick="selectActivity(this, 'Race Car Simulator', false)"
-            >
-              Race Car Simulator
-            </button>
-            <!-- Different button for Indoor Escape Room-->
-            <button
-              type="button"
-              id="btn_EscapeRoom"
-              onclick="selectEscapeQuest(this)"
-            >
-              Indoor Escape Rooms
-            </button>
-            <button
-              type="button"
-              id="btn_OutdoorEscape"
-              onclick="selectActivity(this, 'Outdoor Escape Adventures', false)"
-            >
-              Outdoor Escape Adventures
-            </button>
-            <button
-              type="button"
-              id="btn_FrisbeeGolf"
-              onclick="selectActivity(this, 'Frisbee Golf', false)"
-            >
-              Frisbee Golf
-            </button>
-            <button
-              type="button"
-              id="btn_KidzClub"
-              onclick="selectActivity(this, 'Kidz Club', false)"
-            >
-              Kidz Club
-            </button>
-            <!-- Could be changed to clickable images to select activities-->
-          </div>
-          <!-- If Escape room give 3 options. If also kidz club/frisbee/outdoor ask for phone number.  -->
-          <div id="additional_info">
-            <div id="escape_room_options">
-              <div id="escape_room_btns" class="btn_grid">
-                <button
-                  type="button"
-                  id="btn_GH"
-                  onclick="selectActivity(this, 'Gold Heist', true)"
-                >
-                  Gold Rush
-                </button>
-                <button
-                  type="button"
-                  id="btn_Pow"
-                  onclick="selectActivity(this, 'Murder in the Prince of Wales Hotel 2', true)"
-                >
-                  The Murder One
-                </button>
-                <button
-                  type="button"
-                  id="btn_JMC"
-                  onclick="selectActivity(this, 'Jackpot in the Miners Cottage', true)"
-                >
-                  Jackpot
-                </button>
-              </div>
-            </div>
-            <div id="phone_number">
-              <!-- <input type="number" placeholder="Phone number?" name="Phone" oninput="this.className = ''"> -->
-            </div>
-          </div>
-        </div>
+          <!-- Virtual Reality Experiences -->
+          <h2>Virtual Reality Experiences</h2>
+          <p>
+            Thrillzone as an operator advises the participant NOT to take part
+            in these activities if they have any existing health issues...
+          </p>
 
-        <!-- How did we hear about us ? -->
-        <div class="tab">
-          <input
-            type="hidden"
-            name="How did you hear about us?"
-            id="how_did_you_hear_about_us"
-            value=""
-          />
-          <div class="btn_grid" id="options_for_how_did_you_hear_about_us">
-            <button
-              type="button"
-              id="btn_Google"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Google')"
-            >
-              Google
-            </button>
-            <button
-              type="button"
-              id="btn_TripAdvisor"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'TripAdvisor')"
-            >
-              TripAdvisor
-            </button>
-            <button
-              type="button"
-              id="btn_FacebookInstagram"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Facebook / Instagram')"
-            >
-              Facebook / Instagram
-            </button>
-            <button
-              type="button"
-              id="btn_Brochure"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Brochure')"
-            >
-              Brochure
-            </button>
-            <button
-              type="button"
-              id="btn_Hotel"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Hotel')"
-            >
-              Hotel
-            </button>
-            <button
-              type="button"
-              id="btn_InfoCentre"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Info Centre')"
-            >
-              Info Centre
-            </button>
-            <button
-              type="button"
-              id="btn_RefferalCard"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Referral Card')"
-            >
-              Referral Card
-            </button>
-            <button
-              type="button"
-              id="btn_WordOfMouth"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Word of mouth')"
-            >
-              Word of mouth
-            </button>
-            <button
-              type="button"
-              id="btn_WalkBy"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Walk by')"
-            >
-              Walk by
-            </button>
-            <button
-              type="button"
-              id="btn_BeenBefore"
-              onclick="setHiddenInputandNext('how_did_you_hear_about_us', 'Been before')"
-            >
-              Been before
-            </button>
-            <!-- More buttons here for each option-->
-          </div>
-        </div>
+          <!-- Outdoor Escape Adventure -->
+          <h2>Outdoor Escape Adventure</h2>
+          <p>
+            Escape Adventure is an outdoor activity. Participants are advised
+            to take care and follow the official New Zealand road code...
+          </p>
 
-        <!-- Terms and conditions ? -->
-        <div class="tab">
-          <!-- Add this link or button where you want to trigger the modal -->
-          <a href="#" onclick="openModal()">View Terms and Conditions</a>
-          <label for="checkbox">I agree</label>
-          <input
-            type="checkbox"
-            id="tac_checkbox"
-            name="T&C's"
-            value="I agree"
-          />
-        </div>
+          <!-- Putt ‘N’ Glow Mini Golf -->
+          <h2>Putt ‘N’ Glow Mini Golf</h2>
+          <p>
+            Please don't lean on the walls or bang the clubs on any of the
+            props. Watch your step, no running or climbing and NEVER lift the
+            club above the waist!...
+          </p>
 
-        <div id="nextprev_btns">
-          <button type="button" id="prevBtn" onclick="nextPrev(-1)">
-            Back
+          <!-- Kidz Club -->
+          <h2>Kidz Club</h2>
+          <p>
+            I release all liability from Thrillzone, its owners, and
+            employees, for any personal injury, bodily harm, or personal
+            property damage / loss that occurs while my child(ren) are at
+            Thrillzone...
+          </p>
+
+          <!-- Frisbee Golf Hire -->
+          <h2>Frisbee Golf Hire</h2>
+          <p>
+            Rental Frisbees need to be returned before 9pm on the same day of
+            the rental. A deposit of $25 per frisbee or a valid ID Card is
+            required...
+          </p>
+
+          <!-- Electronic Sign-In -->
+          <h2>Electronic Sign-In</h2>
+          <p>
+            By signing in electronically at Thrillzone on iPads, I agree to
+            the terms and conditions...
+          </p>
+
+          <!-- Close button at the bottom -->
+          <button type="button" id="closeTermsModalBtn" onclick="closeModal()">
+            Close
           </button>
-          <button
-            type="button"
-            id="back_to_activities"
-            onclick="displayFirstStepOfActivities()"
-          >
-            Bock
-          </button>
-          <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-          <button
-            type="button"
-            id="check_activities"
-            onclick="isAdditionalInfoRequired()"
-            disabled
-          >
-            Nixt
-          </button>
+
+          <!-- Add the actual terms and conditions content here -->
         </div>
+      </div>
+    </form>
+  </div>
+  <script src="SignInForm.js"></script>
+</body>
 
-        <input type="hidden" name="Date Time" id="date_time" value="" />
-        <input type="submit" value="Submit" id="submitBtn" disabled="true" />
-
-        <!-- Circles which indicates the steps of the form: -->
-        <div style="text-align: center; margin-top: 40px">
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-        </div>
-        <!-- Add this div at the end of your body -->
-        <div id="termsModal" class="modal">
-          <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h1>Terms and Conditions</h1>
-            <!-- General (applies to all activities) -->
-            <h2>General (applies to all activities)</h2>
-            <p>
-              By purchasing a ticket to participate in any of our activities at
-              Thrillzone, customers acknowledge the operator’s general terms...
-            </p>
-
-            <!-- Virtual Reality Experiences -->
-            <h2>Virtual Reality Experiences</h2>
-            <p>
-              Thrillzone as an operator advises the participant NOT to take part
-              in these activities if they have any existing health issues...
-            </p>
-
-            <!-- Outdoor Escape Adventure -->
-            <h2>Outdoor Escape Adventure</h2>
-            <p>
-              Escape Adventure is an outdoor activity. Participants are advised
-              to take care and follow the official New Zealand road code...
-            </p>
-
-            <!-- Putt ‘N’ Glow Mini Golf -->
-            <h2>Putt ‘N’ Glow Mini Golf</h2>
-            <p>
-              Please don't lean on the walls or bang the clubs on any of the
-              props. Watch your step, no running or climbing and NEVER lift the
-              club above the waist!...
-            </p>
-
-            <!-- Kidz Club -->
-            <h2>Kidz Club</h2>
-            <p>
-              I release all liability from Thrillzone, its owners, and
-              employees, for any personal injury, bodily harm, or personal
-              property damage / loss that occurs while my child(ren) are at
-              Thrillzone...
-            </p>
-
-            <!-- Frisbee Golf Hire -->
-            <h2>Frisbee Golf Hire</h2>
-            <p>
-              Rental Frisbees need to be returned before 9pm on the same day of
-              the rental. A deposit of $25 per frisbee or a valid ID Card is
-              required...
-            </p>
-
-            <!-- Electronic Sign-In -->
-            <h2>Electronic Sign-In</h2>
-            <p>
-              By signing in electronically at Thrillzone on iPads, I agree to
-              the terms and conditions...
-            </p>
-
-            <!-- Close button at the bottom -->
-            <button
-              type="button"
-              id="closeTermsModalBtn"
-              onclick="closeModal()"
-            >
-              Close
-            </button>
-
-            <!-- Add the actual terms and conditions content here -->
-          </div>
-        </div>
-      </form>
-    </div>
-    <script src="SignInForm.js"></script>
-  </body>
 </html>
