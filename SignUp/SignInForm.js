@@ -411,6 +411,7 @@ function displayFirstStepOfActivities() {
 }
 
 function displaySecondStepOfActivities() {
+  // Make sure at least one escape room is selected... if EQ is true bla bla bla else no
   activityStepOne = false;
   // display the additional info
   document.getElementById("phone_number").innerHTML =
