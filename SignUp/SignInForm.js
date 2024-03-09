@@ -1,6 +1,6 @@
 const scriptURLTZ =
   "https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec";
-const scriptURLEQ = "";
+const scriptURLEQ = "https://script.google.com/macros/s/AKfycbxHQrj2mlTipYYrxb9u1YcSZZFjmkvTlwayEFPxzyDXIlPYht7DTwQwH4FFa3TnOknGRA/exec";
 const form = document.forms["sign-in-form"];
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var activityStepOne = true;
@@ -31,27 +31,46 @@ form.addEventListener("submit", (e) => {
   // Generate and set date time value
   document.getElementById("date_time").value = generateDateTimeString();
 
-  // Update the hidden input field with the updated list of activities
-  document.getElementById("what_activities").value = listOfTZActivities.join(", ");
-  document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
-
   // Prevent default form submission
   e.preventDefault();
 
   // Disable the submit button to prevent multiple submissions
   submitBtn.disabled = true;
 
-  // Hide the form and show thank you message
+  // Hide the form
+  form.style.display = "none";
 
-  // Check if for Thrillzone 
+  // Show thank you message
+  document.getElementById("thank_you_message").style.display = "inline";
+
+  // Update hidden input fields with the updated list of activities
   if (listOfTZActivities !== null) {
-    fetch(scriptURLTZ, { method: "POST", body: new FormData(form) })
+    document.getElementById("what_activities").value = listOfTZActivities.join(", ");
+  }
+
+  if (listOfEscapeRooms !== null) {
+    document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
+  }
+
+  // Check if for Thrillzone and Escape Quest and send to corresponding URL
+  if (listOfTZActivities !== null || listOfEscapeRooms !== null) {
+    const promises = [];
+
+    if (listOfTZActivities !== null) {
+      promises.push(fetch(scriptURLTZ, { method: "POST", body: new FormData(form) }));
+    }
+
+    if (listOfEscapeRooms !== null) {
+      promises.push(fetch(scriptURLEQ, { method: "POST", body: new FormData(form) }));
+    }
+
+    // Wait for all fetch requests to complete
+    Promise.all(promises)
       .then(() => {
-        window.location.reload();
+        window.location.reload(); // Reload the page after both fetch requests are completed
       })
       .catch((error) => console.error("Error!", error.message));
   }
-  if (listOfEscapeRooms)
 });
 
 // Event listeners for user activity
@@ -83,7 +102,6 @@ function showTab(n) {
     // document.getElementById("check_activities").style.display = "inline";
     // document.getElementById("activity_btns").style.display = "grid";
     // document.getElementById("additional_info").style.display = "none";
-    console.log(activityStepOne);
     if (activityStepOne == true) {
       displayFirstStepOfActivities();
     } else {

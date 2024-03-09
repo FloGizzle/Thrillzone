@@ -7,12 +7,9 @@
 
 <body>
   <div class="container">
-    <img
-      src="https://static.wixstatic.com/media/87cef4_7462fba664a848cb9c4aa317b63ef298~mv2.png/v1/crop/x_0,y_1011,w_11766,h_6418/fill/w_206,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Logo%20Thrillzone%20(no%20slogan).png"
+    <img src="https://static.wixstatic.com/media/9fb207_dd7f5fce3035424b9bc4ee31aa53ea85~mv2.png"
       alt="A beautiful landscape" />
-    <form id="regForm" method="post"
-      action="https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec"
-      name="sign-in-form">
+    <form id="regForm" method="post" action="" name="sign-in-form">
       <!-- One "tab" for each step in the form: -->
 
       <!-- Welcome to TZ -->
@@ -25,7 +22,7 @@
 
       <!-- First name, last name and email -->
       <div class="tab">
-        Name and Email:
+        <p>Personal information :</p>
         <p>
           <input type="text" placeholder="First name..." name="First Name" oninput="this.className = ''" />
         </p>
@@ -41,7 +38,7 @@
       <!-- New Zealand ? -->
       <div class="tab">
         <div id="newZealand?">
-          Do you live in New Zealand ?
+          <p>Do you live in New Zealand ?</p>
           <button type="button" id="yesNZ" onclick="newZealandYes()">
             Yes
           </button>
@@ -51,6 +48,7 @@
 
       <!-- Region or Other Country ? -->
       <div class="tab" id="region_or_country">
+        <p>Select your region</p>
         <input type="hidden" name="Region" id="region_nz" value="Other (International)" />
         <div id="regions_nz" class="btn_grid">
           <button type="button" id="btn_Auckland" onclick="setHiddenInputandNext('region_nz', 'Auckland')">
@@ -104,7 +102,7 @@
           <!-- More buttons here for each region-->
         </div>
         <div id="countries">
-          What Country are you from ?
+          <p>What country are you from?</p>
           <div class="text-container">
             <input type="text" list="country_options" id="input_countries" name="Country" placeholder="Enter Country"
               value="" />
@@ -170,15 +168,16 @@
           <!--  -->
           <div id="escape_room_options">
             <div id="escape_room_btns" class="btn_grid">
-              <button type="button" id="btn_GH" onclick="selectActivity(this, 'Gold Heist', true)">
-                Gold Rush
+              <button type="button" id="btn_GH" onclick="selectActivity(this, 'Gold Heist in the Gold Rush', true)">
+                Gold Heist in the Gold Rush
               </button>
               <button type="button" id="btn_Pow"
                 onclick="selectActivity(this, 'Murder in the Prince of Wales Hotel 2', true)">
-                The Murder One
+                Murder in the Prince of Wales Hotel 2
               </button>
-              <button type="button" id="btn_JMC" onclick="selectActivity(this, 'Jackpot in the Miners Cottage', true)">
-                Jackpot
+              <button type="button" id="btn_JMC"
+                onclick="selectActivity(this, 'Jackpot in the Miner\'s Cottage', true)">
+                Jackpot in the Miner's Cottage
               </button>
             </div>
           </div>
@@ -256,8 +255,8 @@
 
       <!-- All the hidden inputs that are generated for the form submission-->
       <input type="hidden" name="Date Time" id="date_time" value="" />
-      <input type="hidden" name="Activity" id="what_activities" value="">
-      <input type="hidden" name="Escape Room" id="what_escape_room" value="">
+      <input type="hidden" name="Activity" id="what_activities" value="null">
+      <input type="hidden" name="Escape Room" id="what_escape_room" value="null">
       <input type="submit" value="Submit" id="submitBtn" disabled="true" />
 
       <!-- Circles which indicates the steps of the form: -->
@@ -338,6 +337,7 @@
         </div>
       </div>
     </form>
+    <div id="thank_you_message">Cheers Mate !</div>
   </div>
   <script src="SignInForm.js"></script>
 </body>

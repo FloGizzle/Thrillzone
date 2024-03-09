@@ -1,5 +1,5 @@
 body {
-  background-color: #917171;
+  background-color: #5c6768;
   /* Dark grey background for now color but can put a picture */
   margin: 0;
   padding: 0;
@@ -61,8 +61,10 @@ p {
 }
 
 img {
-  width: 150px; /* Adjust the width as needed */
-  height: auto; /* Maintain the original aspect ratio */
+  width: 150px;
+  /* Adjust the width as needed */
+  height: auto;
+  /* Maintain the original aspect ratio */
 }
 
 /* Button Style */
@@ -204,7 +206,8 @@ input.invalid {
   background-color: rgba(0, 0, 0, 0.7);
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Adjust the z-index value to make sure it's higher than the step indicators */
+  z-index: 9999;
+  /* Adjust the z-index value to make sure it's higher than the step indicators */
 }
 
 .modal-content {
@@ -212,7 +215,8 @@ input.invalid {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  max-height: 70vh; /* Adjust this value as needed */
+  max-height: 70vh;
+  /* Adjust this value as needed */
   overflow-y: auto;
 }
 
@@ -224,5 +228,9 @@ input.invalid {
 }
 
 #escape_room_options {
+  display: none;
+}
+
+#thank_you_message {
   display: none;
 }
