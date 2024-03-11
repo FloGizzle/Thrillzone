@@ -6,20 +6,14 @@ var currentTab = 0; // Current tab is set to be the first tab (0)
 var activityStepOne = true;
 var livesInNZ = true;
 // Define the duration of inactivity in milliseconds
-var inactivityDuration = 5 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
+var inactivityDuration = 2 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
 // Get the checkbox and submit button
 var checkbox = document.getElementById("tac_checkbox");
 var submitBtn = document.getElementById("submitBtn");
-// To know if to post on TZ or EQ
 // To know what activities to send to the form
-var thrillZone = false;
 var listOfTZActivities = [];
 var listOfEscapeRooms = [];
 var escapeQuest = false;
-var escapeRoom = "";
-// Will be assigned to true if frisbee, outdoor or kidzclub
-var additionalInfoRequired = false;
-var phoneRequired = false;
 var phoneNumber;
 
 showTab(currentTab); // Display the current tab
@@ -46,10 +40,6 @@ form.addEventListener("submit", (e) => {
   // Update hidden input fields with the updated list of activities
   if (listOfTZActivities !== null) {
     document.getElementById("what_activities").value = listOfTZActivities.join(", ");
-  }
-
-  if (listOfEscapeRooms !== null) {
-    document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
   }
 
   // Check if for Thrillzone and Escape Quest and send to corresponding URL
@@ -98,22 +88,13 @@ function showTab(n) {
       document.getElementById("nextBtn").style.display = "inline";
     }
   } else if (n == 5) {
-    // document.getElementById("nextBtn").style.display = "none";
-    // document.getElementById("check_activities").style.display = "inline";
-    // document.getElementById("activity_btns").style.display = "grid";
-    // document.getElementById("additional_info").style.display = "none";
     if (activityStepOne == true) {
       displayFirstStepOfActivities();
     } else {
       displaySecondStepOfActivities();
     }
     enableCheckActivityBtn();
-    // Change the next button function into a check activities button
-    //document.getElementById("nextBtn").style.display = "inline";
-    // Disabled if no activity is selected
-    //document.getElementById("nextBtn").disabled = "true";
-    //document.getElementById("nextBtn").onclick = isAdditionalInfoRequired;
-    // Check if no additional info requires nextBtn takes back its original function and nextPrev(1)
+
   } else if (n == 6) {
     // CHANGE BACK TO DISPLAY SECOND STEP OF ACTIVITIES IN NEXTPREV FUNCITON
     document.getElementById("prevBtn").style.display = "inline";
@@ -122,6 +103,7 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
     document.getElementById("nextBtn").style.display = "inline";
   }
+
   if (n == x.length - 1) {
     // Add event listener to the checkbox
     checkbox.addEventListener("change", function () {
@@ -138,6 +120,7 @@ function showTab(n) {
     document.getElementById("nextBtn").innerHTML = "Next";
     submitBtn.style.display = "none";
   }
+
   // ... and run a function that displays the correct step indicator:
   fixStepIndicator(n);
 }
@@ -206,12 +189,12 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 
-// These two functions could be combines into one true/false
+// These two functions could be combined into one true/false
 function newZealandYes() {
   livesInNZ = true;
   document.getElementById("input_countries").value = "New Zealand";
   // Show the region options
-  document.getElementById("regions_nz").style.display = "grid";
+  document.getElementById("regions").style.display = "inline";
   // Hide the country options
   document.getElementById("countries").style.display = "none";
   nextPrev(1);
@@ -221,12 +204,13 @@ function newZealandNo() {
   livesInNZ = false;
   document.getElementById("input_countries").value = "";
   // Hide the region options
-  document.getElementById("regions_nz").style.display = "none";
+  document.getElementById("regions").style.display = "none";
   // Show the country options
   document.getElementById("countries").style.display = "block";
   nextPrev(1);
 }
 
+//#region Generate DD/MM/YYYY
 function generateDateTimeString() {
   // Get the current date and time
   var now = new Date();
@@ -258,6 +242,7 @@ function generateDateTimeString() {
   // Return the date/time string
   return dateTimeString;
 }
+//#endregion
 
 // Function to validate email format
 function validateEmail(email) {
@@ -283,7 +268,6 @@ function setHiddenInputandNext(inputID, value) {
   nextPrev(1);
 }
 
-// Function for the activities buttons (selection of activities)
 // Function to select or deselect an activity
 function selectActivity(activityBtn, activityName, escapeRoom) {
   if (activityBtn.classList.contains("selected")) {
@@ -315,10 +299,12 @@ function selectActivity(activityBtn, activityName, escapeRoom) {
       listOfTZActivities.push(activityName);
     }
   }
-  enableCheckActivityBtn();
 
-  console.log(listOfTZActivities);
-  console.log(listOfEscapeRooms);
+  if (escapeRoom) {
+    document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
+  }
+
+  enableCheckActivityBtn();
 }
 
 function selectEscapeQuest(activityBtn) {
@@ -351,6 +337,7 @@ function capitalizeInputs() {
   });
 }
 
+//#region Functions for refresh page and timer 
 // Function to refresh the page BUT could be replaced by Reload Form ???
 function refreshPage() {
   // alert("Page refreshed after 5 minutes of inactivity.");
@@ -368,6 +355,7 @@ function resetTimer() {
   clearTimeout(window.timerId);
   startTimer();
 }
+//#endregion
 
 // Enables the check activity based on a condition if at least one activity is selected
 function enableCheckActivityBtn() {
@@ -401,9 +389,10 @@ function isAdditionalInfoRequired() {
 
 function displayFirstStepOfActivities() {
   activityStepOne = true;
-  document.getElementById("phone_number").innerHTML = "";
-  document.getElementById("activity_btns").style.display = "grid";
-  document.getElementById("additional_info").style.display = "none";
+  document.getElementById("phone_number_input").innerHTML = "";
+  document.getElementById("escape_rooms_hidden_input").innerHTML = "";
+  document.getElementById("step_one_activities").style.display = "inline";
+  document.getElementById("step_two_activities").style.display = "none";
   document.getElementById("prevBtn").style.display = "inline";
   document.getElementById("back_to_activities").style.display = "none";
   document.getElementById("nextBtn").style.display = "none";
@@ -414,23 +403,26 @@ function displaySecondStepOfActivities() {
   // Make sure at least one escape room is selected... if EQ is true bla bla bla else no
   activityStepOne = false;
   // display the additional info
-  document.getElementById("phone_number").innerHTML =
-    '<input type="number" id="phone_input" placeholder="Enter Phone Number" name="Phone" oninput="this.className = \'\'">';
+  document.getElementById("phone_number_input").innerHTML =
+    '<p><input type="number" id="phone_input" placeholder="Enter Phone Number" name="Phone" oninput="this.className = \'\'"></p>';
   if (phoneNumber !== null) {
     document.getElementById("phone_input").value = phoneNumber;
   }
   document
-    .getElementById("phone_number")
+    .getElementById("phone_input") // Also works with phone_number ? 
     .addEventListener("input", function (event) {
       phoneNumber = event.target.value;
     });
   if (escapeQuest) {
     document.getElementById("escape_room_options").style.display = "inline";
+    document.getElementById("escape_rooms_hidden_input").innerHTML = '<input type="hidden" name="Escape Room" id="what_escape_room" value=""></input>';
+    document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
+    console.log(listOfEscapeRooms);
   } else {
     document.getElementById("escape_room_options").style.display = "none";
   }
-  document.getElementById("activity_btns").style.display = "none";
-  document.getElementById("additional_info").style.display = "inline";
+  document.getElementById("step_one_activities").style.display = "none";
+  document.getElementById("step_two_activities").style.display = "inline";
   document.getElementById("prevBtn").style.display = "none";
   document.getElementById("back_to_activities").style.display = "inline";
   document.getElementById("nextBtn").style.display = "inline";

@@ -1,5 +1,5 @@
 body {
-  background-color: #5c6768;
+  background-color: #000000;
   /* Dark grey background for now color but can put a picture */
   margin: 0;
   padding: 0;
@@ -14,6 +14,10 @@ body {
 }
 
 .container {
+  width: 750px;
+  /* Set your desired width */
+  height: 630px;
+  /* Set your desired height */
   background-color: rgba(255, 255, 255, 0.9);
   /* Background color with some transparency */
   border-radius: 10px;
@@ -22,25 +26,38 @@ body {
   /* Shadow effect */
   padding: 20px;
   /* Add padding for spacing */
-  max-width: 600px;
-  /* Set a maximum width for the container */
   margin: 0 auto;
   /* Center the container horizontally */
+  display: flex;
+  /* Add display flex */
+  flex-direction: column;
+  /* Arrange items in a column */
+  justify-content: center;
+  /* Center vertically */
+  align-items: center;
+  /* Center horizontally */
 }
 
 /* Style the form */
 #regForm {
+  width: 650px;
+  /* Set your desired width */
+  height: 600px;
+  /* Set your desired height */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   margin: 25px auto;
   padding: 40px;
-  width: 70%;
-  min-width: 500px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: #1d1d1d;
   /* Change color as desired */
   font-family: Arial, sans-serif;
   /* Change font family as desired */
@@ -51,32 +68,38 @@ h1 {
 }
 
 h2 {
-  color: #007bff;
+  color: #050505;
   margin-bottom: 10px;
+  font-size: 18px;
 }
 
-p {
-  color: #555;
+h3 {
+  color: #333333;
   margin-bottom: 20px;
   font-weight: bold;
+  font-size: 25px;
 }
 
 img {
   width: 150px;
-  /* Adjust the width as needed */
+  /* Set the desired width */
   height: auto;
-  /* Maintain the original aspect ratio */
+  /* Maintain the aspect ratio */
+  display: block;
+  /* Ensure it behaves as a block element */
+  margin: auto;
+  /* Center the image horizontally */
 }
 
 /* Button Style */
 button {
   display: inline-block;
-  background-color: #4caf50;
-  /* Green */
+  background-color: #2e2d2d;
   border: none;
   /* Transparent border initially */
-  font-size: 11px;
-  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 10px 20px;
   margin: 10px;
@@ -84,6 +107,11 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+button:active {
+  transform: translateY(2px);
+  /* Move the button down slightly when pressed */
 }
 
 /* Adjust button container */
@@ -99,6 +127,7 @@ button {
   margin-right: 0;
   margin-left: 0;
   font-size: 12px;
+  background-color: #583c3c;
   /* Ensure left margin is reset */
 }
 
@@ -107,6 +136,7 @@ button {
   margin-left: 0;
   margin-right: 0;
   font-size: 12px;
+  background-color: #25492d;
   /* Ensure right margin is reset */
 }
 
@@ -132,6 +162,16 @@ input.invalid {
 /* Hide all steps by default: */
 .tab {
   display: none;
+}
+
+#bottom_circles {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Hide additional info unless escape room */
@@ -169,13 +209,18 @@ input.invalid {
 /* Grid of buttons for regions and activities */
 .btn_grid {
   display: grid;
+  margin-top: 20px;
+  /* Adjust the value (20px is just an example) */
+  margin-bottom: 20px;
+  /* Adjust the value (20px is just an example) */
 }
 
 #regions_nz {
   grid-template-columns: repeat(4, 1fr);
 }
 
-#activity_btns {
+#activity_btns,
+#nz_yes_or_no {
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -185,12 +230,12 @@ input.invalid {
 
 #activity_btns button,
 #escape_room_btns button {
-  border: 2px solid transparent;
+  border: 4px solid transparent;
 }
 
 #activity_btns button.selected,
 #escape_room_btns button.selected {
-  border: 2px solid blue;
+  border: 4px solid rgb(43, 214, 0);
 }
 
 #options_for_how_did_you_hear_about_us {
@@ -213,19 +258,30 @@ input.invalid {
 
 .modal-content {
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   max-height: 70vh;
   /* Adjust this value as needed */
   overflow-y: auto;
+  margin: 0 15px;
+  /* Add some right and left space */
 }
 
+li {
+  text-align: left;
+}
+
+
 .close {
-  color: #333;
-  float: right;
-  font-size: 44px;
+  color: #8a3737;
+  font-size: 45px;
   cursor: pointer;
+  float: right;
+}
+
+#tac-title {
+  clear: right;
 }
 
 #escape_room_options {
