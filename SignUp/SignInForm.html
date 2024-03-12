@@ -12,6 +12,7 @@
     <form id="regForm" method="post" action="" name="sign-in-form">
       <img id="TZ_EQ_Logo" src="https://static.wixstatic.com/media/9fb207_dd7f5fce3035424b9bc4ee31aa53ea85~mv2.png"
         alt="A beautiful landscape" />
+
       <!-- One "tab" for each step in the form: -->
 
       <!-- Welcome to TZ -->
@@ -225,6 +226,7 @@
             <div id="escape_rooms_hidden_input">
               <!-- <input type="hidden" name="Escape Room" id="what_escape_room" value="null"> -->
             </div>
+            <!-- When 4th ER do 2x2 grid-->
             <div id="escape_room_btns" class="btn_grid">
               <button type="button" id="btn_GH" onclick="selectActivity(this, 'Gold Heist in the Gold Rush', true)">
                 Gold Heist in the Gold Rush
@@ -298,8 +300,10 @@
       <div class="tab">
         <!-- Add this link or button where you want to trigger the modal -->
         <a href="#" onclick="openModal()">View Terms and Conditions</a>
-        <label for="checkbox">I agree</label>
-        <input type="checkbox" id="tac_checkbox" name="T&C's" value="I agree" />
+        <div class="checkbox-container">
+          <label for="tac_checkbox" class="checkbox-label">I agree to the Terms and Conditions</label>
+          <input type="checkbox" id="tac_checkbox" name="T&C's" value="I agree" class="checkbox" />
+        </div>
       </div>
 
       <div id="nextprev_btns">

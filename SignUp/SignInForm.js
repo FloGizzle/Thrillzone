@@ -1,12 +1,13 @@
-const scriptURLTZ =
-  "https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec";
+// Replace with the desired URL of the Google spreadsheets
+const scriptURLTZ = "https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec";
 const scriptURLEQ = "https://script.google.com/macros/s/AKfycbxHQrj2mlTipYYrxb9u1YcSZZFjmkvTlwayEFPxzyDXIlPYht7DTwQwH4FFa3TnOknGRA/exec";
+// Define the duration of inactivity in milliseconds
+var inactivityDuration = 2 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
+
 const form = document.forms["sign-in-form"];
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var activityStepOne = true;
 var livesInNZ = true;
-// Define the duration of inactivity in milliseconds
-var inactivityDuration = 2 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
 // Get the checkbox and submit button
 var checkbox = document.getElementById("tac_checkbox");
 var submitBtn = document.getElementById("submitBtn");
@@ -15,6 +16,8 @@ var listOfTZActivities = [];
 var listOfEscapeRooms = [];
 var escapeQuest = false;
 var phoneNumber;
+// Select all input elements
+var inputs = document.querySelectorAll('input');
 
 showTab(currentTab); // Display the current tab
 
@@ -61,6 +64,20 @@ form.addEventListener("submit", (e) => {
       })
       .catch((error) => console.error("Error!", error.message));
   }
+});
+
+// Add event listener to each text input for the ENTER key to have the same effect as the Next Button
+// Make sure the generated phone number input gets affected too
+inputs.forEach(function (input) {
+  input.addEventListener("keydown", function (event) {
+    // Check if the pressed key is Enter
+    if (event.key === "Enter") {
+      // Prevent the default action of the Enter key (form submission)
+      event.preventDefault();
+      // Call the function you want to execute when Enter is pressed
+      nextPrev(1);
+    }
+  });
 });
 
 // Event listeners for user activity
@@ -250,17 +267,6 @@ function validateEmail(email) {
   return emailRegex.test(email);
 }
 
-// Function to set the region
-function setRegion(regionName) {
-  document.getElementById("region_nz").value = regionName;
-  nextPrev(1);
-}
-
-// Function to set "How did you hear about us?"
-function setHowDidYouHearAboutUs(option) {
-  document.getElementById("how_did_you_hear_about_us").value = option;
-  nextPrev(1);
-}
 
 // These last two functions could be combined in a setHiddenInput function that takes as argument the hidden input ID and the value
 function setHiddenInputandNext(inputID, value) {
@@ -408,11 +414,20 @@ function displaySecondStepOfActivities() {
   if (phoneNumber !== null) {
     document.getElementById("phone_input").value = phoneNumber;
   }
-  document
-    .getElementById("phone_input") // Also works with phone_number ? 
-    .addEventListener("input", function (event) {
-      phoneNumber = event.target.value;
-    });
+  document.getElementById("phone_input").addEventListener("input", function (event) {
+    phoneNumber = event.target.value;
+  });
+  // Event listener for Enter key press
+  document.getElementById("phone_input").addEventListener("keydown", function (event) {
+    // Check if the pressed key is Enter
+    if (event.key === "Enter") {
+      // Prevent the default action of the Enter key (form submission)
+      event.preventDefault();
+      // Call the function to simulate next/prev button click
+      nextPrev(1); // 1 for next, -1 for prev
+    }
+  });
+
   if (escapeQuest) {
     document.getElementById("escape_room_options").style.display = "inline";
     document.getElementById("escape_rooms_hidden_input").innerHTML = '<input type="hidden" name="Escape Room" id="what_escape_room" value=""></input>';

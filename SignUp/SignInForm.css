@@ -10,6 +10,7 @@ body {
   text-align: center;
   font-family: "Arial", sans-serif;
   line-height: 1.6;
+  overflow-y: hidden;
   /* Center the content horizontally */
 }
 
@@ -46,7 +47,6 @@ body {
   /* Set your desired height */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  margin: 25px auto;
   padding: 40px;
   border-radius: 10px;
   display: flex;
@@ -81,7 +81,7 @@ h3 {
 }
 
 img {
-  width: 150px;
+  width: 180px;
   /* Set the desired width */
   height: auto;
   /* Maintain the aspect ratio */
@@ -89,6 +89,12 @@ img {
   /* Ensure it behaves as a block element */
   margin: auto;
   /* Center the image horizontally */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Button Style */
@@ -97,8 +103,8 @@ button {
   background-color: #2e2d2d;
   border: none;
   /* Transparent border initially */
-  font-size: 15px;
   font-weight: bold;
+  font-size: 13px;
   color: rgb(255, 255, 255);
   text-align: center;
   padding: 10px 20px;
@@ -116,9 +122,15 @@ button:active {
 
 /* Adjust button container */
 #nextprev_btns {
-  width: 100%;
+  width: 85%;
   display: flex;
   justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Align buttons */
