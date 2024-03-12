@@ -91,6 +91,9 @@ img {
   /* Center the image horizontally */
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+#TZ_EQ_Logo {
   position: absolute;
   top: 0;
   left: 50%;
@@ -300,6 +303,22 @@ li {
   display: none;
 }
 
-#thank_you_message {
+#thank_you_slide {
   display: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+#TZ_EQ_Logo_thank_you {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 100px;
 }

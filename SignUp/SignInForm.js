@@ -2,7 +2,7 @@
 const scriptURLTZ = "https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec";
 const scriptURLEQ = "https://script.google.com/macros/s/AKfycbxHQrj2mlTipYYrxb9u1YcSZZFjmkvTlwayEFPxzyDXIlPYht7DTwQwH4FFa3TnOknGRA/exec";
 // Define the duration of inactivity in milliseconds
-var inactivityDuration = 2 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
+var inactivityDuration = 100 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
 
 const form = document.forms["sign-in-form"];
 var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -38,7 +38,8 @@ form.addEventListener("submit", (e) => {
   form.style.display = "none";
 
   // Show thank you message
-  document.getElementById("thank_you_message").style.display = "inline";
+  document.getElementById("thank_you_slide").style.display = "inline";
+  document.getElementById("TZ_EQ_Logo_thank_you").style.display = "inline";
 
   // Update hidden input fields with the updated list of activities
   if (listOfTZActivities !== null) {
@@ -67,17 +68,9 @@ form.addEventListener("submit", (e) => {
 });
 
 // Add event listener to each text input for the ENTER key to have the same effect as the Next Button
-// Make sure the generated phone number input gets affected too
+// Add event listener to each input element using forEach
 inputs.forEach(function (input) {
-  input.addEventListener("keydown", function (event) {
-    // Check if the pressed key is Enter
-    if (event.key === "Enter") {
-      // Prevent the default action of the Enter key (form submission)
-      event.preventDefault();
-      // Call the function you want to execute when Enter is pressed
-      nextPrev(1);
-    }
-  });
+  input.addEventListener("keydown", handleEnterKeyPress);
 });
 
 // Event listeners for user activity
@@ -418,15 +411,7 @@ function displaySecondStepOfActivities() {
     phoneNumber = event.target.value;
   });
   // Event listener for Enter key press
-  document.getElementById("phone_input").addEventListener("keydown", function (event) {
-    // Check if the pressed key is Enter
-    if (event.key === "Enter") {
-      // Prevent the default action of the Enter key (form submission)
-      event.preventDefault();
-      // Call the function to simulate next/prev button click
-      nextPrev(1); // 1 for next, -1 for prev
-    }
-  });
+  document.getElementById("phone_input").addEventListener("keydown", handleEnterKeyPress);
 
   if (escapeQuest) {
     document.getElementById("escape_room_options").style.display = "inline";
@@ -450,4 +435,16 @@ function openModal() {
 
 function closeModal() {
   document.getElementById("termsModal").style.display = "none";
+}
+
+function handleEnterKeyPress(event) {
+  // Check if the pressed key is Enter
+  if (event.key === "Enter") {
+    // Prevent the default action of the Enter key (form submission)
+    event.preventDefault();
+    // Call the function you want to execute when Enter is pressed
+    nextPrev(1);
+    // Close the virtual keyboard
+    document.activeElement.blur(); // Blur the currently focused element
+  }
 }

@@ -9,6 +9,9 @@
 
 <body>
   <div class="container">
+    <img id="TZ_EQ_Logo_thank_you"
+      src="https://static.wixstatic.com/media/9fb207_dd7f5fce3035424b9bc4ee31aa53ea85~mv2.png"
+      alt="A beautiful landscape" />
     <form id="regForm" method="post" action="" name="sign-in-form">
       <img id="TZ_EQ_Logo" src="https://static.wixstatic.com/media/9fb207_dd7f5fce3035424b9bc4ee31aa53ea85~mv2.png"
         alt="A beautiful landscape" />
@@ -297,12 +300,18 @@
       </div>
 
       <!-- Terms and conditions ? -->
-      <div class="tab">
+      <div class="tab" id="TAC_tab">
         <!-- Add this link or button where you want to trigger the modal -->
-        <a href="#" onclick="openModal()">View Terms and Conditions</a>
+        <div class="terms-container">
+          <a id="TAC_label" href="#" onclick="openModal()">View Terms and Conditions</a>
+        </div>
         <div class="checkbox-container">
-          <label for="tac_checkbox" class="checkbox-label">I agree to the Terms and Conditions</label>
-          <input type="checkbox" id="tac_checkbox" name="T&C's" value="I agree" class="checkbox" />
+          <div class="left">
+            <label for="tac_checkbox" class="checkbox-label">I agree to the Terms and Conditions</label>
+          </div>
+          <div class="right">
+            <input type="checkbox" id="tac_checkbox" name="T&C's" value="I agree" class="checkbox" />
+          </div>
         </div>
       </div>
 
@@ -461,7 +470,11 @@
         </div>
       </div>
     </form>
-    <div id="thank_you_message">Thanks for signing in!</div>
+    <div id="thank_you_slide">
+      <div id="thank_you_message">
+        <h3>Thanks for signing in!</h3>
+      </div>
+    </div>
   </div>
   <script src="SignInForm.js"></script>
 </body>
