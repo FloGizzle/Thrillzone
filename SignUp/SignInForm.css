@@ -73,7 +73,8 @@ h2 {
   font-size: 18px;
 }
 
-h3 {
+h3,
+#TAC_label {
   color: #333333;
   margin-bottom: 20px;
   font-weight: bold;
@@ -219,6 +220,11 @@ input.invalid {
 /* Hide submit button by default. */
 #submitBtn {
   display: none;
+  margin-top: 80px;
+  border-radius: 10px;
+  width: 50%;
+  /* Set the width to half of its original size */
+  /* Set the height to half of its original size */
 }
 
 /* Grid of buttons for regions and activities */
@@ -321,4 +327,21 @@ li {
   left: 50%;
   transform: translateX(-50%);
   margin-top: 100px;
+}
+
+#checkbox-container {
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+}
+
+#tac_checkbox {
+  width: auto;
+  margin: 20px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
 }
