@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+        <style>   
+            html, body{
+                margin: 0;
+                padding: 0;
+                height: 100svh;
+                width: 100svw;
+                overflow: hidden;
+            }
+
+            #map{
+                width: 100svw;
+                height: 100svh;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id='map'></div> 
+
+        <script>
+            //Load map
+          //Call in mapbox to load map
+mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
+            const map = new mapboxgl.Map({
+                container: 'map', // container ID
+                style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
+                center: [173.21106573769924, -41.81657804512245], // starting position [lng, lat]
+                zoom: 4.25, // starting zoom
+            });
+            //Let wix know when map is loaded
+            map.on('load', () => {
+    			if (map.loaded()) window.parent.postMessage('mapLoaded', "*");
+			});
+
+            //Get data from wix, this is general so here check what the info is and do with it what you will
+            /*
+                types:
+                - List[List[unique id, url for icon]]
+                - String layerID 
+            */
+            window.onmessage = (event) => {
+                console.log(typeof event.data);
+                if (event.data === typeof ([])) {
+                    makeMarkers(event.data);
+                }
+            };
+
+            //Make markers from send in list
+            function makeMarkers(list) {
+                console.log("I should make " + list.length + " markers");
+            }
+        </script>  
+    </body>
+</html>

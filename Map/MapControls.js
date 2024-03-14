@@ -18,12 +18,15 @@ map.on('load', () => {
     - String layerID 
 */
 window.onmessage = (event) => {
-    if (event.data) {
-        console.log(`HTML Component received a message: ${event.data}`);
-        console.log('data type = ' + event.data.typeof());
-        // additional code here
+    if (event.data === typeof ([])) {
+        makeMarkers(event.data);
     }
 };
+
+//Make markers from send in list
+function makeMarkers(list) {
+    console.log("I should make " + list.length + " markers");
+}
 
 //Post data to wix when marker is clicked
 window.parent.postMessage = (event) => {
