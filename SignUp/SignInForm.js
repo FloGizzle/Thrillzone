@@ -1,8 +1,8 @@
 // Replace with the desired URL of the Google spreadsheets
-const scriptURLTZ = "https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec";
-const scriptURLEQ = "https://script.google.com/macros/s/AKfycbxHQrj2mlTipYYrxb9u1YcSZZFjmkvTlwayEFPxzyDXIlPYht7DTwQwH4FFa3TnOknGRA/exec";
+const scriptURLTZ = "https://script.google.com/macros/s/AKfycbyDT3vi-yeWwpT5lNLLtb3WLRCSqjsxR32JNnp9LX2DIynVzwktUcv8mVBoDoBFnJduAQ/exec";
+const scriptURLEQ = "https://script.google.com/macros/s/AKfycbwFkjJfy3StAFoEUHRpxxehSl2_U-TbQ5fDc0loundofnoKolJUVhvocdFAc1ipmp4zUg/exec";
 // Define the duration of inactivity in milliseconds
-var inactivityDuration = 100 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
+var inactivityDuration = 2 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
 
 const form = document.forms["sign-in-form"];
 var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -50,11 +50,11 @@ form.addEventListener("submit", (e) => {
   if (listOfTZActivities !== null || listOfEscapeRooms !== null) {
     const promises = [];
 
-    if (listOfTZActivities !== null) {
+    if (listOfTZActivities.length > 0) {
       promises.push(fetch(scriptURLTZ, { method: "POST", body: new FormData(form) }));
     }
 
-    if (listOfEscapeRooms !== null) {
+    if (escapeQuest) {
       promises.push(fetch(scriptURLEQ, { method: "POST", body: new FormData(form) }));
     }
 
@@ -104,12 +104,12 @@ function showTab(n) {
       displaySecondStepOfActivities();
     }
     enableCheckActivityBtn();
-
   } else if (n == 6) {
     // CHANGE BACK TO DISPLAY SECOND STEP OF ACTIVITIES IN NEXTPREV FUNCITON
     document.getElementById("prevBtn").style.display = "inline";
     document.getElementById("nextBtn").style.display = "none";
   } else {
+    // Use block instead of inline ???
     document.getElementById("prevBtn").style.display = "inline";
     document.getElementById("nextBtn").style.display = "inline";
   }
@@ -315,7 +315,6 @@ function selectEscapeQuest(activityBtn) {
     activityBtn.classList.remove("selected");
   }
   enableCheckActivityBtn();
-  console.log(escapeQuest);
 }
 
 // Function to UpperCase the first letter of all the text inputs
@@ -417,7 +416,6 @@ function displaySecondStepOfActivities() {
     document.getElementById("escape_room_options").style.display = "inline";
     document.getElementById("escape_rooms_hidden_input").innerHTML = '<input type="hidden" name="Escape Room" id="what_escape_room" value=""></input>';
     document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
-    console.log(listOfEscapeRooms);
   } else {
     document.getElementById("escape_room_options").style.display = "none";
   }
@@ -442,9 +440,44 @@ function handleEnterKeyPress(event) {
   if (event.key === "Enter") {
     // Prevent the default action of the Enter key (form submission)
     event.preventDefault();
-    // Call the function you want to execute when Enter is pressed
-    nextPrev(1);
-    // Close the virtual keyboard
-    document.activeElement.blur(); // Blur the currently focused element
+    // Get the current input element
+    const currentInput = event.target;
+    // Get the ID of the current input element
+    const inputId = currentInput.id;
+    // Check if the current input is the first name input
+    if (inputId === "first_name") {
+      // Change focus to the last name input
+      document.getElementById("last_name").focus();
+    }
+    // Check if the current input is the last name input
+    else if (inputId === "last_name") {
+      // Change focus to the email input
+      document.getElementById("email_address").focus();
+    }
+    // Otherwise, if neither first name nor last name, proceed with nextPrev function
+    else {
+      // Close the virtual keyboard
+      document.activeElement.blur(); // Blur the currently focused element
+      // Call the function you want to execute when Enter is pressed
+      nextPrev(1);
+    }
   }
 }
+
+// Use this function for the phone input to keep the + at the start (text instead of number)
+function formatPhoneNumberInput(event) {
+  // Get the current value of the input field
+  let phoneNumber = event.target.value;
+
+  // Remove any non-digit characters
+  phoneNumber = phoneNumber.replace(/\D/g, "");
+
+  // Check if the value starts with a '+' sign
+  if (phoneNumber.startsWith("+")) {
+    // Ensure only one "+" sign remains at the beginning
+    phoneNumber = "+" + phoneNumber.substring(1);
+  }
+
+  // Update the input value
+  event.target.value = phoneNumber;
+} 

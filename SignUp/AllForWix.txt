@@ -6,18 +6,19 @@
   <title>My HTML Page</title>
   <style>
     body {
-      background-color: #000000;
-      /* Dark grey background for now color but can put a picture */
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      font-family: "Arial", sans-serif;
-      line-height: 1.6;
-      /* Center the content horizontally */
+    background-color: #000000;
+    /* Dark grey background for now color but can put a picture */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    font-family: "Arial", sans-serif;
+    line-height: 1.6;
+    overflow-y: hidden;
+    /* Center the content horizontally */
     }
 
     .container {
@@ -79,7 +80,8 @@
       font-size: 18px;
     }
 
-    h3 {
+    h3,
+    #TAC_label {
       color: #333333;
       margin-bottom: 20px;
       font-weight: bold;
@@ -97,6 +99,9 @@
       /* Center the image horizontally */
       margin-top: 20px;
       margin-bottom: 20px;
+    }
+
+    #TZ_EQ_Logo {
       position: absolute;
       top: 0;
       left: 50%;
@@ -222,6 +227,11 @@
     /* Hide submit button by default. */
     #submitBtn {
       display: none;
+      margin-top: 80px;
+      border-radius: 10px;
+      width: 50%;
+      /* Set the width to half of its original size */
+      /* Set the height to half of its original size */
     }
 
     /* Grid of buttons for regions and activities */
@@ -306,14 +316,50 @@
       display: none;
     }
 
-    #thank_you_message {
+    #thank_you_slide {
       display: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    #TZ_EQ_Logo_thank_you {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 100px;
+    }
+
+    #checkbox-container {
+      display: flex;
+      margin-top: 50px;
+      justify-content: center;
+    }
+
+    #tac_checkbox {
+      width: auto;
+      margin: 20px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
+    <img id="TZ_EQ_Logo_thank_you"
+      src="https://static.wixstatic.com/media/9fb207_dd7f5fce3035424b9bc4ee31aa53ea85~mv2.png"
+      alt="A beautiful landscape" />
     <form id="regForm" method="post" action="" name="sign-in-form">
       <img id="TZ_EQ_Logo" src="https://static.wixstatic.com/media/9fb207_dd7f5fce3035424b9bc4ee31aa53ea85~mv2.png"
         alt="A beautiful landscape" />
@@ -531,6 +577,7 @@
             <div id="escape_rooms_hidden_input">
               <!-- <input type="hidden" name="Escape Room" id="what_escape_room" value="null"> -->
             </div>
+            <!-- When 4th ER do 2x2 grid-->
             <div id="escape_room_btns" class="btn_grid">
               <button type="button" id="btn_GH" onclick="selectActivity(this, 'Gold Heist in the Gold Rush', true)">
                 Gold Heist in the Gold Rush
@@ -601,11 +648,13 @@
       </div>
 
       <!-- Terms and conditions ? -->
-      <div class="tab">
+      <div class="tab" id="TAC_tab">
         <!-- Add this link or button where you want to trigger the modal -->
-        <a href="#" onclick="openModal()">View Terms and Conditions</a>
-        <div class="checkbox-container">
-          <label for="tac_checkbox" class="checkbox-label">I agree to the Terms and Conditions</label>
+        <div class="terms-container">
+          <a id="TAC_label" href="#" onclick="openModal()">View Terms and Conditions</a>
+        </div>
+        <div id="checkbox-container">
+          <label for="tac_checkbox" class="checkbox-label">I agree</label>
           <input type="checkbox" id="tac_checkbox" name="T&C's" value="I agree" class="checkbox" />
         </div>
       </div>
@@ -765,12 +814,16 @@
         </div>
       </div>
     </form>
-    <div id="thank_you_message">Thanks for signing in!</div>
+    <div id="thank_you_slide">
+      <div id="thank_you_message">
+        <h3>Thanks for signing in!</h3>
+      </div>
+    </div>
   </div>
   <script>
     // Replace with the desired URL of the Google spreadsheets
-    const scriptURLTZ = "https://script.google.com/macros/s/AKfycbzOyn9R1k3EPqr-nRixnwCXERxfxwR2FUTgkUuFQpPNiopu9vn-omH2qX0V5XIpTyHQ/exec";
-    const scriptURLEQ = "https://script.google.com/macros/s/AKfycbxHQrj2mlTipYYrxb9u1YcSZZFjmkvTlwayEFPxzyDXIlPYht7DTwQwH4FFa3TnOknGRA/exec";
+    const scriptURLTZ = "https://script.google.com/macros/s/AKfycbyDT3vi-yeWwpT5lNLLtb3WLRCSqjsxR32JNnp9LX2DIynVzwktUcv8mVBoDoBFnJduAQ/exec";
+    const scriptURLEQ = "https://script.google.com/macros/s/AKfycbwFkjJfy3StAFoEUHRpxxehSl2_U-TbQ5fDc0loundofnoKolJUVhvocdFAc1ipmp4zUg/exec";
     // Define the duration of inactivity in milliseconds
     var inactivityDuration = 2 * 60 * 1000; // 5 minutes in milliseconds (minutes x seconds x miliseconds)
 
@@ -808,7 +861,8 @@
       form.style.display = "none";
 
       // Show thank you message
-      document.getElementById("thank_you_message").style.display = "inline";
+      document.getElementById("thank_you_slide").style.display = "inline";
+      document.getElementById("TZ_EQ_Logo_thank_you").style.display = "inline";
 
       // Update hidden input fields with the updated list of activities
       if (listOfTZActivities !== null) {
@@ -837,17 +891,9 @@
     });
 
     // Add event listener to each text input for the ENTER key to have the same effect as the Next Button
-    // Make sure the generated phone number input gets affected too
+    // Add event listener to each input element using forEach
     inputs.forEach(function (input) {
-      input.addEventListener("keydown", function (event) {
-        // Check if the pressed key is Enter
-        if (event.key === "Enter") {
-          // Prevent the default action of the Enter key (form submission)
-          event.preventDefault();
-          // Call the function you want to execute when Enter is pressed
-          nextPrev(1);
-        }
-      });
+      input.addEventListener("keydown", handleEnterKeyPress);
     });
 
     // Event listeners for user activity
@@ -1092,7 +1138,6 @@
         activityBtn.classList.remove("selected");
       }
       enableCheckActivityBtn();
-      console.log(escapeQuest);
     }
 
     // Function to UpperCase the first letter of all the text inputs
@@ -1188,21 +1233,12 @@
         phoneNumber = event.target.value;
       });
       // Event listener for Enter key press
-      document.getElementById("phone_input").addEventListener("keydown", function (event) {
-        // Check if the pressed key is Enter
-        if (event.key === "Enter") {
-          // Prevent the default action of the Enter key (form submission)
-          event.preventDefault();
-          // Call the function to simulate next/prev button click
-          nextPrev(1); // 1 for next, -1 for prev
-        }
-      });
+      document.getElementById("phone_input").addEventListener("keydown", handleEnterKeyPress);
 
       if (escapeQuest) {
         document.getElementById("escape_room_options").style.display = "inline";
         document.getElementById("escape_rooms_hidden_input").innerHTML = '<input type="hidden" name="Escape Room" id="what_escape_room" value=""></input>';
         document.getElementById("what_escape_room").value = listOfEscapeRooms.join(", ");
-        console.log(listOfEscapeRooms);
       } else {
         document.getElementById("escape_room_options").style.display = "none";
       }
@@ -1220,6 +1256,18 @@
 
     function closeModal() {
       document.getElementById("termsModal").style.display = "none";
+    }
+
+    function handleEnterKeyPress(event) {
+      // Check if the pressed key is Enter
+      if (event.key === "Enter") {
+        // Prevent the default action of the Enter key (form submission)
+        event.preventDefault();
+        // Call the function you want to execute when Enter is pressed
+        nextPrev(1);
+        // Close the virtual keyboard
+        document.activeElement.blur(); // Blur the currently focused element
+      }
     }
   </script>
 </body>
