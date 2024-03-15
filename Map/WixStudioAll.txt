@@ -57,7 +57,10 @@ window.onmessage = (event) => {
 };
 
 //Make markers from send in list
+
+//Make markers from send in list
 function makeMarkers(list) {
+    console.log('got through check');
     for (let i = 0; i < list.length; i++) {
 
         const marker = list[i];
@@ -79,12 +82,13 @@ function makeMarkers(list) {
         el.addEventListener('click', (event) => {
             console.log('needs the post Message');
         });
+        console.log('should have marker');
     }
 }
 //Post data to wix when marker is clicked
-window.parent.postMessage = (event) => {
+/*window.parent.postMessage = (event) => {
 
-}
+}*/
 
 // Set markers and get unique id in name, get image link
 
