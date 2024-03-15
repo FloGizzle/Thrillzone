@@ -20,9 +20,6 @@ map.on('load', () => {
     - String layerID 
 */
 window.onmessage = (event) => {
-    console.log("got an event in");
-
-
     if (event.data.length > 0) makeMarkers(event.data);
 };
 
@@ -53,6 +50,7 @@ function makeMarkers(list) {
         console.log('should have marker');
     }
 }
+
 //Post data to wix when marker is clicked
 window.parent.postMessage = (event) => {
 
