@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+        <style>   
+            html, body{
+                margin: 0;
+                padding: 0;
+                height: 100svh;
+                width: 100svw;
+                overflow: hidden;
+            }
+
+            #map{
+                width: 100svw;
+                height: 100svh;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id='map'></div> 
+
+        <script>
+
+//Load map
+//Call in mapbox to load map
+mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
+const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
+    center: [173.21106573769924, -41.81657804512245], // starting position [lng, lat]
+    zoom: 4.25, // starting zoom
+});
+//Let wix know when map is loaded
+map.on('load', () => {
+    if (map.loaded()) window.parent.postMessage('mapLoaded', "*");
+});
+
+//Get data from wix, this is general so here check what the info is and do with it what you will
+/*
+    types:
+    - List[List[unique id, url for icon, coordinates]]
+    - String layerID 
+*/
+window.onmessage = (event) => {
+  	if(Array.isArray(event.data))
+  	{
+    	makeMarkers(event.data);
+  		return null;
+  	}
+  	console.log(event.data);
+    switch (event.data) {
+        case "all":
+            OpenAll();
+            break;
+        case "L0":
+            OpenLayer(event.data);
+            break;
+      case "L1":
+        	OpenLayer(event.data);
+        	break;
+      case "L2":
+        	OpenLayer(event.data);
+        	break;
+      case "L3":
+        	OpenLayer(event.data);
+        	break;
+      	case "L4":
+        	OpenLayer(event.data);
+        	break;
+        default:
+            console.log("somethings wrong");
+            break;
+    }
+};
+
+
+//Post data to wix when marker is clicked
+window.parent.postMessage = (event) => {
+
+}
+
+//Make markers from send in list
+function makeMarkers(list) {
+    for (let i = 0; i < list.length; i++) {
+
+        const marker = list[i];
+        const el = document.createElement('img');
+
+        el.id = marker[0];
+      	el.className = 'marker';
+        el.src = marker[1];
+        el.style.width = '50px';
+        el.style.height = '50px';
+        el.style.backgroundSize = '100%';
+        //el.style.display = 'none';
+        el.style.zIndex = 1;
+
+        // Add markers to the map.
+        new mapboxgl.Marker(el)
+            .setLngLat(marker[2])
+            .addTo(map);
+
+        el.addEventListener('click', (event) => {
+            window.parent.postMessage(el.id, "*");
+        });
+    }
+}
+
+//Open specific layer
+function OpenLayer(layerID)
+{
+    let elements = document.querySelectorAll('img[class^="marker"]');
+    elements.forEach(function(el) {
+        if(el.id.includes(layerID)) 
+            el.style.display = 'block';
+        else
+            el.style.display = 'none';
+    });
+
+
+}
+
+//Shows all layers
+function OpenAll()
+{
+    let elements = document.querySelectorAll(`img[class^="marker"]`);
+    elements.forEach(function(el) {
+        el.style.display = 'block';
+    });
+}
+
+// Set markers and get unique id in name, get image link
+
+// Switch layers with OnMessage()
+// find all elements with marker in the name -> turn these off -> check id's and search for the ones containing layer code for corresponding layer, turn on
+
+// Zoom out will make markers dissapear, postMessage to set layer to all
+
+        </script>  
+    </body>
+</html>

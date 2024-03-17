@@ -111,7 +111,7 @@ function showTab(n) {
   } else {
     // Use block instead of inline ???
     document.getElementById("prevBtn").style.display = "inline";
-    document.getElementById("nextBtn").style.display = "inline";
+    document.getElementById("nextBtn").style.display = "block";
   }
 
   if (n == x.length - 1) {
@@ -463,21 +463,3 @@ function handleEnterKeyPress(event) {
     }
   }
 }
-
-// Use this function for the phone input to keep the + at the start (text instead of number)
-function formatPhoneNumberInput(event) {
-  // Get the current value of the input field
-  let phoneNumber = event.target.value;
-
-  // Remove any non-digit characters
-  phoneNumber = phoneNumber.replace(/\D/g, "");
-
-  // Check if the value starts with a '+' sign
-  if (phoneNumber.startsWith("+")) {
-    // Ensure only one "+" sign remains at the beginning
-    phoneNumber = "+" + phoneNumber.substring(1);
-  }
-
-  // Update the input value
-  event.target.value = phoneNumber;
-} 

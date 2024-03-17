@@ -287,6 +287,8 @@ input.invalid {
   overflow-y: auto;
   margin: 0 15px;
   /* Add some right and left space */
+  width: 90%;
+  height: 90%;
 }
 
 li {
@@ -326,7 +328,7 @@ li {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 100px;
+  margin-top: 200px;
 }
 
 #checkbox-container {
@@ -344,4 +346,15 @@ li {
   display: flex;
   align-items: center;
   font-size: 20px;
+}
+
+#refresh_btn {
+  position: absolute;
+  opacity: 0.2;
+  top: 65px;
+  /* Adjust as needed */
+  left: 10px;
+  /* Adjust as needed */
+  padding: 20px 16px;
+  /* Adjust padding to increase button size */
 }
