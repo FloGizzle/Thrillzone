@@ -15,7 +15,7 @@ var submitBtn = document.getElementById("submitBtn");
 var listOfTZActivities = [];
 var listOfEscapeRooms = [];
 var escapeQuest = false;
-var phoneNumber;
+var phoneNumber = "";
 // Select all input elements
 var inputs = document.querySelectorAll('input');
 
@@ -24,9 +24,6 @@ showTab(currentTab); // Display the current tab
 form.addEventListener("submit", (e) => {
   // Capitalize inputs before submission
   capitalizeInputs();
-
-  // Generate and set date time value
-  document.getElementById("date_time").value = generateDateTimeString();
 
   // Prevent default form submission
   e.preventDefault();
@@ -51,10 +48,14 @@ form.addEventListener("submit", (e) => {
     const promises = [];
 
     if (listOfTZActivities.length > 0) {
+      // Generate and set date time value for TZ
+      document.getElementById("date_time").value = generateDateTimeString("US");
       promises.push(fetch(scriptURLTZ, { method: "POST", body: new FormData(form) }));
     }
 
     if (escapeQuest) {
+      // Generate and set date time value for TZ
+      document.getElementById("date_time").value = generateDateTimeString("EU");
       promises.push(fetch(scriptURLEQ, { method: "POST", body: new FormData(form) }));
     }
 
@@ -221,7 +222,7 @@ function newZealandNo() {
 }
 
 //#region Generate DD/MM/YYYY
-function generateDateTimeString() {
+function generateDateTimeString(format) {
   // Get the current date and time
   var now = new Date();
 
@@ -235,19 +236,56 @@ function generateDateTimeString() {
   var minutes = now.getMinutes();
   var seconds = now.getSeconds();
 
-  // Format the date/time string
-  var dateTimeString =
-    month +
-    "/" +
-    day +
-    "/" +
-    year +
-    " " +
-    hours +
-    ":" +
-    minutes +
-    ":" +
-    seconds;
+  // Pad single-digit values with leading zeros
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+  if (hours < 10) hours = "0" + hours;
+  if (minutes < 10) minutes = "0" + minutes;
+  if (seconds < 10) seconds = "0" + seconds;
+
+  // Format the date/time string based on the format parameter
+  var dateTimeString;
+  if (format === "EU") {
+    dateTimeString =
+      day +
+      "/" +
+      month +
+      "/" +
+      year +
+      " " +
+      hours +
+      ":" +
+      minutes +
+      ":" +
+      seconds;
+  } else if (format === "US") {
+    dateTimeString =
+      month +
+      "/" +
+      day +
+      "/" +
+      year +
+      " " +
+      hours +
+      ":" +
+      minutes +
+      ":" +
+      seconds;
+  } else {
+    // Default to US format if format is not provided or invalid
+    dateTimeString =
+      month +
+      "/" +
+      day +
+      "/" +
+      year +
+      " " +
+      hours +
+      ":" +
+      minutes +
+      ":" +
+      seconds;
+  }
 
   // Return the date/time string
   return dateTimeString;
@@ -402,8 +440,8 @@ function displaySecondStepOfActivities() {
   activityStepOne = false;
   // display the additional info
   document.getElementById("phone_number_input").innerHTML =
-    '<p><input type="number" id="phone_input" placeholder="Enter Phone Number" name="Phone" oninput="this.className = \'\'"></p>';
-  if (phoneNumber !== null) {
+    '<p><input type="tel" id="phone_input" placeholder="Enter Phone Number" name="Phone" oninput="this.className = \'\'"></p>';
+  if (phoneNumber.length > 0) {
     document.getElementById("phone_input").value = phoneNumber;
   }
   document.getElementById("phone_input").addEventListener("input", function (event) {
