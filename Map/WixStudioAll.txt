@@ -26,18 +26,30 @@
 
         <script>
 
+//Variables
+const rect = document.getElementById('map').getBoundingClientRect();
+const viewportX = rect.x;
+const viewportY = rect.bottom;
+const shiftScreenY = 0.25 * viewportY;
+const shiftScreenX = 0.5 * viewportX;
+let lastCenter = [173.21106573769924, -41.81657804512245];
+
 //Load map
 //Call in mapbox to load map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMyanFqY3d2a2pwdW0ifQ.HgnJMH6GCfnB4zagtanLSw';
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
-    center: [173.21106573769924, -41.81657804512245], // starting position [lng, lat]
-    zoom: 4.25, // starting zoom
+    center: [168.66309991673293, -45.03357271974072], // starting position [lng, lat]
+    zoom: 12, // starting zoom
 });
 //Let wix know when map is loaded
 map.on('load', () => {
     if (map.loaded()) window.parent.postMessage('mapLoaded', "*");
+});
+
+map.on('click', () => {
+    window.parent.postMessage('zoomOut', "*");
 });
 
 //Get data from wix, this is general so here check what the info is and do with it what you will
@@ -72,17 +84,13 @@ window.onmessage = (event) => {
       	case "L4":
         	OpenLayer(event.data);
         	break;
+        case 'Geolocate':
+            ShowUser();
         default:
             console.log("somethings wrong");
             break;
     }
 };
-
-
-//Post data to wix when marker is clicked
-window.parent.postMessage = (event) => {
-
-}
 
 //Make markers from send in list
 function makeMarkers(list) {
@@ -106,7 +114,9 @@ function makeMarkers(list) {
             .addTo(map);
 
         el.addEventListener('click', (event) => {
+            event.stopPropagation();
             window.parent.postMessage(el.id, "*");
+            CentralizeToMarker(marker[2]);
         });
     }
 }
@@ -134,12 +144,48 @@ function OpenAll()
     });
 }
 
-// Set markers and get unique id in name, get image link
+//Fly to marker and centralize it
+function CentralizeToMarker(lnglat) {
+    let zoom = map.getZoom();
+    lastCenter = [lnglat[0], lnglat[1]];
 
-// Switch layers with OnMessage()
-// find all elements with marker in the name -> turn these off -> check id's and search for the ones containing layer code for corresponding layer, turn on
+    map.flyTo({
+        center: [lnglat[0], lnglat[1]],
+        offset: [shiftScreenX, -shiftScreenY],
+        speed: 0.8,
+        curve: .6,
+        zoom: 18
+    });
+}
 
-// Zoom out will make markers dissapear, postMessage to set layer to all
+function ShowUser()
+{
+    navigator.geolocation;
+
+    const succes = (poistion)=>{
+        console.log('Getting position');
+    };
+
+    const error = () =>{
+        console.log('Didnt get location');
+    }
+
+
+    navigator.geolocation.getCurrentPosition(succes, error);
+
+    // Add geolocate control to the map.
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: !0
+            },
+            // When active the map will receive updates to the device's location as it changes.
+            trackUserLocation: !0,
+            // Draw an arrow next to the location dot to indicate which direction the device is heading.
+            showUserHeading: !0
+        })
+    );
+}
 
         </script>  
     </body>
