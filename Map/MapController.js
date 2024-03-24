@@ -6,6 +6,7 @@ const jsonURL = 'https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json';
 //Translatable texts
 const loctextdefault = 'Show location';
 const startText = "Welcome to the beautiful country of Aotearoa (New Zealand) and the amazing town of Queenstown! \n ENTER MORE TEXT HERE";
+const initCloseText = "Confirm";
 let infoText = "This is a temporary text which cannot be allowed over 500 characters, please if it is more than 500 characters, make it so that its multiple pieces of text!";
 let websiteLink = "Go to website";
 let noWebsiteLink = "No website available";
@@ -206,6 +207,9 @@ const initToggle = document.getElementById('onRadio');
 const inittitle = document.getElementById('init-title');
 const showloctext = document.getElementById('location-select-text');
 
+//VARIABLES FOR NAVBAR
+let activeNav;
+let allItemsNav;
 //#endregion
 
 //#region MAP INITIALIZE
@@ -231,9 +235,14 @@ map.on('click', () => {
 
 map.on('zoomend', (e) => {
     const zoom = map.getZoom();
-    if (zoom < zoomMarker && markerVisible) ToggleMarkers('none');
-    else if (zoom > zoomMarker && !markerVisible) ToggleMarkers('block');
-    else if (zoom > zoomMarker && markerVisible) null;
+
+    if(zoom < zoomMarker && markerVisible) 
+    {
+        ToggleMarkers('none');
+        ChangeSelectedNav(allItemsNav);
+    }
+    else if(zoom > zoomMarker && !markerVisible) ToggleMarkers('block');
+    else if(zoom > zoomMarker && markerVisible) null;
 
     if (zoom < zoomMapTitle && mapTitleVisible) ToggleTitle('none');
     else if (zoom > zoomMapTitle && !mapTitleVisible) ToggleTitle('block');
@@ -280,6 +289,7 @@ function addLayers(GeoJSON) {
             for (let j = 0; j < _layerName.length; j++) {
                 if (marker.properties.layer === _layerName[j]) {
                     _layers[j].push(marker);
+                    console.log(_layers[j]);
                     break;
                 }
             }
@@ -298,15 +308,19 @@ function addLayers(GeoJSON) {
 }
 
 //Shows the selected layer
-function OpenLayer(id) {
+
+function OpenLayer(navbarid)
+{
     CloseSlideUp();
     CloseInfo();
+    ChangeSelectedNav(navbarid);
 
-    if (id === 'all') {
-        openAll();
+
+    if(navbarid.id ==='all'){
+        OpenAll();
         return;
     }
-    let ids = id.split(" ");
+    let ids = navbarid.id.split(" ");
 
     document.querySelectorAll('img[class^="marker"]').forEach(function (el) {
         el.style.display = 'none';
@@ -335,12 +349,29 @@ function OpenLayer(id) {
 }
 
 //Shows all layers
-function openAll() {
+
+function OpenAll()
+{
     let elements = document.querySelectorAll(`img[class^="marker"]`);
 
     elements.forEach(function (el) {
         el.style.display = 'block';
     });
+}
+
+function ChangeSelectedNav(newActive)
+{
+    if(activeNav === undefined)
+    {
+        activeNav = newActive;
+        newActive.classList.add('.selected');
+    }
+    if(activeNav.id !== newActive.id)
+    {
+        newActive.classList.add('.selected');
+        activeNav.classList.remove('.selected');
+        activeNav = newActive;
+    }
 }
 //#endregion
 
@@ -524,18 +555,27 @@ map.on('moveend', () => {
     closeButton.addEventListener('click', CloseInfo);
     const navButtons = document.querySelectorAll('.navbar-item');
     for (let i = 0; i < navButtons.length; i++) {
-        navButtons[i].addEventListener('click', () => OpenLayer(navButtons[i].id));
+
+        navButtons[i].addEventListener('click', ()=> OpenLayer(navButtons[i])); 
+        if(navButtons[i].id === 'all')
+        { 
+            allItemsNav = navButtons[i];
+        }
     }
+    ChangeSelectedNav(allItemsNav);
 });
 //#endregion
 
 //#region LANGUAGE SECTION
 
-function LanguageSelected(e) {
-    newLanguage = e.target.value;
-    if (newLanguage !== lastLanguage) {
-        ChangeLanguage(startText).then(response => initcontent.innerText = response);
-        ChangeLanguage(loctextdefault).then(response => showloctext.innerText = response);
+function LanguageSelected(e)
+{
+    newLanguage=e.target.value;
+    if(newLanguage !== lastLanguage)
+    {
+        ChangeLanguage(startText).then(response=> initcontent.innerText = response);
+        ChangeLanguage(loctextdefault).then(response=> showloctext.innerText = response);
+        ChangeLanguage(initCloseText).then(response=> initclose.innerText = response);
     }
     else {
         initcontent.innerText = startText;
@@ -543,8 +583,10 @@ function LanguageSelected(e) {
     }
 }
 
-function toggleState(state) {
-    if (state === 'on') onRadio.value = 'off';
+
+function ToggleState(state)
+{
+    if(state === 'on') onRadio.value = 'off';
     else onRadio.value = 'on';
     console.log(state);
 
@@ -568,7 +610,14 @@ function ChechkToTranslate() {
     ChangeLanguage(websiteLink).then(response => websiteLink = response);
     ChangeLanguage(noPhone).then(response => noPhone = response);
     ChangeLanguage(dirText).then(response => direction.innerText = response);
+
+    for (let i = 0; i < _layers.length; i++) {
+        for (let j = 0; j < _layers[i].length; j++) {
+            ChangeLanguage(_layers[i][j].properties.description).then(response => _layers[i][j].properties.description = response);
+        }        
+    }
 }
+//#endregion
 
 //CALLS INITIALIZATION CODE
 Init();

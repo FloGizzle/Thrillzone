@@ -21,21 +21,25 @@
         <div class="allInitContent" id="all-init-content">
             <h1 class="greetings" id="init-title">Kia Ora!</h1>
             <span class="init-content" id="init-content"></span>
-            <span class="closebutton" id="init-close">&times;</span>
 
-            <div class="languagelocation">
-                <div class="language-select">
-                    <ul class="language">
-                        <li> 
-                            <label for="language">-Select language-</label>
-                            <select onchange="LanguageSelected(event)">
-                            </select>
-                        </li>
-                    </ul>
+            <div class="interactive-container">
+                <div class="languagelocation">
+                    <div class="language-select">
+                        <ul class="language">
+                            <li> 
+                                <label for="language">-Select language-</label>
+                                <select onchange="LanguageSelected(event)">
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="location-select">
+                        <label fort="location-select" id="location-select-text">Show location</label>
+                        <input type="checkbox" class="checkbox" id="onRadio" name="toggle" value="on" onchange="ToggleState(value)">
+                    </div>
                 </div>
-                <div class="location-select">
-                    <label fort="location-select" id="location-select-text">Show location</label>
-                    <input type="checkbox" class="checkbox" id="onRadio" name="toggle" value="on" onchange="toggleState(value)">
+                <div class="close-container">
+                    <span class="closebutton" id="init-close">Confirm</span>
                 </div>
             </div>
         </div>
@@ -139,7 +143,7 @@
 
     <!--QUESTION POP UP-->
     <div id="square" class="square small">
-        <svg class="icon" id="icon" width="50px" height="50px" xmlns="http://www.w3.org/2000/svg"
+        <svg class="icon" id="icon" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
             <path
                 d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />

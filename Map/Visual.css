@@ -1,6 +1,7 @@
 :root{
     --color: rgb(255,255,255);
     --secondColor: rgb(250, 250, 250);
+    --thirdcolor: 	rgb(187,220,162);
     --rounding: 10px;
 }
 html
@@ -50,20 +51,18 @@ body {
 .init-content {
     padding: 5%;
     overflow-y: auto;
-    display: flex;
-    align-items: left;
+    display: block;
+    text-align: center;
+
 }
 
 .languagelocation{
     display:flex;
     padding-left:5%;
     padding-right: 5%;
-    border-bottom-left-radius: var(--rounding);
-    border-bottom-right-radius: var(--rounding);
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    bottom:0%;
     background-color: var(--secondColor);
 }
 .language-select{
@@ -103,14 +102,21 @@ body {
 }
 
 .closebutton {
-    position: absolute;
-    top: 0.1rem;
-    right: 1rem;
-    padding: 0;
+    background-color: var(--thirdcolor);
     font-size: 2rem;
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
+.interactive-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    bottom:0%;
+    padding-bottom: 2%;
+}
+
 /*END INIT POP UP*/
 
 /*SLIDE UP*/
@@ -193,6 +199,7 @@ body {
 .content {
     padding: 5%;
     overflow-y: auto;
+    display:none;
 }
 
 .square.small {
@@ -204,6 +211,7 @@ body {
 .square.small .icon{
     width:50px;
     height:50px;
+    display: block;
 }
 
 .square.big {
@@ -253,9 +261,12 @@ body {
 
 .navbar-nav{
     list-style: none;
+    height: 100%;
     margin: 0;
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;;
     display:flex; 
+    align-content: center;
     flex-direction: row;  
     justify-content: center;
     align-items: center;
@@ -263,6 +274,8 @@ body {
 
 .nav-item{
     height:100%;
+    width: 100%;
+    border:1px black solid;
 }
 
 .nav-link{
@@ -279,5 +292,9 @@ body {
 .nav-link svg{
     min-width: 2rem;
     margin: 0 1.5rem;
+}
+
+.selected{
+    background-color: var(--secondColor);
 }
 /* END NAV BAR */
