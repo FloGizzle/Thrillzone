@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MiniGolf Scores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<link rel="stylesheet" href="MinigolfScoreCard.css">
+
+<body>
+    <a id="top"></a>
+    <!-- <h1>Frisbee Golf Scores</h1> -->
+    <form action="#" method="post" onsubmit="return createTable()">
+        <p> Welcome, Mini Golf Enthusiasts!<br>
+
+            Embark on a journey through 9 thrilling holes with 8 unique mini-games. Customize each hole by moving
+            obstacles wherever you like! No rush ! Unlimited time !<br>
+
+            Throughout the course, you'll encounter 3 iPads mounted on the walls, each featuring spinning wheels that
+            introduce fun challenges to elevate the excitement. By the way if your ball ventures off, it respawns at the
+            start.<br>
+
+            Get ready for an unlimited, creative, and competitive mini-golf experience. Let the game begin !<br>
+
+            Just a friendly reminder: Be careful not to refresh the page, as your data will be lost.
+        </p>
+        <label for="numPlayers">Number of Players:</label>
+        <br>
+        <select id="numPlayers" required>
+            <option value="">--Select Number of Players--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <div id="table-container"></div>
+    <br>
+    <button id="start-game-btn" style="display:none;" onclick="startGame()">Start Game</button>
+    <br>
+    <div id="first-player" style="display:none;"></div>
+    <br>
+    <div id="hole-number" style="display:none; font-weight: bold;"></div>
+    <p id="rules-p">
+    </p>
+    <img id="skee-img" src="https://static.wixstatic.com/media/9fb207_dbbc96eaa77b49a8ad972594fa188b47~mv2.png"
+        alt="Shoot until you score!" style="display:none">
+    <br>
+    <div id="players-container" style="display:none;"></div>
+    <div id="two-btn" class="two-buttons">
+        <button id="back-btn" style="display:none;" onclick="nextHole(false); scrollToTop()">Back</button>
+        <button id="next-hole-btn" style="display:none;" onclick="nextHole(true); scrollToTop();">Next</button>
+    </div>
+    <div class="ladder-container">
+        <div id="ladder-table" style="display:none;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+    <script src="MinigolfScoreCard.js"></script>
+</body>
+
+</html>
