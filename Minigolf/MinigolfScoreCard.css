@@ -1,0 +1,180 @@
+body {
+    font-family: Arial, sans-serif;
+    color: yellow;
+    background-color: black;
+    margin: 5px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+label {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+input[type="submit"],
+button {
+    background-color: #ffee00;
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.alert {
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    border-radius: 5px;
+    color: #a94442;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    color: yellow;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #000000;
+    color: yellow;
+}
+
+tr:nth-child(even) {
+    background-color: yellow;
+    color: #000000;
+}
+
+.player-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    color: yellow;
+}
+
+.player-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.player-score {
+    display: flex;
+    align-items: center;
+}
+
+.score-box {
+    width: 50px;
+    margin-left: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+button {
+    margin: auto;
+    background-color: #ffee00;
+    border-radius: 4px;
+    justify-content: space-between;
+}
+
+button:active {
+    background: green;
+}
+
+.two-buttons {
+    display: flex;
+    justify-content: space-between;
+    /* align left and right */
+}
+
+#back-btn:active {
+    background: red;
+}
+
+.ladder-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+}
+
+#hole-number {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: yellow;
+}
+
+#first-player {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: yellow;
+}
+
+#two-btn {
+    justify-content: space-between;
+}
+
+p {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: white;
+    text-align: justify;
+    padding: 10px;
+    margin: 10px;
+}
+
+img {
+    margin: 25px auto;
+    /* center the image horizontally */
+    max-width: 80%;
+    /* make the image take up the full width of its container */
+    height: auto;
+    /* preserve the aspect ratio of the image */
+}
