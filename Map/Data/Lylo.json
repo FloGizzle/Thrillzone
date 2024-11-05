@@ -7,19 +7,18 @@
                 "geometry": {
                     "type": "point",
                     "coordinates": [
-                        168.658214083206279,
-                        -45.03194271162579
+                        168.66001168270114,
+                        -45.030304362056604
                     ]
                 },
-                "isVisible": "hidden",
                 "properties": {
-                    "title": "Escape Quest Queenstown",
-                    "maptitle": "Escape Quest",
-                    "website": "https://www.escapequest.co.nz/",
-                    "phone": "+63 441 1159",
-                    "description": "Escape room center.",
-                    "markerimage": "https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/EQ.png?raw=true",
-                    "layer": "eq"
+                    "website": "https://www.lylo.com/queenstown/",
+                    "description": "This is the Hostel your staying at. Click on directions to get the directions back!",
+                    "layer": "Home",
+                    "maptitle": "LyLo Queenstown formerly Jucy Snooze",
+                    "title": "LyLo Hostel",
+                    "markerimage": "https://static.wixstatic.com/media/9fb207_537f6197cbcd41989aa1f615fb2fb205~mv2.png",
+                    "phone": "0800427736"
                 }
             }
         ]
@@ -36,15 +35,518 @@
                         -45.032036049661855
                     ]
                 },
-                "isVisible": "hidden",
                 "properties": {
-                    "title": "Thrillzone Queenstown",
-                    "maptitle": "Thrillzone",
                     "website": "https://www.thrillzone.co.nz/queenstown",
-                    "phone": "+643 441 1159",
-                    "description": "Adventure centre for indoor & outdoor activities including virtual reality gaming & escape rooms.",
-                    "markerimage": "https://github.com/FloGizzle/Thrillzone/blob/main/Map/Icons/TZ.png?raw=true",
-                    "layer": "tz"
+                    "description": "Welcome to Thrillzone, Queenstown's entertainment hub for indoor and outdoor thrillz! Located in the heart of Queenstown, Thrillzone offer’s virtual reality experiences and a variety of thrilling activities suitable for all ages. From Indoor UV Mini Golf  to the adrenaline-pumping Omni VR experience, there's something for everyone. Rain or shine, Thrillzone is your go-to destination for fun in Queenstown!.",
+                    "layer": "L0",
+                    "maptitle": "Thrillzone Queenstown",
+                    "title": "Thrillzone",
+                    "markerimage": "https://static.wixstatic.com/media/9fb207_568d609acc254edbba1de8c687992ab9~mv2.png",
+                    "phone": "+643 441 1159"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65821408320627,
+                        -45.03194271162579
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.escapequest.co.nz/",
+                    "description": "Escape room center.",
+                    "layer": "L0",
+                    "maptitle": "Escape Quest Queenstown",
+                    "title": "Escape Quest",
+                    "markerimage": "https://static.wixstatic.com/media/9fb207_e05c0b9f58094dffb88fbc8199b9d5b0~mv2.png",
+                    "phone": "+63 441 1159"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.66039142326252,
+                        -45.031591862245435
+                    ]
+                },
+                "properties": {
+                    "website": "",
+                    "description": "Queenstown shopping area",
+                    "layer": "L0",
+                    "maptitle": "-45.031591862245435, 168.66039142326252",
+                    "title": "Shopping area",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_026182b81bf245fdbe7e5b70f980638a.svg",
+                    "phone": ""
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65619416982702,
+                        -45.02849451830094
+                    ]
+                },
+                "properties": {
+                    "website": "https://queenstown.skyline.co.nz/",
+                    "description": "Attraction featuring a gondola to a panoramic restaurant/bar, hiking trails & a luge ride down.",
+                    "layer": "L0",
+                    "maptitle": "Skyline Queenstown",
+                    "title": "Skyline",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_026182b81bf245fdbe7e5b70f980638a.svg",
+                    "phone": "+643 441 0101"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65811236862913,
+                        -45.03350788466039
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.realjourneys.co.nz/en/experiences/cruises/tss-earnslaw-lake-cruises/",
+                    "description": "Boat tour on one of the world’s oldest and largest running coal-fired steam ship",
+                    "layer": "L0",
+                    "maptitle": "TSS Earnslaw",
+                    "title": "TSS Earnslaw",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_026182b81bf245fdbe7e5b70f980638a.svg",
+                    "phone": "0800 656 501"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65992695271885,
+                        -45.032985257809536
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.kjet.co.nz/",
+                    "description": "Jet boat tour company offering tours on lake Wakatipu and in shotover. Also has time trippers in lake Wakatipu where you can discover what’s hidden underneath",
+                    "layer": "L0",
+                    "maptitle": "KJet Queenstown",
+                    "title": "KJet",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_026182b81bf245fdbe7e5b70f980638a.svg",
+                    "phone": "0034090000"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.66670405022106,
+                        -45.027480175552625
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.alltrails.com/trail/new-zealand/otago/queenstown-hill-walkway",
+                    "description": "Queenstown hill walking trail, 4.8 km out-and-back, takes about 2 hours and 15 minutes",
+                    "layer": "L0",
+                    "maptitle": "Queenstown hill trail",
+                    "title": "Queenstown hill trail",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_76d6deec4da643668cf5f0845525fc24.svg",
+                    "phone": ""
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.6612681731647,
+                        -45.03609701389536
+                    ]
+                },
+                "properties": {
+                    "website": "http://www.queenstowndiscgolf.co.nz/queenstown-disc-golf-courses/queenstown-gardens-disc-golf-course/",
+                    "description": "18 Hole disk golf course located in the beautiful queenstown gardens. Disk can be rented around town in shops like Thrillzone",
+                    "layer": "L0",
+                    "maptitle": "Disk golf Queenstown",
+                    "title": "Disk golf",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_76d6deec4da643668cf5f0845525fc24.svg",
+                    "phone": ""
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65785890749558,
+                        -45.03320898633421
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.minus5icebar.com/",
+                    "description": "",
+                    "layer": "L1",
+                    "maptitle": "minus 5 icebar",
+                    "title": "Minus 5° Icebar",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_e1b2b0fa151549aaa6479264ca3df0dc.svg",
+                    "phone": "021 193 7966"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65948420551396,
+                        -45.03174011278162
+                    ]
+                },
+                "properties": {
+                    "website": "http://www.fergburger.com/",
+                    "description": "Busy place known for its luxurious, inventive burgers with beef, chicken and exotic proteins.",
+                    "layer": "L1",
+                    "maptitle": "Fergburger Queenstown",
+                    "title": "Fergburger",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_9add18319fb24b668b1373e38d0329a8.svg",
+                    "phone": "03 441 1232"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.6583515411039,
+                        -45.03242542611614
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.lylo.com/queenstown/deals/",
+                    "description": "Coffee place that sells amazing bagels and sandwiches.",
+                    "layer": "L1",
+                    "maptitle": "balls & bangels Queenstown",
+                    "title": "Balls & Bangels",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_9add18319fb24b668b1373e38d0329a8.svg",
+                    "phone": "03 442 7999"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.66143420350173,
+                        -45.03239150725691
+                    ]
+                },
+                "properties": {
+                    "website": "",
+                    "description": "Bars and nightlife area of Queenstown",
+                    "layer": "L1",
+                    "maptitle": "-45.03239150725691, 168.66143420350173",
+                    "title": "Bars & nightlife",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_e1b2b0fa151549aaa6479264ca3df0dc.svg",
+                    "phone": ""
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.6613962294478,
+                        -45.03048077389882
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.foursquare.co.nz/south-island/otago/queenstown?utm_source=google&utm_medium=organic&utm_campaign=Google+My+Business&utm_term=plcid_15145177447348625057&utm_content=Four+Square+Queenstown",
+                    "description": "Supermarket in the heart of Queenstown. \nOpen everyday from 7AM till 10PM.",
+                    "layer": "L3",
+                    "maptitle": "Four Square Queenstown",
+                    "title": "Four Square",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_f98f39870f4746ee89965601036fbdb7.svg",
+                    "phone": "03 442 8961"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.66141149998705,
+                        -45.02477281684568
+                    ]
+                },
+                "properties": {
+                    "website": "http://freshchoice.co.nz/supermarkets/queenstown",
+                    "description": "Bigger supermarket just outside of Queenstown centre. \nOpen everyday from 7AM till 10PM.",
+                    "layer": "L3",
+                    "maptitle": "Fresh choice Queenstown",
+                    "title": "Fresh choice",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_f98f39870f4746ee89965601036fbdb7.svg",
+                    "phone": "03 441 1252"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65952538815557,
+                        -45.031043454622235
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.skiqueenstown.co.nz/ski-bus/",
+                    "description": "The pick up spot to go the the ski areas of Coronet Peak and the Remarkables.",
+                    "layer": "L2",
+                    "maptitle": "Coronet Peak & The Remarkables Ski Bus",
+                    "title": "Ski bus pick up point",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_a18f1df48c6042ffb540293517bf30f6.svg",
+                    "phone": "0800 697 547"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.662361614876,
+                        -45.030672335259474
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.google.com/maps/dir/?api=1&origin=Stanley+Street+Bus+Hub+B,+Playcentre,+Queenstown+9300&travelmode=transit",
+                    "description": "Busses going in the direction of Frankton and Queenstown airport. \nPress website link to see the times.",
+                    "layer": "L2",
+                    "maptitle": "Stanley Street Bus Hub B, Playcentre",
+                    "title": "Bus stop",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_a18f1df48c6042ffb540293517bf30f6.svg",
+                    "phone": ""
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.66189760668286,
+                        -45.03058201561026
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.google.com/maps/dir/?api=1&origin=Stanley+Street+Bus+Hub+A,+Liquor+King,+Queenstown+9300&travelmode=transit",
+                    "description": "Busses going in the direction of Fernhill and Sunshine bay. \nPress website link to see the times.",
+                    "layer": "L2",
+                    "maptitle": "Stanley Street Bus Hub A, Liquor King",
+                    "title": "Bus stop",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_a18f1df48c6042ffb540293517bf30f6.svg",
+                    "phone": ""
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.73939490555185,
+                        -45.02166339245108
+                    ]
+                },
+                "properties": {
+                    "website": "https://www.queenstownairport.co.nz/",
+                    "description": "Queenstown International Airport is an international airport in Frankton, Otago, New Zealand, serving the seaside resort of Queenstown. The airport handled 2.25 million passengers as of 2018, making it New Zealand's fourth busiest airport in terms of passenger traffic.",
+                    "layer": "L2",
+                    "maptitle": "Queenstown airport",
+                    "title": "Airport",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_a18f1df48c6042ffb540293517bf30f6.svg",
+                    "phone": "+6434509031"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.65822901309,
+                        -45.02999965219257
+                    ]
+                },
+                "properties": {
+                    "website": "http://www.qmc.co.nz/",
+                    "description": "This is Queenstowns medical centre. If you have a medical emergency dial 111! \n\nThe opening times are: \nWeekdays: 9AM till 8PM \nWeekends: 10AM till 6PM",
+                    "layer": "L4",
+                    "maptitle": "Queenstown Medical Centre",
+                    "title": "Medical Centre",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_757ad92c38d4465585c9783b94b1be69.svg",
+                    "phone": "+6434410500"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.6580866883516,
+                        -45.03134279797758
+                    ]
+                },
+                "properties": {
+                    "website": "https://queenstownparking.co.nz/",
+                    "description": "Car park on Man Street. It's only a few minutes to walk into the city centre.",
+                    "layer": "L4",
+                    "maptitle": "Man Street Carpark",
+                    "title": "Car park",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_757ad92c38d4465585c9783b94b1be69.svg",
+                    "phone": "+6434426983"
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.6589331726137,
+                        -45.032584978288796
+                    ]
+                },
+                "properties": {
+                    "website": "",
+                    "description": "Public restroom in the heart of Queenstown.",
+                    "layer": "L4",
+                    "maptitle": "Earnslaw Park Toilet",
+                    "title": "Public toilet",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_757ad92c38d4465585c9783b94b1be69.svg",
+                    "phone": ""
+                }
+            }
+        ]
+    },
+    {
+        "type": "geojson",
+        "features": [
+            {
+                "type": "feature",
+                "geometry": {
+                    "type": "point",
+                    "coordinates": [
+                        168.6616656376277,
+                        -45.03371985667024
+                    ]
+                },
+                "properties": {
+                    "website": "",
+                    "description": "Public restroom close to the start of the Queenstown Gardens.",
+                    "layer": "L4",
+                    "maptitle": "public toilet earl st",
+                    "title": "Public toilet",
+                    "markerimage": "https://static.wixstatic.com/shapes/9fb207_757ad92c38d4465585c9783b94b1be69.svg",
+                    "phone": ""
                 }
             }
         ]
