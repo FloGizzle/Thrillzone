@@ -18,34 +18,39 @@ const SpinningWheel = () => {
         setSpinning(true);
         setSelectedName(null);
 
-        // Calculate final position
+        const currentRotation = rotation % 360;
         const segmentSize = 360 / names.length;
         const selectedIndex = Math.floor(Math.random() * names.length);
 
-        // Adjust the final position to point to the middle of the segment
-        // Add 90 degrees to start from top (pointer position)
-        // Add half segment size to point to middle of segment
-        const finalSegmentRotation = -(selectedIndex * segmentSize + 90 + segmentSize / 2);
+        // Calculate a random position within the selected segment
+        const segmentStart = -(selectedIndex * segmentSize + 90);
+        const randomOffset = Math.random() * segmentSize;
+        const targetRotation = segmentStart - randomOffset;
 
-        // Calculate total rotation including minimum spins
-        const minimumRotations = 15;
+        // Calculate required rotation to reach the target
+        let requiredRotation = targetRotation - currentRotation;
+        if (requiredRotation > 0) {
+            requiredRotation = requiredRotation - 360;
+        }
+
+        // Add minimum number of full rotations (20-25 spins)
+        const minimumRotations = 20;
         const extraRotations = Math.floor(Math.random() * 5);
         const totalRotations = minimumRotations + extraRotations;
-        const fullSpinsRotation = totalRotations * 360;
+        const fullSpinsRotation = -totalRotations * 360;
 
-        // Set the new total rotation
-        const finalRotation = fullSpinsRotation + finalSegmentRotation;
+        const finalRotation = rotation + requiredRotation + fullSpinsRotation;
         setRotation(finalRotation);
 
         setTimeout(() => {
             setSpinning(false);
             setSelectedName(names[selectedIndex]);
-        }, 2000);
+        }, 3000);
     };
 
     const getSegmentPath = (index) => {
         const segmentAngle = 360 / names.length;
-        const startAngle = index * segmentAngle;  // Remove the -90 offset
+        const startAngle = index * segmentAngle;
         const endAngle = (index + 1) * segmentAngle;
 
         const start = {
@@ -72,7 +77,9 @@ const SpinningWheel = () => {
                     viewBox="0 0 100 100"
                     style={{
                         transform: `rotate(${rotation}deg)`,
-                        transition: spinning ? 'transform 2s cubic-bezier(0.15, 0.95, 0.25, 1)' : 'none'
+                        transition: spinning
+                            ? 'transform 3s cubic-bezier(0.2, 0.8, 0.2, 1)'
+                            : 'none'
                     }}
                 >
                     {names.map((name, index) => {
@@ -108,8 +115,8 @@ const SpinningWheel = () => {
                     })}
                 </svg>
 
-                {/* Made pointer more visible */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 w-6 h-6 bg-black transform rotate-45" />
+                {/* Made the pointer a bit thinner but taller for better precision */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 w-4 h-8 bg-black transform rotate-45" />
             </div>
 
             <Button
