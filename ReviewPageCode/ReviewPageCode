@@ -1,0 +1,414 @@
+import wixLocation from 'wix-location';
+import wixWindow from 'wix-window';
+import wixWindowFrontend from 'wix-window-frontend';
+
+const state1 = "RatingState";
+const state2 = "PrivateReviewState";
+const state3 = "PublicReviewState";
+
+var location;
+var user_id;
+var user_rating;
+var user_review;
+
+const reviewURL = "https://script.google.com/macros/s/AKfycbznVpDKmkFqZqIJO2Dqmt_MlZqkJEZJCxK53XyHejhZ3FALvjMEUcIplw6kMg2xrh9T/exec";
+
+var googleUrl;
+var tripAdvisorUrl;
+
+$w.onReady(function(){
+	let query = wixLocation.query[`rating`];
+	user_rating = decodeURIComponent(query);
+	query = wixLocation.query[`location`];
+	location = decodeURIComponent(query);
+	query = wixLocation.query[`id`];
+	user_id = decodeURIComponent(query);
+
+	ChangeState(state2);
+
+	if(location.includes("Queenstown")) 
+	{
+		googleUrl = "https://g.page/r/CXiBHbG9lD5YEBM/review";
+		tripAdvisorUrl = "https://www.tripadvisor.co.nz/UserReviewEdit-g255122-d6483514-Thrillzone-Queenstown_Otago_Region_South_Island.html";
+	}
+	else if(location.includes("Takapuna"))
+	{
+		googleUrl = "https://g.page/r/CfWi0QVwoKpoEBM/review";
+		tripAdvisorUrl = "https://www.tripadvisor.co.nz/UserReviewEdit-g1821937-d19430999-Thrillzone-Auckland-Takapuna_North_Shore_North_Island.html";
+	} 
+	else 
+	{
+		googleUrl = "https://g.page/r/CfWi0QVwoKpoEBM/review";
+		tripAdvisorUrl = "";
+	}
+
+	$w('#Google1').link = googleUrl;
+	$w('#Tripadvisor').link = tripAdvisorUrl;
+	$w('#Google2').link = googleUrl;
+	$w('#tripadvisor2').link = tripAdvisorUrl;
+
+	$w('#RatingBack').label = user_rating;
+	$w('#nextbutton').hide();
+})  
+
+function ChangeState(nextState)
+{
+	if(wixWindowFrontend.formFactor == "Mobile") wixWindow.scrollTo(0, 0);
+	if(nextState == state2) $w('#RatingBack').label = user_rating;
+	$w('#QTReviewState').changeState(nextState);
+}
+
+//#region First state input
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click1(event) {
+	user_rating = "1";
+	ChangeState(state2);
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click2(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "2";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click3(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "3";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click4(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "4";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click5(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "5";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click6(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "6";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click7(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "7";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click8(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "8";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click9(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "9";
+	ChangeState(state2);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click10(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	user_rating = "10";
+	ChangeState(state2);
+}
+//#endregion
+
+//#region Second state input
+const skip = "skip";
+const next = "next";
+
+let buttonState = skip;
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function clickreview(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	if(user_rating == "9" || user_rating == "10")
+	{
+		$w('#socialbuttons').show();
+		$w('#socialbuttons2').show();
+		$w('#socialbuttons1').hide();
+		$w('#copygroup').hide();
+		$w('#askforreviewtext').show();
+		$w('#thankyou').hide();
+	}
+	else
+	{
+		$w('#thankyou').show();
+		$w('#socialbuttons').hide();
+		$w('#askforreviewtext').hide();
+	}
+	SendReviewData(user_id, user_rating, "");
+	ChangeState(state3);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function nextbutton_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	if(user_rating == "9" || user_rating == "10")
+	{
+		$w('#socialbuttons').show();
+		$w('#socialbuttons1').show();
+		$w('#socialbuttons2').hide();
+		$w('#askforreviewtext').show();
+		$w('#thankyou').hide();
+		$w('#tocopytext').text = user_review;
+		$w('#copygroup').show();
+	}
+	else
+	{
+		$w('#thankyou').show();
+		$w('#copygroup').hide()
+		$w('#socialbuttons').hide();
+		$w('#askforreviewtext').hide();
+	}
+	SendReviewData(user_id, user_rating, user_review);
+	ChangeState(state3);
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function click_backtorating(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	ChangeState(state1);
+}
+
+/**
+*	Adds an event handler that runs when the input element receives
+input.
+	[Read more](https://www.wix.com/corvid/reference/$w.TextInputMixin.html#onInput)
+*	 @param {$w.Event} event
+*/
+export function reviewbox_input(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	let text = $w('#reviewbox').value;
+	if(text == "") 
+	{
+		$w('#skipbutton').show();
+		$w('#nextbutton').hide();
+	}
+	else
+	{
+		$w('#skipbutton').hide();
+		$w('#nextbutton').show();
+		user_review = text;
+	}
+}
+
+//#endregion 
+
+//#region Data sending
+async function SendReviewData(id, rating, review) {
+    const scriptURL = reviewURL;
+    console.log("Attempting to send data to:", scriptURL);
+
+    const data = JSON.stringify({data: [id, rating, review]});
+    console.log("Sending data:", data);
+
+    try {
+        const response = await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: data
+        });
+
+        const result = await response.text();
+        console.log("Response received:", result);
+        return result;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        throw error;
+    }
+}
+
+async function SendSocialData(id, social) {
+    const scriptURL = reviewURL;
+    console.log("Attempting to send data to:", scriptURL);
+
+    const data = JSON.stringify({data: [id, social]});
+    console.log("Sending data:", data);
+
+    try {
+        const response = await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: data
+        });
+
+        const result = await response.text();
+        console.log("Response received:", result);
+        return result;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        throw error;
+    }
+}
+//#endregion
+
+//#region Socials state
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function copybutton_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	wixWindow.copyToClipboard(user_review);
+	$w('#copyandshare').text = "You're review is copied!";
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function Facebook1_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	SendSocialData(user_id, "Facebook");
+}
+
+
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function Tripadvisor1_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	SendSocialData(user_id, "TripAdvisor");
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function Google1_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	SendSocialData(user_id, "Google");
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function Google2_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	SendSocialData(user_id, "Google");
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function facebook2_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	SendSocialData(user_id, "Facebook");
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/
+export function tripadvisor2_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+	SendSocialData(user_id, "TripAdvisor");
+}
+//#endregion
