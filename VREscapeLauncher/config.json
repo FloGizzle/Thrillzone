@@ -1,0 +1,77 @@
+{
+    "providers": {
+        "UBISOFT": {
+            "startup_files": [
+                {
+                    "path": "C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/SphinxOperator/SphinxOperator.exe",
+                    "requires_admin": true
+                },
+                {
+                    "path": "C:/ProgramData/ARVI VR/VRP 2/Admin Panel/VRPAdmin.exe",
+                    "requires_admin": false
+                }
+            ],
+            "games": [
+                "Notre Dam",
+                "Pyramid",
+                "Medusa",
+                "Jumpers",
+                "Dagger of Time"
+            ]
+        },
+        "ARVI": {
+            "startup_files": [
+                {
+                    "path": "C:/ProgramData/ARVI VR/VRP 2/Admin Panel/VRPAdmin.exe",
+                    "wait_after": 1,
+                    "requires_admin": false
+                }
+            ],
+            "games": [
+                "Christmas",
+                "Jungle Quest",
+                "Mission Sigma",
+                "Survival",
+                "House of Fear: Cursed Souls",
+                "House of Fear: Call of Blood",
+                "Chernobyl",
+                "Sanctum",
+                "Cyberpunk",
+                "Alice",
+                "Prison",
+                "Dream Hackers"
+            ]
+        },
+        "VR CAVE": {
+            "startup_files": [
+                {
+                    "path": "C:/Users/Thrillzone Arena/Desktop/vrcave/utilities/ChatServerStartup.bat",
+                    "wait_after": 2,
+                    "requires_admin": false
+                },
+                {
+                    "path": "C:/Users/Thrillzone Arena/Desktop/vrcave/Windows/VRcaveLibrary.exe",
+                    "wait_after": 1,
+                    "requires_admin": false
+                },
+                {
+                    "path": "C:/ProgramData/ARVI VR/VRP 2/Admin Panel/VRPAdmin.exe",
+                    "requires_admin": false
+                }
+            ],
+            "games": [
+                "Dragon Tower",
+                "Pirates Plague",
+                "Ninja Trials",
+                "Time Travel",
+                "Tiberia",
+                "Manor Escape",
+                "Runaway Train",
+                "Depths of Osiris",
+                "Aliens"
+            ]
+        }
+    },
+    "spreadsheet_name": "Game Launches",
+    "location": "AKL"
+}
