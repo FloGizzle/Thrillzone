@@ -1,3 +1,4 @@
+
 /*CUSTOM VARIABLES PER MAP VERSION*/
 const jsonURL = 'https://FloGizzle.github.io/Thrillzone/Map/Data/Lylo.json';
 
@@ -17,93 +18,93 @@ let lastLanguage = "en-GB";
 let newLanguage = "";
 //Language options
 const languages = {
-            "en-GB": "English (Default)",
-            "sq-AL": "Albanian",
-            "am-ET": "Amharic",
-            "ar-SA": "Arabic",
-            "eu-ES": "Basque",
-            "be-BY": "Bielarus",
-            "bem-ZM": "Bemba",
-            "bn-IN": "Bengali",
-            "bs-BA": "Bosnian",
-            "my-MM": "Burmese",
-            "ca-ES": "Catalan",
-            "hr-HR": "Croatian",
-            "cs-CZ": "Czech",
-            "da-DK": "Danish",
-            "dz-BT": "Dzongkha",
-            "et-EE": "Estonian",
-            "fi-FI": "Finnish",
-            "fo-FO": "Faroese",
-            "fr-FR": "French",
-            "gl-ES": "Galician",
-            "de-DE": "German",
-            "gu-IN": "Gujarati",
-            "el-GR": "Greek",
-            "ha-NE": "Hausa",
-            "he-IL": "Hebrew",
-            "hi-IN": "Hindi",
-            "hu-HU": "Hungarian",
-            "id-ID": "Indonesian",
-            "is-IS": "Icelandic",
-            "it-IT": "Italian",
-            "ja-JP": "Japanese",
-            "kk-KZ": "Kazakh",
-            "km-KM": "Khmer",
-            "kn-IN": "Kannada",
-            "rn-BI": "Kirundi",
-            "ko-KR": "Korean",
-            "ku-TR": "Kurdish",
-            "ky-KG": "Kyrgyz",
-            "la-VA": "Latin",
-            "lo-LA": "Lao",
-            "lv-LV": "Latvian",
-            "mg-MG": "Malagasy",
-            "dv-MV": "Maldivian",
-            "mi-NZ": "Maori",
-            "ms-MY": "Malay",
-            "mt-MT": "Maltese",
-            "ne-NP": "Nepali",
-            "nl-NL": "Netherlands",
-            "no-NO": "Norwegian",
-            "ny-MW": "Nyanja",
-            "ur-PK": "Pakistani",
-            "pa-IN": "Panjabi",
-            "ps-PK": "Pashto",
-            "fa-IR": "Persian",
-            "pl-PL": "Polish",
-            "pt-PT": "Portuguese",
-            "ro-RO": "Romanian",
-            "ru-RU": "Russian",
-            "sg-CF": "Sango",
-            "si-LK": "Sinhala",
-            "sk-SK": "Slovak",
-            "sm-WS": "Samoan",
-            "sn-ZW": "Shona",
-            "so-SO": "Somali",
-            "es-ES": "Spanish",
-            "sr-RS": "Serbian",
-            "sv-SE": "Swedish",
-            "sw-SZ": "Swahili",
-            "ta-LK": "Tamil",
-            "te-IN": "Telugu",
-            "tg-TJ": "Tajik",
-            "th-TH": "Thai",
-            "bo-CN": "Tibetan",
-            "ti-TI": "Tigrinya",
-            "tk-TM": "Turkmen",
-            "tl-PH": "Tagalog",
-            "tn-BW": "Tswana",
-            "to-TO": "Tongan",
-            "tr-TR": "Turkish",
-            "uk-UA": "Ukrainian",
-            "uz-UZ": "Uzbek",
-            "vi-VN": "Vietnamese",
-            "cy-GB": "Welsh",
-            "wo-SN": "Wolof",
-            "xh-ZA": "Xhosa",
-            "yi-YD": "Yiddish",
-            "zu-ZA": "Zulu"
+    "en-GB": "English (Default)",
+    "sq-AL": "Albanian",
+    "am-ET": "Amharic",
+    "ar-SA": "Arabic",
+    "eu-ES": "Basque",
+    "be-BY": "Bielarus",
+    "bem-ZM": "Bemba",
+    "bn-IN": "Bengali",
+    "bs-BA": "Bosnian",
+    "my-MM": "Burmese",
+    "ca-ES": "Catalan",
+    "hr-HR": "Croatian",
+    "cs-CZ": "Czech",
+    "da-DK": "Danish",
+    "dz-BT": "Dzongkha",
+    "et-EE": "Estonian",
+    "fi-FI": "Finnish",
+    "fo-FO": "Faroese",
+    "fr-FR": "French",
+    "gl-ES": "Galician",
+    "de-DE": "German",
+    "gu-IN": "Gujarati",
+    "el-GR": "Greek",
+    "ha-NE": "Hausa",
+    "he-IL": "Hebrew",
+    "hi-IN": "Hindi",
+    "hu-HU": "Hungarian",
+    "id-ID": "Indonesian",
+    "is-IS": "Icelandic",
+    "it-IT": "Italian",
+    "ja-JP": "Japanese",
+    "kk-KZ": "Kazakh",
+    "km-KM": "Khmer",
+    "kn-IN": "Kannada",
+    "rn-BI": "Kirundi",
+    "ko-KR": "Korean",
+    "ku-TR": "Kurdish",
+    "ky-KG": "Kyrgyz",
+    "la-VA": "Latin",
+    "lo-LA": "Lao",
+    "lv-LV": "Latvian",
+    "mg-MG": "Malagasy",
+    "dv-MV": "Maldivian",
+    "mi-NZ": "Maori",
+    "ms-MY": "Malay",
+    "mt-MT": "Maltese",
+    "ne-NP": "Nepali",
+    "nl-NL": "Netherlands",
+    "no-NO": "Norwegian",
+    "ny-MW": "Nyanja",
+    "ur-PK": "Pakistani",
+    "pa-IN": "Panjabi",
+    "ps-PK": "Pashto",
+    "fa-IR": "Persian",
+    "pl-PL": "Polish",
+    "pt-PT": "Portuguese",
+    "ro-RO": "Romanian",
+    "ru-RU": "Russian",
+    "sg-CF": "Sango",
+    "si-LK": "Sinhala",
+    "sk-SK": "Slovak",
+    "sm-WS": "Samoan",
+    "sn-ZW": "Shona",
+    "so-SO": "Somali",
+    "es-ES": "Spanish",
+    "sr-RS": "Serbian",
+    "sv-SE": "Swedish",
+    "sw-SZ": "Swahili",
+    "ta-LK": "Tamil",
+    "te-IN": "Telugu",
+    "tg-TJ": "Tajik",
+    "th-TH": "Thai",
+    "bo-CN": "Tibetan",
+    "ti-TI": "Tigrinya",
+    "tk-TM": "Turkmen",
+    "tl-PH": "Tagalog",
+    "tn-BW": "Tswana",
+    "to-TO": "Tongan",
+    "tr-TR": "Turkish",
+    "uk-UA": "Ukrainian",
+    "uz-UZ": "Uzbek",
+    "vi-VN": "Vietnamese",
+    "cy-GB": "Welsh",
+    "wo-SN": "Wolof",
+    "xh-ZA": "Xhosa",
+    "yi-YD": "Yiddish",
+    "zu-ZA": "Zulu"
 };
 //#endregion
 
@@ -234,6 +235,7 @@ map.on('click', () => {
 
 map.on('zoomend', (e) => {
     const zoom = map.getZoom();
+
     if(zoom < zoomMarker && markerVisible) 
     {
         ToggleMarkers('none');
@@ -242,27 +244,28 @@ map.on('zoomend', (e) => {
     else if(zoom > zoomMarker && !markerVisible) ToggleMarkers('block');
     else if(zoom > zoomMarker && markerVisible) null;
 
-    if(zoom < zoomMapTitle && mapTitleVisible) ToggleTitle('none');
-    else if(zoom > zoomMapTitle && !mapTitleVisible) ToggleTitle('block');
-    else if(zoom > zoomMapTitle && mapTitleVisible) null;
+    if (zoom < zoomMapTitle && mapTitleVisible) ToggleTitle('none');
+    else if (zoom > zoomMapTitle && !mapTitleVisible) ToggleTitle('block');
+    else if (zoom > zoomMapTitle && mapTitleVisible) null;
 })
 
-function ToggleMarkers(toggle){
-    
+function ToggleMarkers(toggle) {
+
     let elements = document.querySelectorAll(`img[class^="marker"]`);
-    elements.forEach(function(el) {
+    elements.forEach(function (el) {
         el.style.display = toggle;
     });
 
-    if(toggle === 'none') markerVisible = false;
-    else if(toggle === 'block') markerVisible = true;
+    if (toggle === 'none') markerVisible = false;
+    else if (toggle === 'block') markerVisible = true;
 }
 
-function ToggleTitle(toggle){
+function ToggleTitle(toggle) {
     console.log('toggle on the title under the logo');
 
-    if(toggle === 'none') mapTitleVisible = false;
-    else  if(toggle === 'block') mapTitleVisible = true;
+    if (toggle === 'none') mapTitleVisible = false;
+    else if (toggle === 'block') mapTitleVisible = true;
+
 }
 
 //#endregion
@@ -275,7 +278,7 @@ function addLayers(GeoJSON) {
         for (const marker of GeoJSON[i].features) {
             const el = document.createElement('img');
 
-            el.className = 'marker'+marker.properties.layer;
+            el.className = 'marker' + marker.properties.layer;
             el.src = marker.properties.markerimage;
             el.style.width = '50px';
             el.style.height = '50px';
@@ -295,21 +298,23 @@ function addLayers(GeoJSON) {
             new mapboxgl.Marker(el)
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map);
-            
-            el.addEventListener('click', (event) =>{
+
+            el.addEventListener('click', (event) => {
                 OpenSlideUp(marker, event);
             });
         }
     }
-    
+
 }
 
 //Shows the selected layer
+
 function OpenLayer(navbarid)
 {
     CloseSlideUp();
     CloseInfo();
     ChangeSelectedNav(navbarid);
+
 
     if(navbarid.id ==='all'){
         OpenAll();
@@ -317,11 +322,11 @@ function OpenLayer(navbarid)
     }
     let ids = navbarid.id.split(" ");
 
-    document.querySelectorAll('img[class^="marker"]').forEach(function(el) {
+    document.querySelectorAll('img[class^="marker"]').forEach(function (el) {
         el.style.display = 'none';
     });
 
-    ids.forEach(function(id) {
+    ids.forEach(function (id) {
         let matchesFoundForId = false; // Flag to track if any matches were found for the current ID
         let icon = [];
 
@@ -330,25 +335,26 @@ function OpenLayer(navbarid)
 
             let elements = document.querySelectorAll(`img[class^="marker${id}"]`);
 
-            elements.forEach(function(el) {
+            elements.forEach(function (el) {
                 if (id === _layerName[j]) {
                     icon.push(el);
-                } 
+                }
             });
         }
 
-        icon.forEach(function(icon){
+        icon.forEach(function (icon) {
             icon.style.display = 'block';
         })
-    }); 
+    });
 }
 
 //Shows all layers
+
 function OpenAll()
 {
     let elements = document.querySelectorAll(`img[class^="marker"]`);
 
-    elements.forEach(function(el) {
+    elements.forEach(function (el) {
         el.style.display = 'block';
     });
 }
@@ -477,15 +483,14 @@ function CloseInfo(event) {
 //Initializes the screen to have a pop up
 function Init() {
     //Get json data
-    $.getJSON(jsonURL, function( data ) {
+    $.getJSON(jsonURL, function (data) {
         addLayers(data);
     });
 
     let langOption = document.querySelectorAll('select');
-    langOption.forEach((get, con)=>{
-        for (let countrycode in languages)
-        {
-            let option = '<option value="'+countrycode+'">'+languages[countrycode]+'</option>';
+    langOption.forEach((get, con) => {
+        for (let countrycode in languages) {
+            let option = '<option value="' + countrycode + '">' + languages[countrycode] + '</option>';
             get.insertAdjacentHTML('beforeend', option);
         }
     });
@@ -539,10 +544,9 @@ map.on('moveend', () => {
 
     //Make layers visible
     for (let i = 0; i < _layers.length; i++) {
-        if(_layers[i].length === 0) break;
-        console.log("init "+document.querySelectorAll('img[class^="marker"]'));
-        for (let el of document.querySelectorAll('img[class^="marker"]'))
-        {
+        if (_layers[i].length === 0) break;
+        console.log("init " + document.querySelectorAll('img[class^="marker"]'));
+        for (let el of document.querySelectorAll('img[class^="marker"]')) {
             el.style.display = 'block';
         }
     }
@@ -551,6 +555,7 @@ map.on('moveend', () => {
     closeButton.addEventListener('click', CloseInfo);
     const navButtons = document.querySelectorAll('.navbar-item');
     for (let i = 0; i < navButtons.length; i++) {
+
         navButtons[i].addEventListener('click', ()=> OpenLayer(navButtons[i])); 
         if(navButtons[i].id === 'all')
         { 
@@ -562,6 +567,7 @@ map.on('moveend', () => {
 //#endregion
 
 //#region LANGUAGE SECTION
+
 function LanguageSelected(e)
 {
     newLanguage=e.target.value;
@@ -571,41 +577,38 @@ function LanguageSelected(e)
         ChangeLanguage(loctextdefault).then(response=> showloctext.innerText = response);
         ChangeLanguage(initCloseText).then(response=> initclose.innerText = response);
     }
-    else
-    {
+    else {
         initcontent.innerText = startText;
         showloctext.innerText = loctextdefault;
     }
 }
+
 
 function ToggleState(state)
 {
     if(state === 'on') onRadio.value = 'off';
     else onRadio.value = 'on';
     console.log(state);
-    
+
 }
 
-function ChangeLanguage(content)
-{
-    let transLINK = 'https://api.mymemory.translated.net/get?q='+content+'!&langpair='+lastLanguage+'|'+newLanguage;
-    return fetch(transLINK).then(translate => translate.json()).then(data =>{
+function ChangeLanguage(content) {
+    let transLINK = 'https://api.mymemory.translated.net/get?q=' + content + '!&langpair=' + lastLanguage + '|' + newLanguage;
+    return fetch(transLINK).then(translate => translate.json()).then(data => {
         return data.responseData.translatedText;
     });
 }
 
-function ChechkToTranslate()
-{
-    if(newLanguage === lastLanguage || newLanguage === '') 
-    {
+function ChechkToTranslate() {
+    if (newLanguage === lastLanguage || newLanguage === '') {
         translatedInfoText = infoText;
         return;
     }
 
-    ChangeLanguage(infoText).then(response=> infoText = response);
+    ChangeLanguage(infoText).then(response => infoText = response);
     ChangeLanguage(noWebsiteLink).then(response => noWebsiteLink = response);
     ChangeLanguage(websiteLink).then(response => websiteLink = response);
-    ChangeLanguage(noPhone).then(response=> noPhone = response);
+    ChangeLanguage(noPhone).then(response => noPhone = response);
     ChangeLanguage(dirText).then(response => direction.innerText = response);
 
     for (let i = 0; i < _layers.length; i++) {
@@ -618,3 +621,7 @@ function ChechkToTranslate()
 
 //CALLS INITIALIZATION CODE
 Init();
+
+//#endregion
+
+

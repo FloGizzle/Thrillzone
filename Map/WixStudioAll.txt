@@ -25,6 +25,7 @@
         <div id='map'></div> 
 
         <script>
+
  
 //Load map
 //Call in mapbox to load map
@@ -32,6 +33,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidGhyaWxsem9uZW56IiwiYSI6ImNsczN3aTU1YzBrbnMya
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/thrillzonenz/clt5aqt2o00df01oie2kkg0ou',
+
     center: [173.21106573769924, -41.81657804512245], // starting position [lng, lat]
     zoom: 4.25, // starting zoom
 });
@@ -39,6 +41,7 @@ const map = new mapboxgl.Map({
 map.on('load', () => {
     if (map.loaded()) window.parent.postMessage('mapLoaded', "*");
 });
+
 
 //Get data from wix, this is general so here check what the info is and do with it what you will
 /*
@@ -58,6 +61,7 @@ window.onmessage = (event) => {
 
 //Make markers from send in list
 
+
 //Make markers from send in list
 function makeMarkers(list) {
     console.log('got through check');
@@ -66,11 +70,13 @@ function makeMarkers(list) {
         const marker = list[i];
         const el = document.createElement('img');
 
+
         el.className = marker[0];
         el.src = marker[1];
         el.style.width = '50px';
         el.style.height = '50px';
         el.style.backgroundSize = '100%';
+
         el.style.display = 'none';
         el.style.zIndex = 1;
 
@@ -80,6 +86,7 @@ function makeMarkers(list) {
             .addTo(map);
 
         el.addEventListener('click', (event) => {
+
             console.log('needs the post Message');
         });
         console.log('should have marker');
@@ -96,6 +103,7 @@ function makeMarkers(list) {
 // find all elements with marker in the name -> turn these off -> check id's and search for the ones containing layer code for corresponding layer, turn on
 
 // Zoom out will make markers dissapear, postMessage to set layer to all
+
 
         </script>  
     </body>
