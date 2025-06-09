@@ -13,30 +13,11 @@ class DualScreenImageViewer:
         # Create control window (first screen)
         self.control_window = tk.Tk()
         self.control_window.title("Image Viewer Controls")
-        self.control_window.geometry("900x400+0+0")  # Position on first screen
+        self.control_window.geometry("975x600+0+0")  # Position on first screen
         
         # Create display window (second screen)
         self.display_window = tk.Toplevel(self.control_window)
         self.display_window.title("Fullscreen Image Display")
-        
-        # Position display window on second screen (if available)
-        try:
-            # For Windows, you can use the win32api to get monitor information
-            import win32api
-            monitors = win32api.EnumDisplayMonitors()
-            if len(monitors) > 1:
-                # Get the rectangle of the second monitor
-                monitor_info = win32api.GetMonitorInfo(monitors[1][0])
-                work_area = monitor_info.get("Work")
-                
-                # Position the window on the second monitor
-                x = work_area[0]  # Left edge of second monitor
-                y = work_area[1]  # Top edge of second monitor
-                self.display_window.geometry(f"+{x}+{y}")
-        except ImportError:
-            # Fallback if win32api is not available
-            screen_width = self.control_window.winfo_screenwidth()
-            self.display_window.geometry(f"+{screen_width}+0")
         
         # Make it fullscreen after positioning
         self.display_window.geometry("1024x768+100+100")  # Or any starting size and position
@@ -45,7 +26,7 @@ class DualScreenImageViewer:
         # Variables
         self.main_folder = ""
         self.interrupt_folder = ""
-        self.interrupt_duration = 60  # Default 5 seconds
+        self.interrupt_duration = 60  # Default 60 seconds
         self.main_images = []
         self.interrupt_images = []
         self.current_index = 0
@@ -54,6 +35,7 @@ class DualScreenImageViewer:
         self.interrupt_timer = None
         self.current_interrupt_path = None
         self.slideshow_active = False
+        self.selected_thumbnail = None  # Track currently selected thumbnail
 
         self.control_window.protocol("WM_DELETE_WINDOW", self.on_close)
         
@@ -110,22 +92,35 @@ class DualScreenImageViewer:
         # Current image info
         self.image_info = tk.Label(control_frame, text="", font=("Arial", 10))
         self.image_info.pack(pady=5)
+
         
         # Thumbnails section label
-        thumbnails_label = tk.Label(control_frame, text="Interrupt Images (Click to show)", font=("Arial", 12, "bold"))
+        thumbnails_label = tk.Label(control_frame, text="Pictures of today (Click to show)", font=("Arial", 12, "bold"))
         thumbnails_label.pack(pady=(20, 10))
-        
-        # Create scrollable frame for thumbnails
-        self.thumbnail_canvas = tk.Canvas(control_frame)
-        scrollbar = tk.Scrollbar(control_frame, orient="horizontal", command=self.thumbnail_canvas.xview)
-        self.thumbnails_frame = tk.Frame(self.thumbnail_canvas)
-        
-        self.thumbnail_canvas.configure(xscrollcommand=scrollbar.set)
-        scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+
+        # Canvas and scrollbar for thumbnails
+        thumbnail_canvas_frame = tk.Frame(control_frame)
+        thumbnail_canvas_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.thumbnail_canvas = tk.Canvas(thumbnail_canvas_frame, height=300)  # Adjust height as needed
+        scrollbar = tk.Scrollbar(thumbnail_canvas_frame, orient="vertical", command=self.thumbnail_canvas.yview)
+        self.thumbnail_canvas.configure(yscrollcommand=scrollbar.set)
+
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.thumbnail_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        self.thumbnails_frame = tk.Frame(self.thumbnail_canvas)
         self.thumbnail_canvas.create_window((0, 0), window=self.thumbnails_frame, anchor="nw")
+
         self.thumbnails_frame.bind("<Configure>", lambda e: self.thumbnail_canvas.configure(
             scrollregion=self.thumbnail_canvas.bbox("all")))
+        
+        def _on_mousewheel(event):
+            self.thumbnail_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        # Bind mousewheel scrolling when cursor is over control_frame
+        self.thumbnail_canvas.bind_all("<Enter>", lambda e: self.thumbnail_canvas.bind_all("<MouseWheel>", _on_mousewheel))
+        self.thumbnail_canvas.bind_all("<Leave>", lambda e: self.thumbnail_canvas.unbind_all("<MouseWheel>"))
     
     def setup_key_bindings(self):
         self.control_window.bind('<Escape>', lambda e: self.exit_app())
@@ -144,9 +139,12 @@ class DualScreenImageViewer:
     
     def setup_folders(self):
         self.main_folder = r"C:\Users\Thrillzone Arena\Desktop\Vortex\Daily Pictures\Favorites"
+
+        #TEST
+        #self.main_folder = r"C:\Users\TestingLab\Pictures\PhotoTestFolder"
         
         # Ask for interrupt folder
-        self.interrupt_folder = filedialog.askdirectory(title="Select Interrupt Images Folder")
+        self.interrupt_folder = filedialog.askdirectory(title="Select Todays Images Folder")
         if not self.interrupt_folder:
             return
         
@@ -181,54 +179,53 @@ class DualScreenImageViewer:
         
         # Create thumbnails for interrupt images
         self.create_thumbnails()
-        
-        # Update status
-        self.status_label.config(text=f"Status: Loaded {len(self.main_images)} main images and {len(self.interrupt_images)} interrupt images")
+
+        self.status_label.config(text=f"Status: Showing Slideshow")
     
     def create_thumbnails(self):
-        # Clear existing thumbnails
         for widget in self.thumbnails_frame.winfo_children():
             widget.destroy()
-        
-        # Create new thumbnails
+
+        columns = 5  # 5 thumbnails per row
         for i, img_path in enumerate(self.interrupt_images):
             try:
                 img = Image.open(img_path)
-                img.thumbnail((100, 100))
+                img.thumbnail((200, 200))
                 photo = ImageTk.PhotoImage(img)
-                
-                # Create a frame for each thumbnail with a label
-                thumb_frame = tk.Frame(self.thumbnails_frame)
-                thumb_frame.pack(side=tk.LEFT, padx=5, pady=5)
-                
-                # Create a label with the thumbnail
-                thumb_label = tk.Label(thumb_frame, image=photo, bd=2, relief="raised")
-                thumb_label.image = photo  # Keep a reference
+
+                row = i // columns
+                col = i % columns
+
+                thumb_frame = tk.Frame(self.thumbnails_frame, bd=2, relief="flat", bg=self.thumbnails_frame.cget("bg"))
+                thumb_frame.grid(row=row, column=col, padx=5, pady=5)
+
+                thumb_label = tk.Label(thumb_frame, image=photo)
+                thumb_label.image = photo
                 thumb_label.pack()
-                
-                # Add a short label with the filename
-                name_label = tk.Label(thumb_frame, text=os.path.basename(img_path)[:15] + "...")
+
+                name_label = tk.Label(thumb_frame, text=os.path.basename(img_path), font=("Arial", 8))
                 name_label.pack()
-                
-                # Bind click event
-                thumb_label.bind("<Button-1>", lambda e, idx=i: self.show_interrupt_image(idx))
-                name_label.bind("<Button-1>", lambda e, idx=i: self.show_interrupt_image(idx))
+
+                thumb_label.bind("<Button-1>", lambda e, idx=i, frame=thumb_frame: self.show_interrupt_image(idx, frame))
+                name_label.bind("<Button-1>", lambda e, idx=i, frame=thumb_frame: self.show_interrupt_image(idx, frame))
+
             except Exception as e:
                 print(f"Error creating thumbnail for {img_path}: {e}")
+
     
     def refresh_interrupt_images(self):
-    # Reload interrupt images sorted by creation time
+    # Load interrupt images sorted by creation/modification time (newest first)
+        self.interrupt_images = []
         if self.interrupt_folder:
-            image_files = [
-                file for file in os.listdir(self.interrupt_folder)
-                if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))
+            files = [
+                os.path.join(self.interrupt_folder, f)
+                for f in os.listdir(self.interrupt_folder)
+                if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))
             ]
-            image_files.sort(key=lambda f: os.path.getctime(os.path.join(self.interrupt_folder, f)))
-            self.interrupt_images = [os.path.join(self.interrupt_folder, f) for f in image_files]
+            self.interrupt_images = sorted(files, key=os.path.getmtime, reverse=True)
             
             # Recreate thumbnails
             self.create_thumbnails()
-            self.status_label.config(text=f"Status: Refreshed interrupt images ({len(self.interrupt_images)})")
 
     def start_slideshow(self):
         if not self.main_images:
@@ -291,16 +288,21 @@ class DualScreenImageViewer:
             self.image_label.config(image=photo, text="")
             self.image_label.image = photo  # Keep reference
             
-            # Update status on control window
-            filename = os.path.basename(img_path)
-            self.image_info.config(text=f"Showing: {filename} ({self.current_index + 1}/{len(self.main_images)})")
         except Exception as e:
             print(f"Error showing image: {e}")
             self.status_label.config(text=f"Error: {str(e)}")
     
-    def show_interrupt_image(self, index):
+    def show_interrupt_image(self, index, frame):
         if not self.interrupt_images or index >= len(self.interrupt_images):
             return
+        
+        # Clear previous selection
+        if self.selected_thumbnail:
+            self.selected_thumbnail.config(bg=self.thumbnails_frame.cget("bg"))
+
+        # Highlight current selection
+        frame.config(bg="red")
+        self.selected_thumbnail = frame
         
         try:
             # Set flag to indicate we're showing an interrupt image
@@ -336,8 +338,8 @@ class DualScreenImageViewer:
             
             # Update status on control window
             filename = os.path.basename(img_path)
-            self.status_label.config(text=f"Status: Showing interrupt image for {self.interrupt_duration} seconds")
-            self.image_info.config(text=f"Interrupt: {filename}")
+            self.status_label.config(text=f"Status: Showing selected image")
+            self.image_info.config(text=f"Showing: {filename}")
             
             # Set timer to return to slideshow
             self.interrupt_timer = self.control_window.after(
@@ -351,7 +353,13 @@ class DualScreenImageViewer:
         # Resume the regular slideshow
         self.showing_interrupt = False
         self.show_current_image()  # Show the current main image again
-        self.status_label.config(text="Status: Returned to main slideshow")
+        self.status_label.config(text="Status: Showing Slideshow")
+        self.image_info.config(text="")
+
+        # Clear thumbnail highlight
+        if self.selected_thumbnail:
+            self.selected_thumbnail.config(bg=self.thumbnails_frame.cget("bg"))
+            self.selected_thumbnail = None
     
     def next_image(self):
         if not self.main_images or self.showing_interrupt:
@@ -393,7 +401,7 @@ class DualScreenImageViewer:
 
     def print_interrupt_image(self):
         if not hasattr(self, "current_interrupt_path") or not self.current_interrupt_path:
-            self.status_label.config(text="Status: No interrupt image selected to print")
+            self.status_label.config(text="Status: No image selected to print")
             return
 
         try:
@@ -418,7 +426,7 @@ class DualScreenImageViewer:
                 0
             )
 
-            self.status_label.config(text="Status: Sent interrupt image to printer")
+            self.status_label.config(text="Status: Sent image to printer")
 
         except Exception as e:
             print(f"Error printing image: {e}")
