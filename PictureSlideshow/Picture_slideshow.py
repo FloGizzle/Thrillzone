@@ -141,10 +141,10 @@ class DualScreenImageViewer:
     
     def setup_folders(self):
         self.selected_thumbnail = None
-        #self.main_folder = r"C:\Users\Thrillzone Arena\Desktop\Vortex\Daily Pictures\Favorites"
+        self.main_folder = r"C:\Users\Thrillzone Arena\Desktop\Vortex\Daily Pictures\Favorites"
 
         #TEST
-        self.main_folder = r"C:\Users\TestingLab\Pictures\PhotoTestFolder"
+        #self.main_folder = r"C:\Users\TestingLab\Pictures\PhotoTestFolder"
         
         # Ask for interrupt folder
         self.interrupt_folder = filedialog.askdirectory(title="Select Todays Images Folder")
