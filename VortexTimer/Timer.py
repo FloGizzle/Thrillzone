@@ -17,7 +17,9 @@ class TimerApp:
         self.btn_30.pack(padx=20, pady=10)
         self.btn_45.pack(padx=20, pady=10)
 
-        self.label = tk.Label(root, text="", font=("Arial", 16))
+        self.label = tk.Label(root, text="", font=("Arial", 16), bg="yellow")
+        self.root.configure(bg="yellow")
+
         self.label.pack(pady=10)
 
     def start_timer(self, minutes):
@@ -51,7 +53,7 @@ class TimerApp:
         self.end_timer()
 
     def update_label(self, text):
-        self.label.after(0, lambda: self.label.config(text=text))
+        self.label.after(0, lambda: self.label.config(text=text, bg="yellow"))
 
     def end_timer(self):
         self.root.after(0, self.reset_ui)
@@ -61,7 +63,7 @@ class TimerApp:
         self.btn_stop.pack_forget()
         self.btn_30.pack(padx=20, pady=10)
         self.btn_45.pack(padx=20, pady=10)
-        self.label.config(text="Finished!")
+        self.label.config(text="Finished!", bg="yellow")
         self.root.deiconify()
         self.root.lift()
         self.root.attributes('-topmost', 1)
