@@ -13,7 +13,7 @@ class DualScreenImageViewer:
         # Create control window (first screen)
         self.control_window = tk.Tk()
         self.control_window.title("Image Viewer Controls")
-        self.control_window.geometry("975x600+0+0")  # Position on first screen
+        self.control_window.geometry("900x600+0+0")  # Position on first screen
         
         # Create display window (second screen)
         self.display_window = tk.Toplevel(self.control_window)
@@ -144,13 +144,16 @@ class DualScreenImageViewer:
         self.display_window.bind('<Left>', lambda e: self.previous_image())
         self.control_window.bind('<Right>', lambda e: self.next_image())
         self.display_window.bind('<Right>', lambda e: self.next_image())
-    
+        self.control_window.bind('<p>', lambda e: self.print_interrupt_image())
+        self.display_window.bind('<p>', lambda e: self.print_interrupt_image())
+
     def exit_app(self):
         self.slideshow_active = False
         self.control_window.destroy()
         self.display_window.destroy()
     
     def setup_folders(self):
+        self.selected_thumbnail = None
         self.main_folder = r"C:\Users\Thrillzone Arena\Desktop\Vortex\Daily Pictures\Favorites"
 
         #TEST
@@ -196,10 +199,11 @@ class DualScreenImageViewer:
         self.status_label.config(text=f"Status: Showing Slideshow")
     
     def create_thumbnails(self):
+        self.selected_thumbnail = None
         for widget in self.thumbnails_frame.winfo_children():
             widget.destroy()
 
-        columns = 5  # 5 thumbnails per row
+        columns = 4  # 5 thumbnails per row
         for i, img_path in enumerate(self.interrupt_images):
             try:
                 img = Image.open(img_path)
@@ -366,13 +370,15 @@ class DualScreenImageViewer:
         # Resume the regular slideshow
         self.showing_interrupt = False
         self.show_current_image()  # Show the current main image again
-        self.status_label.config(text="Status: Showing Slideshow")
-        self.image_info.config(text="")
+        self.status_label.config(text="Status: Returned to main slideshow")
 
         # Clear thumbnail highlight
         if self.selected_thumbnail:
             self.selected_thumbnail.config(bg=self.thumbnails_frame.cget("bg"))
             self.selected_thumbnail = None
+
+        # ✅ Refresh the thumbnails to reflect any folder changes
+        self.refresh_interrupt_images()
     
     def next_image(self):
         if not self.main_images or self.showing_interrupt:
