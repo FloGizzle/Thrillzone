@@ -1,6 +1,7 @@
 import tkinter as tk
 import threading
 import time
+import socket
 
 class TimerApp:
     def __init__(self, root):
@@ -41,6 +42,7 @@ class TimerApp:
         time.sleep(10)  # 10-second delay
 
         total_seconds = minutes * 60
+        self.send_time_to_pi(minutes)
         while total_seconds >= 0 and not self.stop_signal:
             mins, secs = divmod(total_seconds, 60)
             timer_str = f"{mins:02d}:{secs:02d}"
@@ -66,6 +68,19 @@ class TimerApp:
         self.root.lift()
         self.root.attributes('-topmost', 1)
         self.root.after(500, lambda: self.root.attributes('-topmost', 0))
+
+    def send_time_to_pi(self, minutes):
+        PI_IP = "192.168.68.104"  # Replace with your Pi's actual IP
+        PORT = 5005
+        message = f"START:{minutes}"
+
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((PI_IP, PORT))
+                s.sendall(message.encode())
+            print(f"Sent countdown start for {minutes} minutes")
+        except Exception as e:
+            print(f"Failed to send: {e}")
 
 if __name__ == "__main__":
     root = tk.Tk()

@@ -19,10 +19,11 @@ class DualScreenImageViewer:
         self.display_window = tk.Toplevel(self.control_window)
         self.display_window.title("Fullscreen Image Display")
         
-        # Make it fullscreen after positioning
+     
         self.display_window.geometry("1024x768+100+100")  # Or any starting size and position
         self.display_window.resizable(True, True)         # Allow resizing
         
+   
         # Variables
         self.main_folder = ""
         self.interrupt_folder = ""
@@ -59,6 +60,18 @@ class DualScreenImageViewer:
         
         # Initialize with a message
         self.show_message("Please select folders using the Setup button")
+
+    def check_for_second_screen(self):
+        monitors = get_monitors()
+        if len(monitors) > 1:
+            second = monitors[1]
+            x, y = second.x, second.y
+            width, height = second.width, second.height
+            self.display_window.geometry(f"{width}x{height}+{x}+{y}")
+            print("Second screen detected, moved display window.")
+        else:
+            # Retry after 2 seconds
+            self.control_window.after(2000, self.check_for_second_screen)
     
     def setup_control_panel(self):
         # Main control frame
