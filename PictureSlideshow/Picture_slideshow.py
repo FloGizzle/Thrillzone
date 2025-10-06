@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, simpledialog, messagebox
 from PIL import Image, ImageTk
+from screeninfo import get_monitors
 import win32print
 import win32api
 import os
@@ -67,7 +68,7 @@ class DualScreenImageViewer:
             second = monitors[1]
             x, y = second.x, second.y
             width, height = second.width, second.height
-            self.display_window.geometry(f"{width}x{height}+{x}+{y}")
+            self.display_window.attributes("-fullscreen", True)
             print("Second screen detected, moved display window.")
         else:
             # Retry after 2 seconds

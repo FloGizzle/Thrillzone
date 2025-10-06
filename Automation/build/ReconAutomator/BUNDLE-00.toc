@@ -1,0 +1,3 @@
+([('ReconAutomator',
+   '/Users/floriankindt/Documents/GitHub/Thrillzone/Automation/dist/ReconAutomator',
+   'EXECUTABLE')],)

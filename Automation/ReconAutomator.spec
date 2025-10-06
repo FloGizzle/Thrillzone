@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['ReconAutomator'],
+    ['ReconAutomator.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -35,4 +35,10 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+)
+app = BUNDLE(
+    exe,
+    name='ReconAutomator.app',
+    icon=None,
+    bundle_identifier=None,
 )
